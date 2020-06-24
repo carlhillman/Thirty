@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Thirty</string>
+    <string name="dice1">dice1</string>
+    <string name="dice2">dice2</string>
+    <string name="dice3">dice3</string>
+    <string name="dice4">dice4</string>
+    <string name="dice5">dice5</string>
+    <string name="dice6">dice6</string>
+
+    <string-array name="choices">
+        <item>Välj poängtyp</item>
+        <item>Low</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
