@@ -14,7 +14,6 @@ public class ScoreLogic extends Activity { //håller koll på poängräkninslogi
     int currentScore;
     boolean pointTypeChoosen = false;
     static int totalSum;
-
     //bestämer vilken poäng som ska sättas.
     protected void increaseCurrentScore(Spinner spinner, ArrayAdapter<String> adapter) {
         String selectedItem = spinner.getSelectedItem().toString();
@@ -69,65 +68,30 @@ public class ScoreLogic extends Activity { //håller koll på poängräkninslogi
                 dices = entry.getValue();
                 break;
             }
-            //gör en array av tärningslistan
-            Dice[] diceArray = dices.toArray(new Dice[0]);
-            Vector<Dice> sortedDice = new Vector<>(Arrays.asList(diceArray));
-            Combination(sortedDice, choicePoint);
-
-            //ifall totalsum är större än 0 får man poäng
-            if (totalSum > 0) {
+            for(Dice die :dices){
+                if(die.selected){
+                    totalSum += die.value;
+                }
+            }
+            //ifall summan av tärningarna är delbart med valet
+            if(totalSum % choicePoint == 0){
                 currentScore = totalSum;
                 ChoicePointResult.score = currentScore;
-
             } else {
                 //ifall tärningarna på spelplanen inte går att göra upp till valet får spelaren 0 poäng
                 ChoicePointResult.score = 0;
             }
             pointTypeChoosen = true;
-            adapter.remove((String) selectedItem);
+            adapter.remove(selectedItem);
             adapter.notifyDataSetChanged();
             RoundsLogic.isNewRound = true;
             GlobalDiceNumbers.triesAndDiceNumbers.clear();
+            totalSum = 0;
+
             return;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-    }
-    // Metod för att hitta alla unika kombinaioner av givna element så att summan är lika med poänvalet
-    static void unique_combination(int l, int sum, int choicePoint, Vector<Dice> local, Vector<Dice> sortedDice) {
-        // om en unik kombination hittas läggst totalsum på
-        if (sum == choicePoint) {
-            totalSum += sum;
-        }
-        // För alla andra kombinationer
-        for (int i = l; i < sortedDice.size(); i++) {
-            // Kolla om summan överstiger poängvalet
-            if (sum + sortedDice.get(i).value > choicePoint)
-                continue;
-            // Kolla om det repeteras eller inte
-            if (i == 1 && sortedDice.get(i) == sortedDice.get(i - 1) && i > l)
-                continue;
-            // Ta med elementet till kombinationen
-            local.add(sortedDice.get(i));
-            // Rekursivt metodanrop
-            unique_combination(i + 1, sum + sortedDice.get(i).value, choicePoint, local, sortedDice);
-
-            // Tar bort elementet från kombinationen
-            local.remove(local.size() - 1);
-
-        }
-    }
-    // Metod för att hitta alla kombinationer av givna element
-    static void Combination(Vector<Dice> sortedDice, int choicePoint) {
-        // Sortera elementen
-        ArrayList<Integer> numbers = new ArrayList<>();
-        for (int i = 0; i < sortedDice.size(); i++) {
-            numbers.add(sortedDice.get(i).value);
-        }
-        Collections.sort(numbers);
-        // För att lagra kombinationen
-        Vector<Dice> local = new Vector<>();
-        unique_combination(0, 0, choicePoint, local, sortedDice);
     }
 }
 

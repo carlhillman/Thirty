@@ -142,7 +142,7 @@ public class ResultFragment extends Fragment {
                     score10.setText(value10.toString());
                     break;
             }
-            totalSum +=  Integer.valueOf((String)values.get(index));
+            //totalSum +=  Integer.valueOf((String)values.get(index));
         }
         summaryText.setText("Total poäng");
       //  summaryScore.setText(String.valueOf(totalSum));
