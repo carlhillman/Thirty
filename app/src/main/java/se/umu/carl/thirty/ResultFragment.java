@@ -18,36 +18,39 @@ public class ResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = (View) inflater.inflate(R.layout.fragment_result, container, false);
-        TextView choice1 = v.findViewById(R.id.choiceRow1);
-        TextView score1 = v.findViewById(R.id.scoreRow1);
+        View view = (View) inflater.inflate(R.layout.fragment_result, container, false);
+        TextView choice1 = view.findViewById(R.id.choiceRow1);
+        TextView score1 = view.findViewById(R.id.scoreRow1);
 
-        TextView choice2 = v.findViewById(R.id.choiceRow2);
-        TextView score2 = v.findViewById(R.id.scoreRow2);
+        TextView choice2 = view.findViewById(R.id.choiceRow2);
+        TextView score2 = view.findViewById(R.id.scoreRow2);
 
-        TextView choice3 = v.findViewById(R.id.choiceRow3);
-        TextView score3 = v.findViewById(R.id.scoreRow3);
+        TextView choice3 = view.findViewById(R.id.choiceRow3);
+        TextView score3 = view.findViewById(R.id.scoreRow3);
 
-        TextView choice4 = v.findViewById(R.id.choiceRow4);
-        TextView score4 = v.findViewById(R.id.scoreRow4);
+        TextView choice4 = view.findViewById(R.id.choiceRow4);
+        TextView score4 = view.findViewById(R.id.scoreRow4);
 
-        TextView choice5 = v.findViewById(R.id.choiceRow5);
-        TextView score5 = v.findViewById(R.id.scoreRow5);
+        TextView choice5 = view.findViewById(R.id.choiceRow5);
+        TextView score5 = view.findViewById(R.id.scoreRow5);
 
-        TextView choice6 = v.findViewById(R.id.choiceRow6);
-        TextView score6 = v.findViewById(R.id.scoreRow6);
+        TextView choice6 = view.findViewById(R.id.choiceRow6);
+        TextView score6 = view.findViewById(R.id.scoreRow6);
 
-        TextView choice7 = v.findViewById(R.id.choiceRow7);
-        TextView score7 = v.findViewById(R.id.scoreRow7);
+        TextView choice7 = view.findViewById(R.id.choiceRow7);
+        TextView score7 = view.findViewById(R.id.scoreRow7);
 
-        TextView choice8 = v.findViewById(R.id.choiceRow8);
-        TextView score8 = v.findViewById(R.id.scoreRow8);
+        TextView choice8 = view.findViewById(R.id.choiceRow8);
+        TextView score8 = view.findViewById(R.id.scoreRow8);
 
-        TextView choice9 = v.findViewById(R.id.choiceRow9);
-        TextView score9 = v.findViewById(R.id.scoreRow9);
+        TextView choice9 = view.findViewById(R.id.choiceRow9);
+        TextView score9 = view.findViewById(R.id.scoreRow9);
 
-        TextView choice10 = v.findViewById(R.id.choiceRow10);
-        TextView score10 = v.findViewById(R.id.scoreRow10);
+        TextView choice10 = view.findViewById(R.id.choiceRow10);
+        TextView score10 = view.findViewById(R.id.scoreRow10);
+
+        TextView summaryText =view.findViewById(R.id.txtTotalScore);
+        TextView summaryScore = view.findViewById(R.id.txtTotalScoreValue);
 
         List keys = new ArrayList(ChoicePointResult.choicePoints.keySet());
         for (int index = 0; index < keys.size(); index++) {
@@ -95,6 +98,7 @@ public class ResultFragment extends Fragment {
             }
         }
         List values = new ArrayList(ChoicePointResult.choicePoints.values());
+        int totalSum = 0;
         for (int index = 0; index < values.size(); index++) {
             switch (index) {
                 case 0:
@@ -138,7 +142,10 @@ public class ResultFragment extends Fragment {
                     score10.setText(value10.toString());
                     break;
             }
+            totalSum +=  Integer.valueOf((String)values.get(index));
         }
-        return v;
+        summaryText.setText("Total poäng");
+      //  summaryScore.setText(String.valueOf(totalSum));
+        return view;
     }
 }

@@ -17,13 +17,11 @@
         <TextView
             android:id="@+id/textView"
 
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
             android:text="@string/game_score"
-            android:textSize="18sp" />
-
+            android:textSize="18sp"
+            android:gravity="center"
+            android:layout_marginVertical="20dp"/>
         <TableRow>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,9 +40,7 @@
                 android:text="@string/score"
                 android:textStyle="bold" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/choiceRow1"
                 android:layout_width="wrap_content"
@@ -54,7 +50,6 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center" />
-
             <TextView
                 android:id="@+id/scoreRow1"
                 android:layout_width="wrap_content"
@@ -63,9 +58,7 @@
                 android:background="#ffffff"
                 android:gravity="center" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/choiceRow2"
                 android:layout_width="wrap_content"
@@ -75,7 +68,6 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center" />
-
             <TextView
                 android:id="@+id/scoreRow2"
                 android:layout_width="wrap_content"
@@ -84,9 +76,7 @@
                 android:background="#ffffff"
                 android:gravity="center" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/choiceRow3"
                 android:layout_width="wrap_content"
@@ -96,7 +86,6 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center" />
-
             <TextView
                 android:id="@+id/scoreRow3"
                 android:layout_width="wrap_content"
@@ -105,9 +94,7 @@
                 android:background="#ffffff"
                 android:gravity="center" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/choiceRow4"
                 android:layout_width="wrap_content"
@@ -117,7 +104,6 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center" />
-
             <TextView
                 android:id="@+id/scoreRow4"
                 android:layout_width="wrap_content"
@@ -126,9 +112,7 @@
                 android:background="#ffffff"
                 android:gravity="center" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/choiceRow5"
                 android:layout_width="wrap_content"
@@ -138,7 +122,6 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center" />
-
             <TextView
                 android:id="@+id/scoreRow5"
                 android:layout_width="wrap_content"
@@ -147,9 +130,7 @@
                 android:background="#ffffff"
                 android:gravity="center" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/choiceRow6"
                 android:layout_width="wrap_content"
@@ -159,7 +140,6 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center" />
-
             <TextView
                 android:id="@+id/scoreRow6"
                 android:layout_width="wrap_content"
@@ -168,9 +148,7 @@
                 android:background="#ffffff"
                 android:gravity="center" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/choiceRow7"
                 android:layout_width="wrap_content"
@@ -180,7 +158,6 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center" />
-
             <TextView
                 android:id="@+id/scoreRow7"
                 android:layout_width="wrap_content"
@@ -189,9 +166,7 @@
                 android:background="#ffffff"
                 android:gravity="center" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/choiceRow8"
                 android:layout_width="wrap_content"
@@ -201,7 +176,6 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center" />
-
             <TextView
                 android:id="@+id/scoreRow8"
                 android:layout_width="wrap_content"
@@ -210,9 +184,7 @@
                 android:background="#ffffff"
                 android:gravity="center" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/choiceRow9"
                 android:layout_width="wrap_content"
@@ -222,7 +194,6 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center" />
-
             <TextView
                 android:id="@+id/scoreRow9"
                 android:layout_width="wrap_content"
@@ -231,9 +202,7 @@
                 android:background="#ffffff"
                 android:gravity="center" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/choiceRow10"
                 android:layout_width="wrap_content"
@@ -243,7 +212,6 @@
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:gravity="center" />
-
             <TextView
                 android:id="@+id/scoreRow10"
                 android:layout_width="wrap_content"
@@ -252,25 +220,5 @@
                 android:background="#ffffff"
                 android:gravity="center" />
         </TableRow>
-
-        <TableRow>
-            <TextView
-                android:id="@+id/txtTotalScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="1dp"
-                android:layout_marginBottom="1dp"
-                android:layout_weight="1"
-                android:background="#ffffff"
-                android:gravity="center" />
-            <TextView
-                android:id="@+id/txtTotalScoreValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#ffffff"
-                android:gravity="center" />
-        </TableRow>
-
     </TableLayout>
 </LinearLayout>

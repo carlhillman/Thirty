@@ -3,12 +3,13 @@ package se.umu.carl.thirty;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageViewDice4;
     private ImageView imageViewDice5;
     private ImageView imageViewDice6;
+
+    private Button btnThrow;
     private TextView textViewRounds;
-    private TextView textViewTries;
-    private TextView textViewCurrentScore;
+    private TextView textViewThrows;
     //knapp för att ta sig till resultatvyn
     private Button btnResult;
-    private Button btnThrow;
     private Spinner spinner;
     //boolean kollar vilken tärning som har valts
     private boolean dice1Selected = false;
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean dice4Selected = false;
     private boolean dice5Selected = false;
     private boolean dice6Selected = false;
-
+    //ser till att användaren inte kan klicka i selectlistan flera gånger under samma runda och få poäng för det
+    private boolean choiceHasBeenSelected = false;
     private ArrayList<Dice> globalDices = new ArrayList<>();
     private Random random = new Random();
     private ArrayAdapter<String> adapter;
@@ -66,20 +68,17 @@ public class MainActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         textViewRounds = findViewById(R.id.txtRounds);
-        textViewTries = findViewById(R.id.txtTries);
-        //nuvarande poäng är den poängen man får för den nuvarande rundan ska inte ses som ett slut resultat
-        textViewCurrentScore = findViewById(R.id.txtCurrentScore);
+        textViewThrows = findViewById(R.id.txtThrows);
 
         btnResult = findViewById(R.id.btnResult);
         btnThrow = findViewById(R.id.btnThrow);
         //I början av spelet sätter antal rundor till 1
-        textViewRounds.setText("Rounds:" + RoundsLogic.totalNumberOfRounds);
-
+        textViewRounds.setText("Runda:" + RoundsLogic.totalNumberOfRounds);
 
         imageViewDice1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!dice1Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                if (!dice1Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0 && !scoreLogic.pointTypeChoosen) {
                     dice1Selected = true;
                     imageViewDice1.setBackgroundColor(Color.BLUE);
                 } else {
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewDice2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!dice2Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                if (!dice2Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0 && !scoreLogic.pointTypeChoosen) {
                     dice2Selected = true;
                     imageViewDice2.setBackgroundColor(Color.BLUE);
                 } else {
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewDice3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!dice3Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                if (!dice3Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0 && !scoreLogic.pointTypeChoosen) {
                     dice3Selected = true;
                     imageViewDice3.setBackgroundColor(Color.BLUE);
                 } else {
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewDice4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!dice4Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                if (!dice4Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0 && !scoreLogic.pointTypeChoosen) {
                     dice4Selected = true;
                     imageViewDice4.setBackgroundColor(Color.BLUE);
                 } else {
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewDice5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!dice5Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                if (!dice5Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0 && !scoreLogic.pointTypeChoosen) {
                     dice5Selected = true;
                     imageViewDice5.setBackgroundColor(Color.BLUE);
                 } else {
@@ -139,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewDice6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!dice6Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                if (!dice6Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0 && !scoreLogic.pointTypeChoosen) {
                     dice6Selected = true;
                     imageViewDice6.setBackgroundColor(Color.BLUE);
                 } else {
@@ -220,21 +219,20 @@ public class MainActivity extends AppCompatActivity {
                         dice.selected = true;
                     }
                 }
-                if (RoundsLogic.totalNumberOfThrowsDisplayed == 3 && !scoreLogic.pointTypeSucceeded) {
+                if (RoundsLogic.totalNumberOfThrowsDisplayed == 3 && !scoreLogic.pointTypeChoosen) {
                     showNotAllowedToThrow();
-                }
-                //när man kastar till en ny runda.
-                else if (scoreLogic.pointTypeSucceeded) {
+                } else if (scoreLogic.pointTypeChoosen) {
                     rollDices(selectedDicesImages);
-                    textViewTries.setText("Antal kast:" + RoundsLogic.getAndSetThrows());
+                    textViewThrows.setText("Antal kast:" + RoundsLogic.getAndSetThrows());
                     textViewRounds.setText("Runda:" + RoundsLogic.getAndSetRounds());
-                    scoreLogic.pointTypeSucceeded = false;
+                    scoreLogic.pointTypeChoosen = false;
+                    choiceHasBeenSelected = false;
                 }
                 //när man kastar i en befintlig runda.
                 else {
                     rollDices(selectedDicesImages);
                     RoundsLogic.isNewRound = false;
-                    textViewTries.setText("Antal kast:" + RoundsLogic.getAndSetThrows());
+                    textViewThrows.setText("Antal kast:" + RoundsLogic.getAndSetThrows());
                 }
                 //ifall det är en ny runda måste den blåa ram färgerna försvinna för att visa att det är en ny runda
                 for (ImageView diceImage : selectedDicesImages) {
@@ -250,17 +248,14 @@ public class MainActivity extends AppCompatActivity {
                 if (userIsInteracting) {
                     if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                         scoreLogic.increaseCurrentScore(spinner, adapter);
-                        if (scoreLogic.pointTypeSucceeded == true) {
-                            textViewCurrentScore.setText("Nuvarande poäng: " + scoreLogic.currentScore);
-                            showRoundSucceededDialog();
+                        if (!choiceHasBeenSelected) {
+                            showRoundSucceededDialog(scoreLogic.currentScore);
                             deselectAllDices();
+                            choiceHasBeenSelected = true;
                             //när 10 rundor är avklarade skickas användaren till resultatvyn.
-                            if(RoundsLogic.totalNumberOfRounds == 10){
+                            if (RoundsLogic.totalNumberOfRounds == 10) {
                                 openResultFragment();
                             }
-                        } else {
-                            //gör om valet
-                            showChoicePointRequestFailedDialog();
                         }
                     } else {
                         showNotAllowedToChooseDialog();
@@ -272,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-//visar resultatsvyn manuellt
+        //visar resultatsvyn manuellt
         btnResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,6 +278,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //restora/hämta tillbaka variabler vid rotation av skärmen
+        if (savedInstanceState != null) {
+           savedInstanceState.getBoolean("dice1Selected");
+            savedInstanceState.getBoolean("dice2Selected");
+            savedInstanceState.getBoolean("dice3Selected");
+            savedInstanceState.getBoolean("dice4Selected");
+            savedInstanceState.getBoolean("dice5Selected");
+            savedInstanceState.getBoolean("dice6Selected");
+
+            int numberOfRounds = savedInstanceState.getInt("Round");
+            int numberOfThrows = savedInstanceState.getInt("Throw");
+
+            textViewRounds.setText("Runda: " + String.valueOf(numberOfRounds));
+            textViewThrows.setText("Antal kast: " + String.valueOf(numberOfThrows));
+
+            savedInstanceState.getBoolean("PointTypeSucceeded");
+            savedInstanceState.getBoolean("choiceHasBeenSelected");
+        }
     }
 
     //avsnitt för hjälp metoder börjar här
@@ -306,10 +320,6 @@ public class MainActivity extends AppCompatActivity {
     private void setDiceImages(ArrayList<ImageView> imageDiceList, ArrayList<Dice> dices) {
         for (ImageView imageViewDice : imageDiceList) {
             int randomNumber = random.nextInt(6) + 1;
-            RotateAnimation rotate = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            rotate.setDuration(100);
-            rotate.setInterpolator(new LinearInterpolator());
-            imageViewDice.startAnimation(rotate);
             switch (randomNumber) {
                 case 1:
                     if (RoundsLogic.totalNumberOfThrowsDisplayed == 0) {
@@ -402,28 +412,26 @@ public class MainActivity extends AppCompatActivity {
                     imageViewDice.setImageResource(R.drawable.white6);
                     break;
             }
+            Animation rotate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate);
+            imageViewDice.startAnimation(rotate);
         }
         GlobalDiceNumbers.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, dices);
     }
 
     //alla dialog rutor för specifika användarfel
-    private void showRoundSucceededDialog() {
-        CustomDialog customDialog = new CustomDialog("Runda klar", "Kasta igen för att börja nästa runda");
+    private void showRoundSucceededDialog(int score) {
+        CustomDialog customDialog = new CustomDialog("tagna poäng: " + score, "Kasta för att börja nästa runda");
         customDialog.show(getSupportFragmentManager(), "CustomDialog");
     }
 
-    private void showChoicePointRequestFailedDialog() {
-        CustomDialog customDialog = new CustomDialog("Fel val", "Det angivna valet går inte att utföra");
-        customDialog.show(getSupportFragmentManager(), "CustomDialog");
-    }
 
     private void showNotAllowedToChooseDialog() {
-        CustomDialog customDialog = new CustomDialog("Fel", "Du kan inte välja något om du inte gjort ett kast!");
+        CustomDialog customDialog = new CustomDialog("Kasta först", "Du kan inte välja något om du inte gjort ett kast!");
         customDialog.show(getSupportFragmentManager(), "CustomDialog");
     }
 
     private void showNotAllowedToThrow() {
-        CustomDialog customDialog = new CustomDialog("Fel", "Slut på kast, du måste välja något val!");
+        CustomDialog customDialog = new CustomDialog("Slut på kast", "Slut på kast, du måste välja något val!");
         customDialog.show(getSupportFragmentManager(), "CustomDialog");
     }
 
@@ -441,4 +449,43 @@ public class MainActivity extends AppCompatActivity {
         super.onUserInteraction();
         userIsInteracting = true;
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("dice1Selected", dice1Selected);
+        outState.putBoolean("dice2Selected", dice2Selected);
+        outState.putBoolean("dice3Selected", dice3Selected);
+        outState.putBoolean("dice4Selected", dice4Selected);
+        outState.putBoolean("dice5Selected", dice5Selected);
+        outState.putBoolean("dice6Selected", dice6Selected);
+
+        outState.putInt("Round", RoundsLogic.totalNumberOfRounds);
+        outState.putInt("Throw", RoundsLogic.totalNumberOfThrowsDisplayed);
+
+        outState.putBoolean("PointTypeChoosen", scoreLogic.pointTypeChoosen);
+        outState.putBoolean("choiceHasBeenSelected", choiceHasBeenSelected);
+
+
+    }
+
+
+
+
+
+
+
+
+   /* @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_main);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_main);
+        }
+    }
+
+    */
 }
+

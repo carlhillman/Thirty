@@ -20,7 +20,11 @@
         <item>11</item>
         <item>12</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Fragment-->
+    <string name="throwDice">Kasta</string>
+    <string name="game_score">Spelets slutresultat</string>
+    <string name="choice">Val</string>
+    <string name="score">Poäng</string>
 
 </resources>
