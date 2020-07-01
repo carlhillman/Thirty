@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
     private void rollDices(ArrayList<ImageView> diceList) {
         setDiceImages(diceList, globalDices);
         //Efter att man har kastat tre gånger göm kasta knappen
-        if (RoundsLogic.totalNumberOfThrowsDisplayed == 2) {
+        if (RoundsLogic.totalNumberOfThrowsDisplayed ==  2 && !scoreLogic.pointTypeChoosen) {
             btnThrow.setVisibility(View.GONE);
         }
     }
