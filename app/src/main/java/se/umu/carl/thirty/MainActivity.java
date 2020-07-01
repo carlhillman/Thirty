@@ -3,6 +3,7 @@ package se.umu.carl.thirty;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -52,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private ScoreLogic scoreLogic = new ScoreLogic();
     private boolean userIsInteracting = false;
     private Boolean spinnerTouched = false;
-    private ArrayList<ImageView>globalSelectedDiceImages = new ArrayList<>();
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewDice5 = findViewById(R.id.image_view_dice5);
         imageViewDice6 = findViewById(R.id.image_view_dice6);
         spinner = findViewById(R.id.spinnerChoice);
-        ArrayList<String> choices = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.choices)));
+        ArrayList<String> choices = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.choices)));
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //I början av spelet sätter antal rundor till 1
-        textViewRounds.setText("Runda:" + RoundsLogic.totalNumberOfRounds);
+        textViewRounds.setText(R.string.round + RoundsLogic.totalNumberOfRounds);
 
         imageViewDice1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     dice1Selected = false;
                     imageViewDice1.setBackgroundColor(Color.TRANSPARENT);
+                    globalDices.get(0).selected = false;
                 }
             }
         });
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     dice2Selected = false;
                     imageViewDice2.setBackgroundColor(Color.TRANSPARENT);
-                    globalDices.get(0).selected = false;
+                    globalDices.get(1).selected = false;
                 }
             }
         });
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     dice3Selected = false;
                     imageViewDice3.setBackgroundColor(Color.TRANSPARENT);
-                    globalDices.get(0).selected = false;
+                    globalDices.get(2).selected = false;
                 }
             }
         });
@@ -134,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     dice4Selected = false;
                     imageViewDice4.setBackgroundColor(Color.TRANSPARENT);
-                    globalDices.get(0).selected = false;
+                    globalDices.get(3).selected = false;
                 }
             }
         });
@@ -148,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     dice5Selected = false;
                     imageViewDice5.setBackgroundColor(Color.TRANSPARENT);
-                    globalDices.get(0).selected = false;
+                    globalDices.get(4).selected = false;
                 }
             }
         });
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     dice6Selected = false;
                     imageViewDice6.setBackgroundColor(Color.TRANSPARENT);
-                    globalDices.get(0).selected = false;
+                    globalDices.get(5).selected = false;
                 }
             }
         });
@@ -171,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         btnThrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                enableDiceImage();
                 ArrayList<ImageView> selectedDicesImages = new ArrayList<>();
                 if (dice1Selected) {
                     selectedDicesImages.add(imageViewDice1);
@@ -243,23 +246,22 @@ public class MainActivity extends AppCompatActivity {
                     showNotAllowedToThrow();
                 } else if (scoreLogic.pointTypeChoosen) {
                     rollDices(selectedDicesImages);
-                    textViewThrows.setText("Antal kast:" + RoundsLogic.getAndSetThrows());
-                    textViewRounds.setText("Runda:" + RoundsLogic.getAndSetRounds());
+                    textViewThrows.setText(R.string.numberOfThrows + RoundsLogic.getAndSetThrows());
+                    textViewRounds.setText(R.string.round + RoundsLogic.getAndSetRounds());
                     scoreLogic.pointTypeChoosen = false;
                 }
                 //när man kastar i en befintlig runda.
                 else {
                     rollDices(selectedDicesImages);
                     RoundsLogic.isNewRound = false;
-                    textViewThrows.setText("Antal kast:" + RoundsLogic.getAndSetThrows());
+                    textViewThrows.setText(R.string.numberOfThrows + RoundsLogic.getAndSetThrows());
                 }
                 //ifall det är en ny runda måste den blåa ram färgerna försvinna
-                for (ImageView diceImage : selectedDicesImages) {
-                    if (RoundsLogic.isNewRound) {
-                        diceImage.setBackgroundColor(Color.TRANSPARENT);
-                    }
+            /*    if (RoundsLogic.isNewRound) {
+                    deselectAllDices();
                 }
-                globalSelectedDiceImages = new ArrayList<>(selectedDicesImages);
+
+             */
             }
         });
         spinner.setOnTouchListener(new View.OnTouchListener() {
@@ -276,10 +278,11 @@ public class MainActivity extends AppCompatActivity {
                     deselectAllDices();
                     btnTakePoints.setVisibility(View.VISIBLE);
                     btnThrow.setVisibility(View.GONE);
-                    setTransparentGlobalSelectedDiceImageViews();
+
                 }
                 spinnerTouched = false;
             }
+
             // för att stänga onItemSelected
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -287,23 +290,29 @@ public class MainActivity extends AppCompatActivity {
         btnTakePoints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!dice1Selected && !dice2Selected && !dice3Selected
-                && !dice4Selected && !dice5Selected && !dice6Selected){
+                if (!dice1Selected && !dice2Selected && !dice3Selected
+                        && !dice4Selected && !dice5Selected && !dice6Selected) {
                     showNoDieSelected();
-                }
-                else {
+                } else {
                     scoreLogic.increaseCurrentScore(spinner, adapter);
                     showRoundSucceededDialog(scoreLogic.currentScore);
                     scoreLogic.currentScore = 0;
+
                     deselectAllDices();
-                    setTransparentGlobalSelectedDiceImageViews();
+
                     btnThrow.setVisibility(View.VISIBLE);
                     btnTakePoints.setVisibility(View.GONE);
+
+                    spinner.setSelection(adapter.getPosition("Välj poängtyp"));
+                    spinner.setVisibility(View.GONE);
+                    disableDiceImage();
                     //när 10 rundor är avklarade skickas användaren till resultatvyn.
                     if (RoundsLogic.totalNumberOfRounds == 10) {
                         openResultFragment();
                     }
+
                 }
+
             }
         });
 
@@ -331,8 +340,8 @@ public class MainActivity extends AppCompatActivity {
             int numberOfRounds = savedInstanceState.getInt("Round");
             int numberOfThrows = savedInstanceState.getInt("Throw");
 
-            textViewRounds.setText("Runda: " + String.valueOf(numberOfRounds));
-            textViewThrows.setText("Antal kast: " + String.valueOf(numberOfThrows));
+            textViewRounds.setText(R.string.round + String.valueOf(numberOfRounds));
+            textViewThrows.setText(R.string.numberOfThrows + String.valueOf(numberOfThrows));
 
             savedInstanceState.getBoolean("PointTypeSucceeded");
             savedInstanceState.getBoolean("choiceHasBeenSelected");
@@ -352,7 +361,6 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(ex.getMessage());
         }
     }
-
     private void rollDices(ArrayList<ImageView> diceList) {
         setDiceImages(diceList, globalDices);
     }
@@ -457,6 +465,7 @@ public class MainActivity extends AppCompatActivity {
         }
         GlobalDiceNumbers.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, dices);
     }
+
     //alla dialog rutor för specifika användarfel
     private void showRoundSucceededDialog(int score) {
         CustomDialog customDialog = new CustomDialog("Tagna poäng: " + score, "Kasta för att börja nästa runda");
@@ -464,15 +473,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showNoDieSelected() {
-        CustomDialog customDialog = new CustomDialog("Fel", "Du kan inte ta någon poäng om du inte valt någon tärning!");
+        CustomDialog customDialog = new CustomDialog("Ingen tärning vald!", "Du kan inte ta någon poäng om du inte valt någon tärning!");
         customDialog.show(getSupportFragmentManager(), "CustomDialog");
     }
 
     private void showNotAllowedToThrow() {
-        CustomDialog customDialog = new CustomDialog("Slut på kast", "Slut på kast, du måste välja något val!");
+        CustomDialog customDialog = new CustomDialog("Slut på kast!", "Slut på kast, du måste välja något val!");
         customDialog.show(getSupportFragmentManager(), "CustomDialog");
     }
 
+    private void enableDiceImage(){
+        imageViewDice1.setEnabled(true);
+        imageViewDice2.setEnabled(true);
+        imageViewDice3.setEnabled(true);
+        imageViewDice4.setEnabled(true);
+        imageViewDice5.setEnabled(true);
+        imageViewDice6.setEnabled(true);
+    }
+    private void disableDiceImage(){
+        imageViewDice1.setEnabled(false);
+        imageViewDice2.setEnabled(false);
+        imageViewDice3.setEnabled(false);
+        imageViewDice4.setEnabled(false);
+        imageViewDice5.setEnabled(false);
+        imageViewDice6.setEnabled(false);
+    }
     private void deselectAllDices() {
         dice1Selected = false;
         dice2Selected = false;
@@ -480,18 +505,14 @@ public class MainActivity extends AppCompatActivity {
         dice4Selected = false;
         dice5Selected = false;
         dice6Selected = false;
-    }
-    private void setTransparentGlobalSelectedDiceImageViews(){
-        for(ImageView imageView : globalSelectedDiceImages){
-            imageView.setBackgroundColor(Color.TRANSPARENT);
-        }
+        imageViewDice1.setBackgroundColor(Color.TRANSPARENT);
+        imageViewDice2.setBackgroundColor(Color.TRANSPARENT);
+        imageViewDice3.setBackgroundColor(Color.TRANSPARENT);
+        imageViewDice4.setBackgroundColor(Color.TRANSPARENT);
+        imageViewDice5.setBackgroundColor(Color.TRANSPARENT);
+        imageViewDice6.setBackgroundColor(Color.TRANSPARENT);
     }
 
-    @Override //kollar om man användaren använder gränsnittet.
-    public void onUserInteraction() {
-        super.onUserInteraction();
-        userIsInteracting = true;
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -526,7 +547,6 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
         }
     }
-
     */
 }
 

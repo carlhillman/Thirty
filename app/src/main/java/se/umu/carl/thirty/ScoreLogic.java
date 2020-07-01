@@ -13,7 +13,7 @@ import java.util.*;
 public class ScoreLogic extends Activity { //håller koll på poängräkninslogiken och spelregler
     int currentScore;
     boolean pointTypeChoosen = false;
-    static int totalSum;
+
     //bestämer vilken poäng som ska sättas.
     protected void increaseCurrentScore(Spinner spinner, ArrayAdapter<String> adapter) {
         String selectedItem = spinner.getSelectedItem().toString();
@@ -70,15 +70,17 @@ public class ScoreLogic extends Activity { //håller koll på poängräkninslogi
             }
             for(Dice die :dices){
                 if(die.selected){
-                    totalSum += die.value;
+                    currentScore += die.value;
                 }
             }
             //ifall summan av tärningarna är delbart med valet
-            if(totalSum % choicePoint == 0){
-                currentScore = totalSum;
+
+            if(currentScore % choicePoint == 0 &&  currentScore >= choicePoint){
+
                 ChoicePointResult.score = currentScore;
             } else {
                 //ifall tärningarna på spelplanen inte går att göra upp till valet får spelaren 0 poäng
+                currentScore = 0;
                 ChoicePointResult.score = 0;
             }
             pointTypeChoosen = true;
@@ -86,9 +88,7 @@ public class ScoreLogic extends Activity { //håller koll på poängräkninslogi
             adapter.notifyDataSetChanged();
             RoundsLogic.isNewRound = true;
             GlobalDiceNumbers.triesAndDiceNumbers.clear();
-            totalSum = 0;
 
-            return;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

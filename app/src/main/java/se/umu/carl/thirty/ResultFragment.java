@@ -1,5 +1,6 @@
 package se.umu.carl.thirty;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ResultFragment extends Fragment {
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -49,10 +51,10 @@ public class ResultFragment extends Fragment {
         TextView choice10 = view.findViewById(R.id.choiceRow10);
         TextView score10 = view.findViewById(R.id.scoreRow10);
 
-        TextView summaryText =view.findViewById(R.id.txtTotalScore);
+        TextView summaryText = view.findViewById(R.id.txtTotalScore);
         TextView summaryScore = view.findViewById(R.id.txtTotalScoreValue);
 
-        List keys = new ArrayList(ChoicePointResult.choicePoints.keySet());
+        ArrayList<String> keys = new ArrayList<>(ChoicePointResult.choicePoints.keySet());
         for (int index = 0; index < keys.size(); index++) {
             switch (index) {
                 case 0:
@@ -97,8 +99,8 @@ public class ResultFragment extends Fragment {
                     break;
             }
         }
-        List values = new ArrayList(ChoicePointResult.choicePoints.values());
-        int totalSum = 0;
+        ArrayList<Integer> values = new ArrayList<>(ChoicePointResult.choicePoints.values());
+        int totalSum = sumList(values);
         for (int index = 0; index < values.size(); index++) {
             switch (index) {
                 case 0:
@@ -142,10 +144,20 @@ public class ResultFragment extends Fragment {
                     score10.setText(value10.toString());
                     break;
             }
-            //totalSum +=  Integer.valueOf((String)values.get(index));
         }
-        summaryText.setText("Total poäng");
-      //  summaryScore.setText(String.valueOf(totalSum));
+        summaryText.setText(R.string.totalScore);
+        summaryScore.setText(String.valueOf(totalSum));
         return view;
+    }
+
+    //summera en lista av heltal
+    private static int sumList(List<Integer> list) {
+        int sum = 0;
+        for (int integer : list) {
+            if (integer > 0) {
+                sum += integer;
+            }
+        }
+        return sum;
     }
 }

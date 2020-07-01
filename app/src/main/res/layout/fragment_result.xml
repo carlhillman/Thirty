@@ -254,6 +254,7 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:id="@+id/txtTotalScore"
                 android:layout_width="wrap_content"
@@ -262,7 +263,9 @@
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
                 android:background="#ffffff"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/txtTotalScoreValue"
                 android:layout_width="wrap_content"

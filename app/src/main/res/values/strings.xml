@@ -21,10 +21,15 @@
         <item>12</item>
     </string-array>
 
+    <!--Spel termer-->
+    <string name="round">Runda: </string>
+    <string name="numberOfThrows">Kast: </string>
+
     <!-- Fragment-->
     <string name="throwDice">Kasta</string>
     <string name="game_score">Spelets slutresultat</string>
     <string name="choice">Val</string>
     <string name="score">Poäng</string>
+    <string name="totalScore">Total poäng</string>
 
 </resources>
