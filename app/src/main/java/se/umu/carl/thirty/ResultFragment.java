@@ -8,12 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import se.umu.carl.thirty.Models.ChoicePointResult;
 
 public class ResultFragment extends Fragment {
     @SuppressLint("SetTextI18n")

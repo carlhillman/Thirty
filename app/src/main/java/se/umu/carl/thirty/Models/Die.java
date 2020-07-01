@@ -1,10 +1,10 @@
-package se.umu.carl.thirty;
+package se.umu.carl.thirty.Models;
 
-public class Dice {
+public class Die {
     public Boolean selected = null;
     public int value;
 
-    public Dice(Boolean selected, int value) {
+    public Die(Boolean selected, int value) {
         this.selected = selected;
         this.value = value;
     }
