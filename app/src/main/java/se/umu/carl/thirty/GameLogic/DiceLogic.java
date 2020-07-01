@@ -18,8 +18,8 @@ import se.umu.carl.thirty.Models.GlobalDiceNumbers;
 import se.umu.carl.thirty.R;
 
 public class DiceLogic {
-
-    public ImageView imageViewDice1, imageViewDice2, imageViewDice3, imageViewDice4, imageViewDice5, imageViewDice6;
+    public ImageView firstDieImageView, secondDieImageView, thirdDieImageView,
+            fourthDieImageView, fifthDieImageView, sixthDieImageView;
     public boolean isFirstDieSelected = false;
     public boolean isSecondDieSelected = false;
     public boolean isThirdDieSelected = false;
@@ -28,10 +28,8 @@ public class DiceLogic {
     public boolean isSixthDieSelected = false;
 
     public ArrayList<Die> globalDice = new ArrayList<>();
-    public ArrayList<ImageView> imageViewsDice = new ArrayList<>();
-    public ArrayList<Boolean> diceSelected = new ArrayList<>();
-    public Context context;
 
+    public Context context;
     public DiceLogic(Context context) {
         this.context = context;
     }
@@ -47,11 +45,11 @@ public class DiceLogic {
         if (globalDice.size() == 6) {
             if (!isFirstDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 isFirstDieSelected = true;
-                imageViewDice1.setBackgroundColor(Color.BLUE);
+                firstDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(0).selected = true;
             } else {
                 isFirstDieSelected = false;
-                imageViewDice1.setBackgroundColor(Color.TRANSPARENT);
+                firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(0).selected = false;
             }
         }
@@ -61,11 +59,11 @@ public class DiceLogic {
         if (globalDice.size() == 6) {
             if (!isSecondDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 isSecondDieSelected = true;
-                imageViewDice2.setBackgroundColor(Color.BLUE);
+                secondDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(1).selected = true;
             } else {
                 isSecondDieSelected = false;
-                imageViewDice2.setBackgroundColor(Color.TRANSPARENT);
+                secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(1).selected = false;
             }
         }
@@ -75,11 +73,11 @@ public class DiceLogic {
         if (globalDice.size() == 6) {
             if (!isThirdDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 isThirdDieSelected = true;
-                imageViewDice3.setBackgroundColor(Color.BLUE);
+                thirdDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(2).selected = true;
             } else {
                 isThirdDieSelected = false;
-                imageViewDice3.setBackgroundColor(Color.TRANSPARENT);
+                thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(2).selected = false;
             }
         }
@@ -89,11 +87,11 @@ public class DiceLogic {
         if (globalDice.size() == 6) {
             if (!isFourthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 isFourthDieSelected = true;
-                imageViewDice4.setBackgroundColor(Color.BLUE);
+                fourthDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(3).selected = true;
             } else {
                 isFourthDieSelected = false;
-                imageViewDice4.setBackgroundColor(Color.TRANSPARENT);
+                fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(3).selected = false;
             }
         }
@@ -103,11 +101,11 @@ public class DiceLogic {
         if (globalDice.size() == 6) {
             if (!isFifthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 isFifthDieSelected = true;
-                imageViewDice5.setBackgroundColor(Color.BLUE);
+                fifthDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(4).selected = true;
             } else {
                 isFifthDieSelected = false;
-                imageViewDice5.setBackgroundColor(Color.TRANSPARENT);
+                fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(4).selected = false;
             }
         }
@@ -117,11 +115,11 @@ public class DiceLogic {
         if (globalDice.size() == 6) {
             if (!isSixthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 isSixthDieSelected = true;
-                imageViewDice6.setBackgroundColor(Color.BLUE);
+                sixthDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(5).selected = true;
             } else {
                 isSixthDieSelected = false;
-                imageViewDice6.setBackgroundColor(Color.TRANSPARENT);
+                sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(5).selected = false;
             }
         }
@@ -131,7 +129,7 @@ public class DiceLogic {
         enableDiceImage();
         ArrayList<ImageView> selectedDicesImages = new ArrayList<>();
         if (isFirstDieSelected) {
-            selectedDicesImages.add(imageViewDice1);
+            selectedDicesImages.add(firstDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(0);
                 if (!die.selected) {
@@ -140,7 +138,7 @@ public class DiceLogic {
             }
         }
         if (isSecondDieSelected) {
-            selectedDicesImages.add(imageViewDice2);
+            selectedDicesImages.add(secondDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(1);
                 if (!die.selected) {
@@ -149,7 +147,7 @@ public class DiceLogic {
             }
         }
         if (isThirdDieSelected) {
-            selectedDicesImages.add(imageViewDice3);
+            selectedDicesImages.add(thirdDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(2);
                 if (!die.selected) {
@@ -158,7 +156,7 @@ public class DiceLogic {
             }
         }
         if (isFourthDieSelected) {
-            selectedDicesImages.add(imageViewDice4);
+            selectedDicesImages.add(fourthDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(3);
                 if (!die.selected) {
@@ -167,7 +165,7 @@ public class DiceLogic {
             }
         }
         if (isFifthDieSelected) {
-            selectedDicesImages.add(imageViewDice5);
+            selectedDicesImages.add(fifthDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(4);
                 if (!die.selected) {
@@ -176,7 +174,7 @@ public class DiceLogic {
             }
         }
         if (isSixthDieSelected) {
-            selectedDicesImages.add(imageViewDice6);
+            selectedDicesImages.add(sixthDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(5);
                 if (!die.selected) {
@@ -186,12 +184,12 @@ public class DiceLogic {
         }
         //om ingen eller alla tärningar har valts, kastas alla tärningar om. Och alla blir selected
         if (selectedDicesImages.size() == 0 || selectedDicesImages.size() == 6) {
-            selectedDicesImages.add(imageViewDice1);
-            selectedDicesImages.add(imageViewDice2);
-            selectedDicesImages.add(imageViewDice3);
-            selectedDicesImages.add(imageViewDice4);
-            selectedDicesImages.add(imageViewDice5);
-            selectedDicesImages.add(imageViewDice6);
+            selectedDicesImages.add(firstDieImageView);
+            selectedDicesImages.add(secondDieImageView);
+            selectedDicesImages.add(thirdDieImageView);
+            selectedDicesImages.add(fourthDieImageView);
+            selectedDicesImages.add(fifthDieImageView);
+            selectedDicesImages.add(sixthDieImageView);
             for (Die die : globalDice) {
                 die.selected = true;
             }
@@ -292,21 +290,21 @@ public class DiceLogic {
      */
 
     public void enableDiceImage() {
-        imageViewDice1.setEnabled(true);
-        imageViewDice2.setEnabled(true);
-        imageViewDice3.setEnabled(true);
-        imageViewDice4.setEnabled(true);
-        imageViewDice5.setEnabled(true);
-        imageViewDice6.setEnabled(true);
+        firstDieImageView.setEnabled(true);
+        secondDieImageView.setEnabled(true);
+        thirdDieImageView.setEnabled(true);
+        fourthDieImageView.setEnabled(true);
+        fifthDieImageView.setEnabled(true);
+        sixthDieImageView.setEnabled(true);
     }
 
     public void disableDiceImage() {
-        imageViewDice1.setEnabled(false);
-        imageViewDice2.setEnabled(false);
-        imageViewDice3.setEnabled(false);
-        imageViewDice4.setEnabled(false);
-        imageViewDice5.setEnabled(false);
-        imageViewDice6.setEnabled(false);
+        firstDieImageView.setEnabled(false);
+        secondDieImageView.setEnabled(false);
+        thirdDieImageView.setEnabled(false);
+        fourthDieImageView.setEnabled(false);
+        fifthDieImageView.setEnabled(false);
+        sixthDieImageView.setEnabled(false);
     }
 
     public void deselectAllDices() {
@@ -317,12 +315,12 @@ public class DiceLogic {
         isFifthDieSelected = false;
         isSixthDieSelected = false;
 
-        imageViewDice1.setBackgroundColor(Color.TRANSPARENT);
-        imageViewDice2.setBackgroundColor(Color.TRANSPARENT);
-        imageViewDice3.setBackgroundColor(Color.TRANSPARENT);
-        imageViewDice4.setBackgroundColor(Color.TRANSPARENT);
-        imageViewDice5.setBackgroundColor(Color.TRANSPARENT);
-        imageViewDice6.setBackgroundColor(Color.TRANSPARENT);
+        firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
     }
 
 }

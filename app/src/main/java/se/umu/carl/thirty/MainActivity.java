@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -44,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //diceLogic.setUIComponents();
-        diceLogic.imageViewDice1 = findViewById(R.id.image_view_dice1);
-        diceLogic.imageViewDice2 = findViewById(R.id.image_view_dice2);
-        diceLogic.imageViewDice3 = findViewById(R.id.image_view_dice3);
-        diceLogic.imageViewDice4 = findViewById(R.id.image_view_dice4);
-        diceLogic.imageViewDice5 = findViewById(R.id.image_view_dice5);
-        diceLogic.imageViewDice6 = findViewById(R.id.image_view_dice6);
+        diceLogic.firstDieImageView = findViewById(R.id.image_view_dice1);
+        diceLogic.secondDieImageView = findViewById(R.id.image_view_dice2);
+        diceLogic.thirdDieImageView = findViewById(R.id.image_view_dice3);
+        diceLogic.fourthDieImageView = findViewById(R.id.image_view_dice4);
+        diceLogic.fifthDieImageView = findViewById(R.id.image_view_dice5);
+        diceLogic.sixthDieImageView = findViewById(R.id.image_view_dice6);
 
         spinner = findViewById(R.id.spinnerChoice);
         ArrayList<String> choices = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.choices)));
@@ -69,37 +70,37 @@ public class MainActivity extends AppCompatActivity {
         //I början av spelet sätter antal rundor till 1
         textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + RoundsLogic.totalNumberOfRounds);
 
-        diceLogic.imageViewDice1.setOnClickListener(new View.OnClickListener() {
+        diceLogic.firstDieImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 diceLogic.clickFirstDie();
             }
         });
-        diceLogic.imageViewDice2.setOnClickListener(new View.OnClickListener() {
+        diceLogic.secondDieImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 diceLogic.clickSecondDie();
             }
         });
-        diceLogic.imageViewDice3.setOnClickListener(new View.OnClickListener() {
+        diceLogic.thirdDieImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 diceLogic.clickThirdDie();
             }
         });
-        diceLogic.imageViewDice4.setOnClickListener(new View.OnClickListener() {
+        diceLogic.fourthDieImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 diceLogic.clickFourthDie();
             }
         });
-        diceLogic.imageViewDice5.setOnClickListener(new View.OnClickListener() {
+        diceLogic.fifthDieImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 diceLogic.clickFifthDie();
             }
         });
-        diceLogic.imageViewDice6.setOnClickListener(new View.OnClickListener() {
+        diceLogic.sixthDieImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 diceLogic.clickSixthDie();
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 spinnerTouched = false;
             }
+
             // för att stänga
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -145,13 +147,12 @@ public class MainActivity extends AppCompatActivity {
                     messageBox.showRoundSucceededDialog(scoreLogic.currentScore);
                     scoreLogic.currentScore = 0;
 
-                    diceLogic.deselectAllDices();
-
                     btnThrow.setVisibility(View.VISIBLE);
                     btnTakePoints.setVisibility(View.GONE);
 
                     spinner.setSelection(adapter.getPosition("Välj poängtyp"));
                     spinner.setVisibility(View.GONE);
+                    diceLogic.deselectAllDices();
                     diceLogic.disableDiceImage();
                     //när 10 rundor är avklarade skickas användaren till resultatvyn.
                     if (RoundsLogic.totalNumberOfRounds == 10) {
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //visar resultatsvyn manuellt
+        //visar resultatsvyn manuellt ska tas bort innan inlämning
         btnResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
             int numberOfRounds = savedInstanceState.getInt("Round");
             int numberOfThrows = savedInstanceState.getInt("Throw");
 
-            //     textViewRounds.setText(R.string.numberOfRounds + String.valueOf(numberOfRounds));
-            //     textViewThrows.setText(R.string.numberOfThrows + String.valueOf(numberOfThrows));
+            textViewRounds.setText(R.string.numberOfRounds + String.valueOf(numberOfRounds));
+            textViewThrows.setText(R.string.numberOfThrows + String.valueOf(numberOfThrows));
 
             savedInstanceState.getBoolean("PointTypeSucceeded");
             savedInstanceState.getBoolean("choiceHasBeenSelected");
@@ -202,13 +203,22 @@ public class MainActivity extends AppCompatActivity {
             //gömmer resultat och kast knappen
             btnThrow.setVisibility(View.GONE);
             btnResult.setVisibility(View.GONE);
+            btnTakePoints.setVisibility(View.GONE);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
 
 
-    @Override
+  /*  @Override
+    protected void onResume() {
+        diceLogic.firstDieImageView.setImageResource(R.drawable.white1);
+        super.onResume();
+    }
+
+   */
+
+   /* @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean("dice1Selected", diceLogic.isFirstDieSelected);
@@ -221,8 +231,10 @@ public class MainActivity extends AppCompatActivity {
         outState.putInt("Round", RoundsLogic.totalNumberOfRounds);
         outState.putInt("Throw", RoundsLogic.totalNumberOfThrowsDisplayed);
 
-        outState.putBoolean("PointTypeChoosen", scoreLogic.pointTypeChoosen);
+        outState.putBoolean("PointTypeChoosen", ScoreLogic.pointTypeChoosen);
 
     }
+
+    */
 }
 
