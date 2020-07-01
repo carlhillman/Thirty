@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //I början av spelet sätter antal rundor till 1
-        textViewRounds.setText(R.string.round + RoundsLogic.totalNumberOfRounds);
+        textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + RoundsLogic.totalNumberOfRounds);
 
         imageViewDice1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,26 +242,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                     spinner.setVisibility(View.VISIBLE);
                 }
-                if (RoundsLogic.totalNumberOfThrowsDisplayed == 3 && !scoreLogic.pointTypeChoosen) {
-                    showNotAllowedToThrow();
-                } else if (scoreLogic.pointTypeChoosen) {
+                //kasta till ny runda
+               if (scoreLogic.pointTypeChoosen) {
                     rollDices(selectedDicesImages);
-                    textViewThrows.setText(R.string.numberOfThrows + RoundsLogic.getAndSetThrows());
-                    textViewRounds.setText(R.string.round + RoundsLogic.getAndSetRounds());
+                    textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + RoundsLogic.getAndSetThrows());
+                    textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + RoundsLogic.getAndSetRounds());
                     scoreLogic.pointTypeChoosen = false;
                 }
-                //när man kastar i en befintlig runda.
+                //Kast i en befintlig runda.
                 else {
                     rollDices(selectedDicesImages);
                     RoundsLogic.isNewRound = false;
-                    textViewThrows.setText(R.string.numberOfThrows + RoundsLogic.getAndSetThrows());
+                    textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + RoundsLogic.getAndSetThrows());
                 }
-                //ifall det är en ny runda måste den blåa ram färgerna försvinna
-            /*    if (RoundsLogic.isNewRound) {
-                    deselectAllDices();
-                }
-
-             */
             }
         });
         spinner.setOnTouchListener(new View.OnTouchListener() {
@@ -340,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
             int numberOfRounds = savedInstanceState.getInt("Round");
             int numberOfThrows = savedInstanceState.getInt("Throw");
 
-            textViewRounds.setText(R.string.round + String.valueOf(numberOfRounds));
+            textViewRounds.setText(R.string.numberOfRounds + String.valueOf(numberOfRounds));
             textViewThrows.setText(R.string.numberOfThrows + String.valueOf(numberOfThrows));
 
             savedInstanceState.getBoolean("PointTypeSucceeded");
@@ -363,6 +356,10 @@ public class MainActivity extends AppCompatActivity {
     }
     private void rollDices(ArrayList<ImageView> diceList) {
         setDiceImages(diceList, globalDices);
+        //Efter att man har kastat tre gånger göm kasta knappen
+        if (RoundsLogic.totalNumberOfThrowsDisplayed == 2) {
+            btnThrow.setVisibility(View.GONE);
+        }
     }
 
     private void setDiceImages(ArrayList<ImageView> imageDiceList, ArrayList<Dice> dices) {
@@ -471,17 +468,10 @@ public class MainActivity extends AppCompatActivity {
         CustomDialog customDialog = new CustomDialog("Tagna poäng: " + score, "Kasta för att börja nästa runda");
         customDialog.show(getSupportFragmentManager(), "CustomDialog");
     }
-
     private void showNoDieSelected() {
         CustomDialog customDialog = new CustomDialog("Ingen tärning vald!", "Du kan inte ta någon poäng om du inte valt någon tärning!");
         customDialog.show(getSupportFragmentManager(), "CustomDialog");
     }
-
-    private void showNotAllowedToThrow() {
-        CustomDialog customDialog = new CustomDialog("Slut på kast!", "Slut på kast, du måste välja något val!");
-        customDialog.show(getSupportFragmentManager(), "CustomDialog");
-    }
-
     private void enableDiceImage(){
         imageViewDice1.setEnabled(true);
         imageViewDice2.setEnabled(true);
@@ -530,23 +520,5 @@ public class MainActivity extends AppCompatActivity {
         outState.putBoolean("PointTypeChoosen", scoreLogic.pointTypeChoosen);
 
     }
-
-
-
-
-
-
-
-
-   /* @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            setContentView(R.layout.activity_main);
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            setContentView(R.layout.activity_main);
-        }
-    }
-    */
 }
 

@@ -22,8 +22,9 @@
     </string-array>
 
     <!--Spel termer-->
-    <string name="round">Runda: </string>
+    <string name="numberOfRounds">Runda: </string>
     <string name="numberOfThrows">Kast: </string>
+    <string name="takePoints">Ta poäng</string>
 
     <!-- Fragment-->
     <string name="throwDice">Kasta</string>
