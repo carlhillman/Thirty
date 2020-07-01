@@ -18,18 +18,20 @@ import se.umu.carl.thirty.Models.GlobalDiceNumbers;
 import se.umu.carl.thirty.R;
 
 public class DiceLogic {
-    ScoreLogic scoreLogic = new ScoreLogic();
+
     public ImageView imageViewDice1, imageViewDice2, imageViewDice3, imageViewDice4, imageViewDice5, imageViewDice6;
-    public boolean dice1Selected = false;
-    public boolean dice2Selected = false;
-    public boolean dice3Selected = false;
-    public boolean dice4Selected = false;
-    public boolean dice5Selected = false;
-    public boolean dice6Selected = false;
+    public boolean isFirstDieSelected = false;
+    public boolean isSecondDieSelected = false;
+    public boolean isThirdDieSelected = false;
+    public boolean isFourthDieSelected = false;
+    public boolean isFifthDieSelected = false;
+    public boolean isSixthDieSelected = false;
 
     public ArrayList<Die> globalDice = new ArrayList<>();
-
+    public ArrayList<ImageView> imageViewsDice = new ArrayList<>();
+    public ArrayList<Boolean> diceSelected = new ArrayList<>();
     public Context context;
+
     public DiceLogic(Context context) {
         this.context = context;
     }
@@ -39,30 +41,30 @@ public class DiceLogic {
         txtRounds = view.findViewById(R.id.txtRounds);
         btnThrow = view.findViewById(R.id.btnThrow);
     }
-
    */
 
     public void clickFirstDie() {
-        if(globalDice.size() == 6) {
-            if (!dice1Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
-                dice1Selected = true;
+        if (globalDice.size() == 6) {
+            if (!isFirstDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isFirstDieSelected = true;
                 imageViewDice1.setBackgroundColor(Color.BLUE);
                 globalDice.get(0).selected = true;
             } else {
-                dice1Selected = false;
+                isFirstDieSelected = false;
                 imageViewDice1.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(0).selected = false;
             }
         }
     }
+
     public void clickSecondDie() {
-        if(globalDice.size()==6) {
-            if (!dice2Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
-                dice2Selected = true;
+        if (globalDice.size() == 6) {
+            if (!isSecondDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isSecondDieSelected = true;
                 imageViewDice2.setBackgroundColor(Color.BLUE);
                 globalDice.get(1).selected = true;
             } else {
-                dice2Selected = false;
+                isSecondDieSelected = false;
                 imageViewDice2.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(1).selected = false;
             }
@@ -70,13 +72,13 @@ public class DiceLogic {
     }
 
     public void clickThirdDie() {
-        if(globalDice.size()==6) {
-            if (!dice3Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
-                dice3Selected = true;
+        if (globalDice.size() == 6) {
+            if (!isThirdDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isThirdDieSelected = true;
                 imageViewDice3.setBackgroundColor(Color.BLUE);
                 globalDice.get(2).selected = true;
             } else {
-                dice3Selected = false;
+                isThirdDieSelected = false;
                 imageViewDice3.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(2).selected = false;
             }
@@ -84,13 +86,13 @@ public class DiceLogic {
     }
 
     public void clickFourthDie() {
-        if(globalDice.size()==6) {
-            if (!dice4Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
-                dice4Selected = true;
+        if (globalDice.size() == 6) {
+            if (!isFourthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isFourthDieSelected = true;
                 imageViewDice4.setBackgroundColor(Color.BLUE);
                 globalDice.get(3).selected = true;
             } else {
-                dice4Selected = false;
+                isFourthDieSelected = false;
                 imageViewDice4.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(3).selected = false;
             }
@@ -98,13 +100,13 @@ public class DiceLogic {
     }
 
     public void clickFifthDie() {
-        if(globalDice.size()==6) {
-            if (!dice5Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
-                dice5Selected = true;
+        if (globalDice.size() == 6) {
+            if (!isFifthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isFifthDieSelected = true;
                 imageViewDice5.setBackgroundColor(Color.BLUE);
                 globalDice.get(4).selected = true;
             } else {
-                dice5Selected = false;
+                isFifthDieSelected = false;
                 imageViewDice5.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(4).selected = false;
             }
@@ -112,13 +114,13 @@ public class DiceLogic {
     }
 
     public void clickSixthDie() {
-        if(globalDice.size()==6) {
-            if (!dice6Selected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
-                dice6Selected = true;
+        if (globalDice.size() == 6) {
+            if (!isSixthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isSixthDieSelected = true;
                 imageViewDice6.setBackgroundColor(Color.BLUE);
                 globalDice.get(5).selected = true;
             } else {
-                dice6Selected = false;
+                isSixthDieSelected = false;
                 imageViewDice6.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(5).selected = false;
             }
@@ -128,7 +130,7 @@ public class DiceLogic {
     public void clickThrow(Spinner spinner, TextView txtThrows, TextView txtRounds, Button btnThrow) {
         enableDiceImage();
         ArrayList<ImageView> selectedDicesImages = new ArrayList<>();
-        if (dice1Selected) {
+        if (isFirstDieSelected) {
             selectedDicesImages.add(imageViewDice1);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(0);
@@ -137,7 +139,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (dice2Selected) {
+        if (isSecondDieSelected) {
             selectedDicesImages.add(imageViewDice2);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(1);
@@ -146,7 +148,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (dice3Selected) {
+        if (isThirdDieSelected) {
             selectedDicesImages.add(imageViewDice3);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(2);
@@ -155,7 +157,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (dice4Selected) {
+        if (isFourthDieSelected) {
             selectedDicesImages.add(imageViewDice4);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(3);
@@ -164,7 +166,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (dice5Selected) {
+        if (isFifthDieSelected) {
             selectedDicesImages.add(imageViewDice5);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(4);
@@ -173,7 +175,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (dice6Selected) {
+        if (isSixthDieSelected) {
             selectedDicesImages.add(imageViewDice6);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(5);
@@ -210,39 +212,6 @@ public class DiceLogic {
         }
     }
 
-    public void enableDiceImage() {
-        imageViewDice1.setEnabled(true);
-        imageViewDice2.setEnabled(true);
-        imageViewDice3.setEnabled(true);
-        imageViewDice4.setEnabled(true);
-        imageViewDice5.setEnabled(true);
-        imageViewDice6.setEnabled(true);
-    }
-
-    public void disableDiceImage() {
-        imageViewDice1.setEnabled(false);
-        imageViewDice2.setEnabled(false);
-        imageViewDice3.setEnabled(false);
-        imageViewDice4.setEnabled(false);
-        imageViewDice5.setEnabled(false);
-        imageViewDice6.setEnabled(false);
-    }
-
-    public void deselectAllDices() {
-        dice1Selected = false;
-        dice2Selected = false;
-        dice3Selected = false;
-        dice4Selected = false;
-        dice5Selected = false;
-        dice6Selected = false;
-
-        imageViewDice1.setBackgroundColor(Color.TRANSPARENT);
-        imageViewDice2.setBackgroundColor(Color.TRANSPARENT);
-        imageViewDice3.setBackgroundColor(Color.TRANSPARENT);
-        imageViewDice4.setBackgroundColor(Color.TRANSPARENT);
-        imageViewDice5.setBackgroundColor(Color.TRANSPARENT);
-        imageViewDice6.setBackgroundColor(Color.TRANSPARENT);
-    }
 
     public void rollDices(ArrayList<ImageView> selectedDicesImages, Button btnThrow) {
         try {
@@ -262,93 +231,27 @@ public class DiceLogic {
             int randomNumber = random.nextInt(6) + 1;
             switch (randomNumber) {
                 case 1:
-                    if (RoundsLogic.totalNumberOfThrowsDisplayed == 0) {
-                        Die die = new Die(false, randomNumber);
-                        globalDice.add(die);
-                    } else {
-                        for (Die die : globalDice) {
-                            if (die.selected) {
-                                die.selected = false;
-                                die.value = randomNumber;
-                                break;
-                            }
-                        }
-                    }
+                    addOrUpdateDie(randomNumber);
                     imageViewDice.setImageResource(R.drawable.white1);
                     break;
                 case 2:
-                    if (RoundsLogic.totalNumberOfThrowsDisplayed == 0) {
-                        Die die = new Die(false, randomNumber);
-                        globalDice.add(die);
-                    } else {
-                        for (Die die : globalDice) {
-                            if (die.selected) {
-                                die.selected = false;
-                                die.value = randomNumber;
-                                break;
-                            }
-                        }
-                    }
+                    addOrUpdateDie(randomNumber);
                     imageViewDice.setImageResource(R.drawable.white2);
                     break;
                 case 3:
-                    if (RoundsLogic.totalNumberOfThrowsDisplayed == 0) {
-                        Die die = new Die(false, randomNumber);
-                        globalDice.add(die);
-                    } else {
-                        for (Die die : globalDice) {
-                            if (die.selected) {
-                                die.selected = false;
-                                die.value = randomNumber;
-                                break;
-                            }
-                        }
-                    }
+                    addOrUpdateDie(randomNumber);
                     imageViewDice.setImageResource(R.drawable.white3);
                     break;
                 case 4:
-                    if (RoundsLogic.totalNumberOfThrowsDisplayed == 0) {
-                        Die die = new Die(false, randomNumber);
-                        globalDice.add(die);
-                    } else {
-                        for (Die die : globalDice) {
-                            if (die.selected) {
-                                die.selected = false;
-                                die.value = randomNumber;
-                                break;
-                            }
-                        }
-                    }
+                    addOrUpdateDie(randomNumber);
                     imageViewDice.setImageResource(R.drawable.white4);
                     break;
                 case 5:
-                    if (RoundsLogic.totalNumberOfThrowsDisplayed == 0) {
-                        Die die = new Die(false, randomNumber);
-                        globalDice.add(die);
-                    } else {
-                        for (Die die : globalDice) {
-                            if (die.selected) {
-                                die.selected = false;
-                                die.value = randomNumber;
-                                break;
-                            }
-                        }
-                    }
+                    addOrUpdateDie(randomNumber);
                     imageViewDice.setImageResource(R.drawable.white5);
                     break;
                 case 6:
-                    if (RoundsLogic.totalNumberOfThrowsDisplayed == 0) {
-                        Die die = new Die(false, randomNumber);
-                        globalDice.add(die);
-                    } else {
-                        for (Die die : globalDice) {
-                            if (die.selected) {
-                                die.selected = false;
-                                die.value = randomNumber;
-                                break;
-                            }
-                        }
-                    }
+                    addOrUpdateDie(randomNumber);
                     imageViewDice.setImageResource(R.drawable.white6);
                     break;
             }
@@ -357,4 +260,69 @@ public class DiceLogic {
         }
         GlobalDiceNumbers.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, globalDice);
     }
+
+    private void addOrUpdateDie(int randomValue) {
+        if (RoundsLogic.totalNumberOfThrowsDisplayed == 0) {
+            Die die = new Die(false, randomValue);
+            globalDice.add(die);
+        } else {
+            for (Die die : globalDice) {
+                if (die.selected) {
+                    die.selected = false;
+                    die.value = randomValue;
+                    break;
+                }
+            }
+        }
+    }
+
+
+    /*private ArrayList<ImageView> getPopulatedImageViewDiceList() {
+        if (imageViewsDice.size() != 6) {
+            imageViewsDice.add(imageViewDice1);
+            imageViewsDice.add(imageViewDice2);
+            imageViewsDice.add(imageViewDice3);
+            imageViewsDice.add(imageViewDice4);
+            imageViewsDice.add(imageViewDice5);
+            imageViewsDice.add(imageViewDice6);
+        }
+        return imageViewsDice;
+    }
+
+     */
+
+    public void enableDiceImage() {
+        imageViewDice1.setEnabled(true);
+        imageViewDice2.setEnabled(true);
+        imageViewDice3.setEnabled(true);
+        imageViewDice4.setEnabled(true);
+        imageViewDice5.setEnabled(true);
+        imageViewDice6.setEnabled(true);
+    }
+
+    public void disableDiceImage() {
+        imageViewDice1.setEnabled(false);
+        imageViewDice2.setEnabled(false);
+        imageViewDice3.setEnabled(false);
+        imageViewDice4.setEnabled(false);
+        imageViewDice5.setEnabled(false);
+        imageViewDice6.setEnabled(false);
+    }
+
+    public void deselectAllDices() {
+        isFirstDieSelected = false;
+        isSecondDieSelected = false;
+        isThirdDieSelected = false;
+        isFourthDieSelected = false;
+        isFifthDieSelected = false;
+        isSixthDieSelected = false;
+
+        imageViewDice1.setBackgroundColor(Color.TRANSPARENT);
+        imageViewDice2.setBackgroundColor(Color.TRANSPARENT);
+        imageViewDice3.setBackgroundColor(Color.TRANSPARENT);
+        imageViewDice4.setBackgroundColor(Color.TRANSPARENT);
+        imageViewDice5.setBackgroundColor(Color.TRANSPARENT);
+        imageViewDice6.setBackgroundColor(Color.TRANSPARENT);
+    }
+
 }

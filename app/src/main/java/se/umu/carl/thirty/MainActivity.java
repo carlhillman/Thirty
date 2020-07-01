@@ -19,7 +19,6 @@ import java.util.Arrays;
 import se.umu.carl.thirty.GameLogic.DiceLogic;
 import se.umu.carl.thirty.GameLogic.RoundsLogic;
 import se.umu.carl.thirty.GameLogic.ScoreLogic;
-import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.Views.MessageBox;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,14 +30,13 @@ public class MainActivity extends AppCompatActivity {
     private Button btnResult;
     private Spinner spinner;
 
-    private ArrayList<Die> globalDices = new ArrayList<>();
-
     private ArrayAdapter<String> adapter;
     private ScoreLogic scoreLogic = new ScoreLogic();
     private Boolean spinnerTouched = false;
 
     DiceLogic diceLogic = new DiceLogic(this);
-MessageBox messageBox = new MessageBox(MainActivity.this);
+    MessageBox messageBox = new MessageBox(MainActivity.this);
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +65,6 @@ MessageBox messageBox = new MessageBox(MainActivity.this);
         btnThrow = findViewById(R.id.btnThrow);
         btnTakePoints = findViewById(R.id.btnTakePoints);
         btnTakePoints.setVisibility(View.GONE);
-
 
         //I början av spelet sätter antal rundor till 1
         textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + RoundsLogic.totalNumberOfRounds);
@@ -133,17 +130,16 @@ MessageBox messageBox = new MessageBox(MainActivity.this);
                 }
                 spinnerTouched = false;
             }
-
-            // för att stänga onItemSelected
+            // för att stänga
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
         btnTakePoints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!diceLogic.dice1Selected && !diceLogic.dice2Selected && !diceLogic.dice3Selected
-                        && !diceLogic.dice4Selected && !diceLogic.dice5Selected && !diceLogic.dice6Selected) {
-                   messageBox.showNoDieSelected();
+                if (!diceLogic.isFirstDieSelected && !diceLogic.isSecondDieSelected && !diceLogic.isThirdDieSelected
+                        && !diceLogic.isFourthDieSelected && !diceLogic.isFifthDieSelected && !diceLogic.isSixthDieSelected) {
+                    messageBox.showNoDieSelected();
                 } else {
                     scoreLogic.setChoicePoint(spinner, adapter);
                     messageBox.showRoundSucceededDialog(scoreLogic.currentScore);
@@ -215,12 +211,12 @@ MessageBox messageBox = new MessageBox(MainActivity.this);
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("dice1Selected", diceLogic.dice1Selected);
-        outState.putBoolean("dice2Selected", diceLogic.dice2Selected);
-        outState.putBoolean("dice3Selected", diceLogic.dice3Selected);
-        outState.putBoolean("dice4Selected", diceLogic.dice4Selected);
-        outState.putBoolean("dice5Selected", diceLogic.dice5Selected);
-        outState.putBoolean("dice6Selected", diceLogic.dice6Selected);
+        outState.putBoolean("dice1Selected", diceLogic.isFirstDieSelected);
+        outState.putBoolean("dice2Selected", diceLogic.isSecondDieSelected);
+        outState.putBoolean("dice3Selected", diceLogic.isThirdDieSelected);
+        outState.putBoolean("dice4Selected", diceLogic.isFourthDieSelected);
+        outState.putBoolean("dice5Selected", diceLogic.isFifthDieSelected);
+        outState.putBoolean("dice6Selected", diceLogic.isSixthDieSelected);
 
         outState.putInt("Round", RoundsLogic.totalNumberOfRounds);
         outState.putInt("Throw", RoundsLogic.totalNumberOfThrowsDisplayed);

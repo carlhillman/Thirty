@@ -4,8 +4,6 @@ import android.app.Activity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import se.umu.carl.thirty.CustomDialog;
-
 public class MessageBox {
     Activity activity;
     public MessageBox(Activity activity){

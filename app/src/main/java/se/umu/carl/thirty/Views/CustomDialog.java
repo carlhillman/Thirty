@@ -1,4 +1,4 @@
-package se.umu.carl.thirty;
+package se.umu.carl.thirty.Views;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

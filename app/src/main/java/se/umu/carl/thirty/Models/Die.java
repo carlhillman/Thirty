@@ -1,7 +1,7 @@
 package se.umu.carl.thirty.Models;
 
 public class Die {
-    public Boolean selected = null;
+    public Boolean selected ;
     public int value;
 
     public Die(Boolean selected, int value) {

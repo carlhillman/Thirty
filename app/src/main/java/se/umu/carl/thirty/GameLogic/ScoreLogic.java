@@ -78,7 +78,6 @@ public class ScoreLogic extends Activity { //håller koll på poängräkninslogi
             //ifall summan av tärningarna är delbart med valet
 
             if(currentScore % choicePoint == 0 &&  currentScore >= choicePoint){
-
                 ChoicePointResult.score = currentScore;
             } else {
                 //ifall tärningarna på spelplanen inte går att göra upp till valet får spelaren 0 poäng
