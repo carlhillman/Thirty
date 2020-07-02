@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.umu.carl.thirty.Models.ChoicePointResult;
+import se.umu.carl.thirty.Models.ResultStorage;
 
 public class ResultFragment extends Fragment {
     @SuppressLint("SetTextI18n")
@@ -54,7 +54,7 @@ public class ResultFragment extends Fragment {
         TextView summaryText = view.findViewById(R.id.txtTotalScore);
         TextView summaryScore = view.findViewById(R.id.txtTotalScoreValue);
 
-        ArrayList<String> keys = new ArrayList<>(ChoicePointResult.choicePoints.keySet());
+        ArrayList<String> keys = new ArrayList<>(ResultStorage.choicePoints.keySet());
         for (int index = 0; index < keys.size(); index++) {
             switch (index) {
                 case 0:
@@ -99,7 +99,7 @@ public class ResultFragment extends Fragment {
                     break;
             }
         }
-        ArrayList<Integer> values = new ArrayList<>(ChoicePointResult.choicePoints.values());
+        ArrayList<Integer> values = new ArrayList<>(ResultStorage.choicePoints.values());
         int totalSum = sumList(values);
         for (int index = 0; index < values.size(); index++) {
             switch (index) {

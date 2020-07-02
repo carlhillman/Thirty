@@ -3,6 +3,7 @@ package se.umu.carl.thirty.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// Själva tärningen som blir vald och får ett heltals värde
 public class Die implements Parcelable {
     public Boolean selected ;
     public int value;
@@ -43,5 +44,4 @@ public class Die implements Parcelable {
         out.writeString(color);
         out.writeString(number);
     }
-
 }

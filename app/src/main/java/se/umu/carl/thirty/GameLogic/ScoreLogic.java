@@ -7,11 +7,12 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.Map;
 
-import se.umu.carl.thirty.Models.ChoicePointResult;
+import se.umu.carl.thirty.Models.Dice;
+import se.umu.carl.thirty.Models.ResultStorage;
 import se.umu.carl.thirty.Models.Die;
-import se.umu.carl.thirty.Models.GlobalDiceNumbers;
 
-public class ScoreLogic extends Activity { //håller koll på poängräkninslogiken och spelregler
+// Logik som håller koll på nuvarande poäng, vilket val som ska räknas och validerar poängsättningen
+public class ScoreLogic extends Activity {
     public int currentScore;
     //måste vara static eftersom den används i DiceLogic
     public static boolean pointTypeChoosen = false;
@@ -54,39 +55,40 @@ public class ScoreLogic extends Activity { //håller koll på poängräkninslogi
                         break;
                 }
                 //lägga in någonstans det valet och den poängen man får för att visa slutresultatet.
-                ChoicePointResult.choicePoints.put((String) selectedItem, ChoicePointResult.score);
+                ResultStorage.choicePoints.put(selectedItem, ResultStorage.score);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
+
     //kollar vilka kombinationer och tärningar som finns på fältet
     protected void calculateCurrentScore(String selectedItem, int choicePoint, ArrayAdapter<String> adapter) {
         ArrayList<Die> dice = new ArrayList<>();
         try {
-            for (Map.Entry<Integer, ArrayList<Die>> entry : GlobalDiceNumbers.triesAndDiceNumbers.entrySet()) {
+            for (Map.Entry<Integer, ArrayList<Die>> entry : Dice.triesAndDiceNumbers.entrySet()) {
                 dice = entry.getValue();
                 break;
             }
-            for(Die die :dice){
-                if(die.selected){
+            for (Die die : dice) {
+                if (die.selected) {
                     currentScore += die.value;
                 }
             }
             //ifall summan av tärningarna är delbart med valet
 
-            if(currentScore % choicePoint == 0 &&  currentScore >= choicePoint){
-                ChoicePointResult.score = currentScore;
+            if (currentScore % choicePoint == 0 && currentScore >= choicePoint) {
+                ResultStorage.score = currentScore;
             } else {
                 //ifall tärningarna på spelplanen inte går att göra upp till valet får spelaren 0 poäng
                 currentScore = 0;
-                ChoicePointResult.score = 0;
+                ResultStorage.score = 0;
             }
             pointTypeChoosen = true;
             adapter.remove(selectedItem);
             adapter.notifyDataSetChanged();
             RoundsLogic.isNewRound = true;
-            GlobalDiceNumbers.triesAndDiceNumbers.clear();
+            Dice.triesAndDiceNumbers.clear();
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

@@ -5,13 +5,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-
 import java.util.ArrayList;
-
 import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.R;
 
-//hämtar tillbaka Gui komponenter vid skärmrotation
+// En hjälp klass som hämtar tillbaka GUI komponenter vid skärmrotation
 public class RestoreGUI {
 
     public static boolean isBtnTakePointsDisplayed = false;
@@ -39,8 +37,6 @@ public class RestoreGUI {
         }
     }
 
-
-
     public static void setSpinnerState(Spinner spinner) {
         if (RoundsLogic.totalNumberOfThrowsDisplayed >= 1) {
             spinner.setVisibility(View.VISIBLE);
@@ -53,7 +49,6 @@ public class RestoreGUI {
             spinner.setVisibility(View.GONE);
         }
     }
-
 
     public static void setDieBackgroundColor(boolean isFirstDieSelected, boolean isSecondDieSelected, boolean isThirdDieSelected,
                                              boolean isFourthDieSelected, boolean isFifthDieSelected, boolean isSixthDieSelected,

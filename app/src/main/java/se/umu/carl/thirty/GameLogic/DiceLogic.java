@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import se.umu.carl.thirty.Models.Die;
-import se.umu.carl.thirty.Models.GlobalDiceNumbers;
+import se.umu.carl.thirty.Models.Dice;
 import se.umu.carl.thirty.R;
 
+//den generella Tärningslogiken som hanterar tärningskast
 public class DiceLogic {
     public ImageView firstDieImageView, secondDieImageView, thirdDieImageView,
             fourthDieImageView, fifthDieImageView, sixthDieImageView;
@@ -26,8 +27,6 @@ public class DiceLogic {
     public boolean isFourthDieSelected = false;
     public boolean isFifthDieSelected = false;
     public boolean isSixthDieSelected = false;
-
-    //public boolean isBtnThrowDisplayed = false;
 
     public ArrayList<Die> globalDice = new ArrayList<>();
 
@@ -207,6 +206,7 @@ public class DiceLogic {
             txtThrows.setText(context.getResources().getString(R.string.numberOfThrows) + RoundsLogic.getAndSetThrows());
         }
     }
+
     public void rollDices(ArrayList<ImageView> selectedDicesImages, Button btnThrow) {
         try {
             setDiceImages(selectedDicesImages);
@@ -252,7 +252,7 @@ public class DiceLogic {
             Animation rotate = AnimationUtils.loadAnimation(context, R.anim.rotate);
             imageViewDice.startAnimation(rotate);
         }
-        GlobalDiceNumbers.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, globalDice);
+        Dice.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, globalDice);
     }
 
     private void addOrUpdateDie(int randomValue) {
@@ -269,19 +269,6 @@ public class DiceLogic {
             }
         }
     }
-
-
-    /*private ArrayList<ImageView> getPopulatedImageViewDiceList() {
-        if (imageViewsDice.size() != 6) {
-            imageViewsDice.add(imageViewDice1);
-            imageViewsDice.add(imageViewDice2);
-            imageViewsDice.add(imageViewDice3);
-            imageViewsDice.add(imageViewDice4);
-            imageViewsDice.add(imageViewDice5);
-            imageViewsDice.add(imageViewDice6);
-        }
-        return imageViewsDice;
-    } */
 
     public void enableDiceImage() {
         firstDieImageView.setEnabled(true);

@@ -1,25 +1,18 @@
 package se.umu.carl.thirty;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
-import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -27,7 +20,6 @@ import se.umu.carl.thirty.GameLogic.DiceLogic;
 import se.umu.carl.thirty.GameLogic.RestoreGUI;
 import se.umu.carl.thirty.GameLogic.RoundsLogic;
 import se.umu.carl.thirty.GameLogic.ScoreLogic;
-
 import se.umu.carl.thirty.Views.SpinnerItems;
 import se.umu.carl.thirty.Views.MessageBox;
 
@@ -196,10 +188,9 @@ public class MainActivity extends AppCompatActivity {
                 RestoreGUI.isBtnThrowDisplayed = savedInstanceState.getBoolean("isBtnThrowDisplayed");
                 RestoreGUI.isDiceImageViewEnabled = savedInstanceState.getBoolean("isDiceImageViewEnabled");
 
-                if(!RestoreGUI.isDiceImageViewEnabled){
+                if (!RestoreGUI.isDiceImageViewEnabled) {
                     diceLogic.disableDiceImage();
-                }
-                else{
+                } else {
                     diceLogic.enableDiceImage();
                 }
                 RestoreGUI.setBtnThrowVisibility(btnThrow);

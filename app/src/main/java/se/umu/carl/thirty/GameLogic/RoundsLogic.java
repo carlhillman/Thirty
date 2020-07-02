@@ -1,6 +1,6 @@
 package se.umu.carl.thirty.GameLogic;
 
-//Hanterar antal rundor och kast och nya rundor.
+// Logiken för hantering av antal rundor och kast.
 public class RoundsLogic {
     public static int totalNumberOfRounds = 1;
     public static int totalNumberOfThrowsDisplayed = 0;
@@ -13,7 +13,7 @@ public class RoundsLogic {
         totalNumberOfThrowsDisplayed++;
         return totalNumberOfThrowsDisplayed;
     }
-    //ska sätta rundor. när försöka som visas nollställs ska rundor inkrementeras
+
     public static int getAndSetRounds() {
         if (isNewRound) {
             totalNumberOfRounds++;
