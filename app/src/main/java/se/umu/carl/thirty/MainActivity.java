@@ -194,18 +194,25 @@ public class MainActivity extends AppCompatActivity {
                 diceLogic.isSixthDieSelected = savedInstanceState.getBoolean("isSixthDieSelected");
                 RestoreGUI.inChoosingPointProgress = savedInstanceState.getBoolean("inChoosingPointProgress");
                 RestoreGUI.isBtnThrowDisplayed = savedInstanceState.getBoolean("isBtnThrowDisplayed");
+                RestoreGUI.isDiceImageViewEnabled = savedInstanceState.getBoolean("isDiceImageViewEnabled");
 
+                if(!RestoreGUI.isDiceImageViewEnabled){
+                    diceLogic.disableDiceImage();
+                }
+                else{
+                    diceLogic.enableDiceImage();
+                }
                 RestoreGUI.setBtnThrowVisibility(btnThrow);
                 RestoreGUI.setBtnTakePointsVisibility(btnTakePoints);
 
-               RestoreGUI.setDieBackgroundColor(diceLogic.isFirstDieSelected, diceLogic.isSecondDieSelected,diceLogic.isThirdDieSelected,
-                       diceLogic.isFourthDieSelected, diceLogic.isFifthDieSelected, diceLogic.isSixthDieSelected,
-                       diceLogic.firstDieImageView, diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
-                       diceLogic.fifthDieImageView, diceLogic.sixthDieImageView);
+                RestoreGUI.setDieBackgroundColor(diceLogic.isFirstDieSelected, diceLogic.isSecondDieSelected, diceLogic.isThirdDieSelected,
+                        diceLogic.isFourthDieSelected, diceLogic.isFifthDieSelected, diceLogic.isSixthDieSelected,
+                        diceLogic.firstDieImageView, diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
+                        diceLogic.fifthDieImageView, diceLogic.sixthDieImageView);
 
 
                 textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + savedInstanceState.getInt("numberOfRounds"));
-                textViewThrows.setText(getResources().getString(R.string.numberOfThrows) +  savedInstanceState.getInt("numberOfThrows"));
+                textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + savedInstanceState.getInt("numberOfThrows"));
 
                 spinner.setSelection(adapter.getPosition(getResources().getStringArray(R.array.choices)[0]));
 
@@ -213,9 +220,7 @@ public class MainActivity extends AppCompatActivity {
                     adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, savedInstanceState.getStringArrayList("choicePointsSpinner"));
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
-
                     RestoreGUI.setSpinnerState(spinner);
-
                 }
                 diceLogic.globalDice = savedInstanceState.getParcelableArrayList("globalDice");
                 if (diceLogic.globalDice != null) {
@@ -228,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(ex.getMessage());
         }
     }
+
     //öppnar resultatvyn
     private void openResultFragment() {
         try {
@@ -257,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
             outState.putBoolean("isBtnThrowDisplayed", RestoreGUI.isBtnThrowDisplayed);
             outState.putBoolean("isBtnTakePointsDisplayed", RestoreGUI.isBtnTakePointsDisplayed);
             outState.putBoolean("inChoosingPointProgress", RestoreGUI.inChoosingPointProgress);
+            outState.putBoolean("isDiceImageViewEnabled", RestoreGUI.isDiceImageViewEnabled);
 
             outState.putInt("numberOfRounds", RoundsLogic.totalNumberOfRounds);
             outState.putInt("numberOfThrows", RoundsLogic.totalNumberOfThrowsDisplayed);

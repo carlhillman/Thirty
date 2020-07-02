@@ -290,6 +290,7 @@ public class DiceLogic {
         fourthDieImageView.setEnabled(true);
         fifthDieImageView.setEnabled(true);
         sixthDieImageView.setEnabled(true);
+        RestoreGUI.isDiceImageViewEnabled = true;
     }
 
     public void disableDiceImage() {
@@ -299,6 +300,7 @@ public class DiceLogic {
         fourthDieImageView.setEnabled(false);
         fifthDieImageView.setEnabled(false);
         sixthDieImageView.setEnabled(false);
+        RestoreGUI.isDiceImageViewEnabled = false;
     }
 
     public void deselectAllDices() {

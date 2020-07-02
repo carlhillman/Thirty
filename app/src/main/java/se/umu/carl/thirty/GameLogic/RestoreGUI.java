@@ -17,14 +17,16 @@ public class RestoreGUI {
     public static boolean isBtnTakePointsDisplayed = false;
     public static boolean isBtnThrowDisplayed = false;
     public static boolean inChoosingPointProgress = false;
-    //public static boolean isSpinnerEnabled = false;
+    public static boolean isDiceImageViewEnabled = false;
 
     public static void setBtnThrowVisibility(Button btnThrow) {
         if (RoundsLogic.totalNumberOfThrowsDisplayed == 3) {
             btnThrow.setVisibility(View.GONE);
-        } else if (inChoosingPointProgress || ScoreLogic.pointTypeChoosen) {
+        }
+        if (inChoosingPointProgress || ScoreLogic.pointTypeChoosen) {
             btnThrow.setVisibility(View.GONE);
-        } else {
+        }
+        if (ScoreLogic.pointTypeChoosen) {
             btnThrow.setVisibility(View.VISIBLE);
         }
     }
@@ -37,6 +39,8 @@ public class RestoreGUI {
         }
     }
 
+
+
     public static void setSpinnerState(Spinner spinner) {
         if (RoundsLogic.totalNumberOfThrowsDisplayed >= 1) {
             spinner.setVisibility(View.VISIBLE);
@@ -45,7 +49,7 @@ public class RestoreGUI {
         if (inChoosingPointProgress) {
             spinner.setEnabled(false);
         }
-        if(ScoreLogic.pointTypeChoosen){
+        if (ScoreLogic.pointTypeChoosen) {
             spinner.setVisibility(View.GONE);
         }
     }
