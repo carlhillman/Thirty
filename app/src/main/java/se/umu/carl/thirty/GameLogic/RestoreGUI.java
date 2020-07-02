@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.R;
-import se.umu.carl.thirty.Views.SpinnerItems;
 
 //hämtar tillbaka Gui komponenter vid skärmrotation
 public class RestoreGUI {
@@ -18,16 +17,18 @@ public class RestoreGUI {
     public static boolean isBtnTakePointsDisplayed = false;
     public static boolean isBtnThrowDisplayed = false;
     public static boolean inChoosingPointProgress = false;
+    //public static boolean isSpinnerEnabled = false;
 
     public static void setBtnThrowVisibility(Button btnThrow) {
         if (RoundsLogic.totalNumberOfThrowsDisplayed == 3) {
             btnThrow.setVisibility(View.GONE);
-        } else if (inChoosingPointProgress) {
+        } else if (inChoosingPointProgress || ScoreLogic.pointTypeChoosen) {
             btnThrow.setVisibility(View.GONE);
         } else {
             btnThrow.setVisibility(View.VISIBLE);
         }
     }
+
     public static void setBtnTakePointsVisibility(Button btnTakePoints) {
         if (inChoosingPointProgress) {
             btnTakePoints.setVisibility(View.VISIBLE);
@@ -35,6 +36,20 @@ public class RestoreGUI {
             btnTakePoints.setVisibility(View.GONE);
         }
     }
+
+    public static void setSpinnerState(Spinner spinner) {
+        if (RoundsLogic.totalNumberOfThrowsDisplayed >= 1) {
+            spinner.setVisibility(View.VISIBLE);
+            spinner.setEnabled(true);
+        }
+        if (inChoosingPointProgress) {
+            spinner.setEnabled(false);
+        }
+        if(ScoreLogic.pointTypeChoosen){
+            spinner.setVisibility(View.GONE);
+        }
+    }
+
 
     public static void setDieBackgroundColor(boolean isFirstDieSelected, boolean isSecondDieSelected, boolean isThirdDieSelected,
                                              boolean isFourthDieSelected, boolean isFifthDieSelected, boolean isSixthDieSelected,
@@ -45,7 +60,7 @@ public class RestoreGUI {
                                              ImageView fifthDieImageView,
                                              ImageView sixthDieImageView
 
-                                             ){
+    ) {
         if (isFirstDieSelected) {
             firstDieImageView.setBackgroundColor(Color.BLUE);
         }

@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                         btnTakePoints.setVisibility(View.GONE);
 
                         spinner.setVisibility(View.GONE);
-                        spinner.setSelection(adapter.getPosition("Välj poängtyp"));
+                        spinner.setSelection(adapter.getPosition(getResources().getStringArray(R.array.choices)[0]));
                         diceLogic.deselectAllDices();
                         diceLogic.disableDiceImage();
                         //när 10 rundor är avklarade skickas användaren till resultatvyn.
@@ -203,22 +203,19 @@ public class MainActivity extends AppCompatActivity {
                        diceLogic.firstDieImageView, diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
                        diceLogic.fifthDieImageView, diceLogic.sixthDieImageView);
 
-                int numberOfRounds = savedInstanceState.getInt("numberOfRounds");
-                int numberOfThrows = savedInstanceState.getInt("numberOfThrows");
-                textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + numberOfRounds);
-                textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + numberOfThrows);
-                savedInstanceState.getBoolean("PointTypeSucceeded");
-                savedInstanceState.getBoolean("PointTypeChosen");
 
-                spinner.setSelection(adapter.getPosition("Välj poängtyp"));
+                textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + savedInstanceState.getInt("numberOfRounds"));
+                textViewThrows.setText(getResources().getString(R.string.numberOfThrows) +  savedInstanceState.getInt("numberOfThrows"));
+
+                spinner.setSelection(adapter.getPosition(getResources().getStringArray(R.array.choices)[0]));
 
                 if (savedInstanceState.getStringArrayList("choicePointsSpinner") != null) {
                     adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, savedInstanceState.getStringArrayList("choicePointsSpinner"));
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
-                    if (RoundsLogic.totalNumberOfThrowsDisplayed >= 1) {
-                        spinner.setVisibility(View.VISIBLE);
-                    }
+
+                    RestoreGUI.setSpinnerState(spinner);
+
                 }
                 diceLogic.globalDice = savedInstanceState.getParcelableArrayList("globalDice");
                 if (diceLogic.globalDice != null) {
@@ -227,12 +224,10 @@ public class MainActivity extends AppCompatActivity {
                             diceLogic.fifthDieImageView, diceLogic.sixthDieImageView);
                 }
             }
-
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
-
     //öppnar resultatvyn
     private void openResultFragment() {
         try {
