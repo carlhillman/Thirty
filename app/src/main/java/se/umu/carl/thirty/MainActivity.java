@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,12 +16,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import se.umu.carl.thirty.GameLogic.DiceLogic;
+import se.umu.carl.thirty.GameLogic.RestoreGUI;
 import se.umu.carl.thirty.GameLogic.RoundsLogic;
 import se.umu.carl.thirty.GameLogic.ScoreLogic;
+import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.Views.MessageBox;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,154 +48,158 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+            //diceLogic.setUIComponents();
+            diceLogic.firstDieImageView = findViewById(R.id.image_view_dice1);
+            diceLogic.secondDieImageView = findViewById(R.id.image_view_dice2);
+            diceLogic.thirdDieImageView = findViewById(R.id.image_view_dice3);
+            diceLogic.fourthDieImageView = findViewById(R.id.image_view_dice4);
+            diceLogic.fifthDieImageView = findViewById(R.id.image_view_dice5);
+            diceLogic.sixthDieImageView = findViewById(R.id.image_view_dice6);
 
-        //diceLogic.setUIComponents();
-        diceLogic.firstDieImageView = findViewById(R.id.image_view_dice1);
-        diceLogic.secondDieImageView = findViewById(R.id.image_view_dice2);
-        diceLogic.thirdDieImageView = findViewById(R.id.image_view_dice3);
-        diceLogic.fourthDieImageView = findViewById(R.id.image_view_dice4);
-        diceLogic.fifthDieImageView = findViewById(R.id.image_view_dice5);
-        diceLogic.sixthDieImageView = findViewById(R.id.image_view_dice6);
+            spinner = findViewById(R.id.spinnerChoice);
+            ArrayList<String> choices = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.choices)));
 
-        spinner = findViewById(R.id.spinnerChoice);
-        ArrayList<String> choices = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.choices)));
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
+            adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+            spinner.setVisibility(View.GONE);
+            textViewRounds = findViewById(R.id.txtRounds);
+            textViewThrows = findViewById(R.id.txtThrows);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setVisibility(View.GONE);
-        textViewRounds = findViewById(R.id.txtRounds);
-        textViewThrows = findViewById(R.id.txtThrows);
+            btnResult = findViewById(R.id.btnResult);
+            btnThrow = findViewById(R.id.btnThrow);
+            btnTakePoints = findViewById(R.id.btnTakePoints);
+            btnTakePoints.setVisibility(View.GONE);
+            //I början av spelet sätter antal rundor till 1
+            textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + RoundsLogic.totalNumberOfRounds);
 
-        btnResult = findViewById(R.id.btnResult);
-        btnThrow = findViewById(R.id.btnThrow);
-        btnTakePoints = findViewById(R.id.btnTakePoints);
-        btnTakePoints.setVisibility(View.GONE);
-
-        //I början av spelet sätter antal rundor till 1
-        textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + RoundsLogic.totalNumberOfRounds);
-
-        diceLogic.firstDieImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                diceLogic.clickFirstDie();
-            }
-        });
-        diceLogic.secondDieImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                diceLogic.clickSecondDie();
-            }
-        });
-        diceLogic.thirdDieImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                diceLogic.clickThirdDie();
-            }
-        });
-        diceLogic.fourthDieImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                diceLogic.clickFourthDie();
-            }
-        });
-        diceLogic.fifthDieImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                diceLogic.clickFifthDie();
-            }
-        });
-        diceLogic.sixthDieImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                diceLogic.clickSixthDie();
-            }
-        });
-
-        //lägger till en, flera eller alla tärningarnas bilder i en ArrayList
-        btnThrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                diceLogic.clickThrow(spinner, textViewThrows, textViewRounds, btnThrow);
-            }
-        });
-        spinner.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                spinnerTouched = true;
-                return false;
-            }
-        });
-        //ska lägga till poäng som valideras när man klickat i vilken poängtyp man vill ha
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (spinnerTouched) {
-                    diceLogic.deselectAllDices();
-                    btnTakePoints.setVisibility(View.VISIBLE);
-                    btnThrow.setVisibility(View.GONE);
+            diceLogic.firstDieImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    diceLogic.clickFirstDie();
                 }
-                spinnerTouched = false;
-            }
+            });
+            diceLogic.secondDieImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    diceLogic.clickSecondDie();
+                }
+            });
+            diceLogic.thirdDieImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    diceLogic.clickThirdDie();
+                }
+            });
+            diceLogic.fourthDieImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    diceLogic.clickFourthDie();
+                }
+            });
+            diceLogic.fifthDieImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    diceLogic.clickFifthDie();
+                }
+            });
+            diceLogic.sixthDieImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    diceLogic.clickSixthDie();
+                }
+            });
 
-            // för att stänga
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        btnTakePoints.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!diceLogic.isFirstDieSelected && !diceLogic.isSecondDieSelected && !diceLogic.isThirdDieSelected
-                        && !diceLogic.isFourthDieSelected && !diceLogic.isFifthDieSelected && !diceLogic.isSixthDieSelected) {
-                    messageBox.showNoDieSelected();
-                } else {
-                    scoreLogic.setChoicePoint(spinner, adapter);
-                    messageBox.showRoundSucceededDialog(scoreLogic.currentScore);
-                    scoreLogic.currentScore = 0;
+            //lägger till en, flera eller alla tärningarnas bilder i en ArrayList
+            btnThrow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    diceLogic.clickThrow(spinner, textViewThrows, textViewRounds, btnThrow);
+                }
+            });
+            spinner.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    spinnerTouched = true;
+                    return false;
+                }
+            });
+            //ska lägga till poäng som valideras när man klickat i vilken poängtyp man vill ha
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (spinnerTouched) {
+                        diceLogic.deselectAllDices();
+                        spinner.setEnabled(false);
+                        btnTakePoints.setVisibility(View.VISIBLE);
+                        btnThrow.setVisibility(View.GONE);
+                    }
+                    spinnerTouched = false;
+                }
 
-                    btnThrow.setVisibility(View.VISIBLE);
-                    btnTakePoints.setVisibility(View.GONE);
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            btnTakePoints.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!diceLogic.isFirstDieSelected && !diceLogic.isSecondDieSelected && !diceLogic.isThirdDieSelected
+                            && !diceLogic.isFourthDieSelected && !diceLogic.isFifthDieSelected && !diceLogic.isSixthDieSelected) {
+                        messageBox.showNoDieSelected();
+                    } else {
+                        scoreLogic.setChoicePoint(spinner, adapter);
+                        messageBox.showRoundSucceededDialog(scoreLogic.currentScore);
+                        scoreLogic.currentScore = 0;
 
-                    spinner.setSelection(adapter.getPosition("Välj poängtyp"));
-                    spinner.setVisibility(View.GONE);
-                    diceLogic.deselectAllDices();
-                    diceLogic.disableDiceImage();
-                    //när 10 rundor är avklarade skickas användaren till resultatvyn.
-                    if (RoundsLogic.totalNumberOfRounds == 10) {
-                        openResultFragment();
+                        btnThrow.setVisibility(View.VISIBLE);
+                        btnTakePoints.setVisibility(View.GONE);
+
+                        spinner.setSelection(adapter.getPosition("Välj poängtyp"));
+                        spinner.setVisibility(View.GONE);
+                        diceLogic.deselectAllDices();
+                        diceLogic.disableDiceImage();
+                        //när 10 rundor är avklarade skickas användaren till resultatvyn.
+                        if (RoundsLogic.totalNumberOfRounds == 10) {
+                            openResultFragment();
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        //visar resultatsvyn manuellt ska tas bort innan inlämning
-        btnResult.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    openResultFragment();
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
+            //visar resultatsvyn manuellt ska tas bort innan inlämning
+            btnResult.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        openResultFragment();
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
                 }
+            });
+
+            //restora/hämta tillbaka variabler vid rotation av skärmen
+            if (savedInstanceState != null) {
+                savedInstanceState.getBoolean("dice1Selected");
+                savedInstanceState.getBoolean("dice2Selected");
+                savedInstanceState.getBoolean("dice3Selected");
+                savedInstanceState.getBoolean("dice4Selected");
+                savedInstanceState.getBoolean("dice5Selected");
+                savedInstanceState.getBoolean("dice6Selected");
+                int numberOfRounds = savedInstanceState.getInt("numberOfRounds");
+                int numberOfThrows = savedInstanceState.getInt("numberOfThrows");
+                textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + String.valueOf(numberOfRounds));
+                textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + String.valueOf(numberOfThrows));
+                savedInstanceState.getBoolean("PointTypeSucceeded");
+                savedInstanceState.getBoolean("PointTypeChosen");
+
+               diceLogic.globalDice = savedInstanceState.getParcelableArrayList("globalDice");
+                RestoreGUI.restoreDiceImageResource(diceLogic.globalDice, diceLogic.firstDieImageView,
+                        diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
+                        diceLogic.fifthDieImageView, diceLogic.sixthDieImageView);
             }
-        });
-
-        //restora/hämta tillbaka variabler vid rotation av skärmen
-        if (savedInstanceState != null) {
-            savedInstanceState.getBoolean("dice1Selected");
-            savedInstanceState.getBoolean("dice2Selected");
-            savedInstanceState.getBoolean("dice3Selected");
-            savedInstanceState.getBoolean("dice4Selected");
-            savedInstanceState.getBoolean("dice5Selected");
-            savedInstanceState.getBoolean("dice6Selected");
-
-            int numberOfRounds = savedInstanceState.getInt("Round");
-            int numberOfThrows = savedInstanceState.getInt("Throw");
-
-            textViewRounds.setText(R.string.numberOfRounds + String.valueOf(numberOfRounds));
-            textViewThrows.setText(R.string.numberOfThrows + String.valueOf(numberOfThrows));
-
-            savedInstanceState.getBoolean("PointTypeSucceeded");
-            savedInstanceState.getBoolean("choiceHasBeenSelected");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -209,32 +218,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-  /*  @Override
-    protected void onResume() {
-        diceLogic.firstDieImageView.setImageResource(R.drawable.white1);
-        super.onResume();
-    }
-
-   */
-
-   /* @Override
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("dice1Selected", diceLogic.isFirstDieSelected);
-        outState.putBoolean("dice2Selected", diceLogic.isSecondDieSelected);
-        outState.putBoolean("dice3Selected", diceLogic.isThirdDieSelected);
-        outState.putBoolean("dice4Selected", diceLogic.isFourthDieSelected);
-        outState.putBoolean("dice5Selected", diceLogic.isFifthDieSelected);
-        outState.putBoolean("dice6Selected", diceLogic.isSixthDieSelected);
+        try {
+            outState.putBoolean("dice1Selected", diceLogic.isFirstDieSelected);
+            outState.putBoolean("dice2Selected", diceLogic.isSecondDieSelected);
+            outState.putBoolean("dice3Selected", diceLogic.isThirdDieSelected);
+            outState.putBoolean("dice4Selected", diceLogic.isFourthDieSelected);
+            outState.putBoolean("dice5Selected", diceLogic.isFifthDieSelected);
+            outState.putBoolean("dice6Selected", diceLogic.isSixthDieSelected);
 
-        outState.putInt("Round", RoundsLogic.totalNumberOfRounds);
-        outState.putInt("Throw", RoundsLogic.totalNumberOfThrowsDisplayed);
+            outState.putInt("numberOfRounds", RoundsLogic.totalNumberOfRounds);
+            outState.putInt("numberOfThrows", RoundsLogic.totalNumberOfThrowsDisplayed);
 
-        outState.putBoolean("PointTypeChoosen", ScoreLogic.pointTypeChoosen);
+            outState.putBoolean("PointTypeChosen", ScoreLogic.pointTypeChoosen);
 
+            outState.putParcelableArrayList("globalDice", diceLogic.globalDice);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
-    */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        // TODO Auto-generated method stub
+        super.onConfigurationChanged(newConfig);
+
+    }
 }
 

@@ -30,6 +30,7 @@ public class DiceLogic {
     public ArrayList<Die> globalDice = new ArrayList<>();
 
     public Context context;
+
     public DiceLogic(Context context) {
         this.context = context;
     }
@@ -127,6 +128,8 @@ public class DiceLogic {
 
     public void clickThrow(Spinner spinner, TextView txtThrows, TextView txtRounds, Button btnThrow) {
         enableDiceImage();
+        spinner.setEnabled(true);
+        spinner.setVisibility(View.VISIBLE);
         ArrayList<ImageView> selectedDicesImages = new ArrayList<>();
         if (isFirstDieSelected) {
             selectedDicesImages.add(firstDieImageView);
@@ -183,7 +186,7 @@ public class DiceLogic {
             }
         }
         //om ingen eller alla tärningar har valts, kastas alla tärningar om. Och alla blir selected
-        if (selectedDicesImages.size() == 0 || selectedDicesImages.size() == 6) {
+        if (selectedDicesImages.size() == 0) {
             selectedDicesImages.add(firstDieImageView);
             selectedDicesImages.add(secondDieImageView);
             selectedDicesImages.add(thirdDieImageView);
@@ -193,7 +196,6 @@ public class DiceLogic {
             for (Die die : globalDice) {
                 die.selected = true;
             }
-            spinner.setVisibility(View.VISIBLE);
         }
         //kasta till ny runda
         if (ScoreLogic.pointTypeChoosen) {
@@ -209,8 +211,6 @@ public class DiceLogic {
             txtThrows.setText(context.getResources().getString(R.string.numberOfThrows) + RoundsLogic.getAndSetThrows());
         }
     }
-
-
     public void rollDices(ArrayList<ImageView> selectedDicesImages, Button btnThrow) {
         try {
             setDiceImages(selectedDicesImages);
@@ -285,9 +285,7 @@ public class DiceLogic {
             imageViewsDice.add(imageViewDice6);
         }
         return imageViewsDice;
-    }
-
-     */
+    } */
 
     public void enableDiceImage() {
         firstDieImageView.setEnabled(true);
@@ -321,6 +319,11 @@ public class DiceLogic {
         fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
-    }
 
+        if (globalDice.size() == 6) {
+            for (Die die : globalDice) {
+                die.selected = false;
+            }
+        }
+    }
 }
