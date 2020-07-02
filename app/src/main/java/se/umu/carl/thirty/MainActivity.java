@@ -1,9 +1,11 @@
 package se.umu.carl.thirty;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,30 +17,33 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import se.umu.carl.thirty.GameLogic.DiceLogic;
 import se.umu.carl.thirty.GameLogic.RestoreGUI;
 import se.umu.carl.thirty.GameLogic.RoundsLogic;
 import se.umu.carl.thirty.GameLogic.ScoreLogic;
+import se.umu.carl.thirty.GameLogic.SpinnerLogic;
 import se.umu.carl.thirty.Views.SpinnerItems;
-import se.umu.carl.thirty.Views.MessageBox;
+import se.umu.carl.thirty.Views.FeedBackDialogMessageBox;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnThrow;
     private Button btnTakePoints;
     private TextView textViewRounds;
     private TextView textViewThrows;
-
-    private Button btnResult;
     private Spinner spinner;
-
     private ArrayAdapter<String> adapter;
-    private ScoreLogic scoreLogic = new ScoreLogic();
+
     private Boolean spinnerTouched = false;
 
+    ScoreLogic scoreLogic = new ScoreLogic(this);
     DiceLogic diceLogic = new DiceLogic(this);
-    MessageBox messageBox = new MessageBox(MainActivity.this);
+    SpinnerLogic spinnerLogic = new SpinnerLogic(this);
+    FeedBackDialogMessageBox messageBox = new FeedBackDialogMessageBox(MainActivity.this);
 
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             textViewRounds = findViewById(R.id.txtRounds);
             textViewThrows = findViewById(R.id.txtThrows);
 
-            btnResult = findViewById(R.id.btnResult);
             btnThrow = findViewById(R.id.btnThrow);
             btnTakePoints = findViewById(R.id.btnTakePoints);
             btnTakePoints.setVisibility(View.GONE);
@@ -124,12 +128,7 @@ public class MainActivity extends AppCompatActivity {
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (spinnerTouched) {
-                        diceLogic.deselectAllDices();
-                        spinner.setEnabled(false);
-                        btnTakePoints.setVisibility(View.VISIBLE);
-                        RestoreGUI.isBtnTakePointsDisplayed = true;
-                        btnThrow.setVisibility(View.GONE);
-                        RestoreGUI.inChoosingPointProgress = true;
+                        spinnerLogic.clickSelectedSpinnerItem(diceLogic, spinner, btnTakePoints, btnThrow);
                     }
                     spinnerTouched = false;
                 }
@@ -144,34 +143,11 @@ public class MainActivity extends AppCompatActivity {
                             && !diceLogic.isFourthDieSelected && !diceLogic.isFifthDieSelected && !diceLogic.isSixthDieSelected) {
                         messageBox.showNoDieSelected();
                     } else {
-                        scoreLogic.setChoicePoint(spinner, adapter);
-                        messageBox.showRoundSucceededDialog(scoreLogic.currentScore);
-                        scoreLogic.currentScore = 0;
-                        RestoreGUI.inChoosingPointProgress = false;
-                        btnThrow.setVisibility(View.VISIBLE);
-                        RestoreGUI.isBtnThrowDisplayed = true;
-                        btnTakePoints.setVisibility(View.GONE);
-
-                        spinner.setVisibility(View.GONE);
-                        spinner.setSelection(adapter.getPosition(getResources().getStringArray(R.array.choices)[0]));
-                        diceLogic.deselectAllDices();
-                        diceLogic.disableDiceImage();
-                        //när 10 rundor är avklarade skickas användaren till resultatvyn.
-                        if (RoundsLogic.totalNumberOfRounds == 10) {
+                        scoreLogic.getPoints(spinner, adapter, messageBox, btnThrow, btnTakePoints, diceLogic);
+                        // När 10 rundor är avklarade skickas användaren till resultatvyn.
+                        if (RoundsLogic.getAndSetGameOver()) {
                             openResultFragment();
                         }
-                    }
-                }
-            });
-
-            //visar resultatsvyn manuellt ska tas bort innan inlämning
-            btnResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        openResultFragment();
-                    } catch (Exception ex) {
-                        System.out.println(ex.getMessage());
                     }
                 }
             });
@@ -195,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 RestoreGUI.setBtnThrowVisibility(btnThrow);
                 RestoreGUI.setBtnTakePointsVisibility(btnTakePoints);
-
+                RestoreGUI.hideButtonOnResultFragmentOrientationChange(btnThrow);
                 RestoreGUI.setDieBackgroundColor(diceLogic.isFirstDieSelected, diceLogic.isSecondDieSelected, diceLogic.isThirdDieSelected,
                         diceLogic.isFourthDieSelected, diceLogic.isFifthDieSelected, diceLogic.isSixthDieSelected,
                         diceLogic.firstDieImageView, diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
@@ -208,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 spinner.setSelection(adapter.getPosition(getResources().getStringArray(R.array.choices)[0]));
 
                 if (savedInstanceState.getStringArrayList("choicePointsSpinner") != null) {
-                    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, savedInstanceState.getStringArrayList("choicePointsSpinner"));
+                    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Objects.requireNonNull(savedInstanceState.getStringArrayList("choicePointsSpinner")));
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
                     RestoreGUI.setSpinnerState(spinner);
@@ -233,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
             ft.commit();
             //gömmer resultat och kast knappen
             btnThrow.setVisibility(View.GONE);
-            btnResult.setVisibility(View.GONE);
             btnTakePoints.setVisibility(View.GONE);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

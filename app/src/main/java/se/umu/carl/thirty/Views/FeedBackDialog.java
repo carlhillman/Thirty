@@ -7,12 +7,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class CustomDialog extends AppCompatDialogFragment {
+public class FeedBackDialog extends AppCompatDialogFragment {
     private static final String TAG = "CustomDialog";
     private String title;
     private String message;
 
-    public CustomDialog(String title, String message) {
+    public FeedBackDialog(String title, String message) {
         this.title = title;
         this.message = message;
     }

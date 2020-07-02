@@ -30,7 +30,7 @@ public class DiceLogic {
 
     public ArrayList<Die> globalDice = new ArrayList<>();
 
-    public Context context;
+    private Context context;
 
     public DiceLogic(Context context) {
         this.context = context;

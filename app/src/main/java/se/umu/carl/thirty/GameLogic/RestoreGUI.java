@@ -5,7 +5,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
 import java.util.ArrayList;
+
 import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.R;
 
@@ -28,7 +30,6 @@ public class RestoreGUI {
             btnThrow.setVisibility(View.VISIBLE);
         }
     }
-
     public static void setBtnTakePointsVisibility(Button btnTakePoints) {
         if (inChoosingPointProgress) {
             btnTakePoints.setVisibility(View.VISIBLE);
@@ -36,7 +37,6 @@ public class RestoreGUI {
             btnTakePoints.setVisibility(View.GONE);
         }
     }
-
     public static void setSpinnerState(Spinner spinner) {
         if (RoundsLogic.totalNumberOfThrowsDisplayed >= 1) {
             spinner.setVisibility(View.VISIBLE);
@@ -47,6 +47,12 @@ public class RestoreGUI {
         }
         if (ScoreLogic.pointTypeChoosen) {
             spinner.setVisibility(View.GONE);
+        }
+    }
+
+    public static void hideButtonOnResultFragmentOrientationChange(Button btnThrow) {
+        if (RoundsLogic.getAndSetGameOver()) {
+            btnThrow.setVisibility(View.GONE);
         }
     }
 

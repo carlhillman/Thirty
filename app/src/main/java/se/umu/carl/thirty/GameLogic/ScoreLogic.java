@@ -1,7 +1,10 @@
 package se.umu.carl.thirty.GameLogic;
 
 import android.app.Activity;
+import android.content.Context;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -10,12 +13,18 @@ import java.util.Map;
 import se.umu.carl.thirty.Models.Dice;
 import se.umu.carl.thirty.Models.ResultStorage;
 import se.umu.carl.thirty.Models.Die;
+import se.umu.carl.thirty.R;
+import se.umu.carl.thirty.Views.FeedBackDialogMessageBox;
 
 // Logik som håller koll på nuvarande poäng, vilket val som ska räknas och validerar poängsättningen
-public class ScoreLogic extends Activity {
+public class ScoreLogic {
     public int currentScore;
     //måste vara static eftersom den används i DiceLogic
     public static boolean pointTypeChoosen = false;
+    private Context context;
+    public ScoreLogic(Context context){
+        this.context = context;
+    }
 
     //bestämer vilken poäng som ska sättas.
     public void setChoicePoint(Spinner spinner, ArrayAdapter<String> adapter) {
@@ -61,7 +70,6 @@ public class ScoreLogic extends Activity {
             }
         }
     }
-
     //kollar vilka kombinationer och tärningar som finns på fältet
     protected void calculateCurrentScore(String selectedItem, int choicePoint, ArrayAdapter<String> adapter) {
         ArrayList<Die> dice = new ArrayList<>();
@@ -76,7 +84,6 @@ public class ScoreLogic extends Activity {
                 }
             }
             //ifall summan av tärningarna är delbart med valet
-
             if (currentScore % choicePoint == 0 && currentScore >= choicePoint) {
                 ResultStorage.score = currentScore;
             } else {
@@ -91,6 +98,26 @@ public class ScoreLogic extends Activity {
             Dice.triesAndDiceNumbers.clear();
 
         } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void getPoints(Spinner spinner, ArrayAdapter<String>adapter, FeedBackDialogMessageBox messageBox
+    , Button btnThrow, Button btnTakePoints, DiceLogic diceLogic){
+        try {
+            setChoicePoint(spinner, adapter);
+            messageBox.showRoundSucceededDialog(currentScore);
+            currentScore = 0;
+            RestoreGUI.inChoosingPointProgress = false;
+            btnThrow.setVisibility(View.VISIBLE);
+            RestoreGUI.isBtnThrowDisplayed = true;
+            btnTakePoints.setVisibility(View.GONE);
+            spinner.setVisibility(View.GONE);
+            spinner.setSelection(adapter.getPosition(context.getResources().getStringArray(R.array.choices)[0]));
+            diceLogic.deselectAllDices();
+            diceLogic.disableDiceImage();
+        }
+        catch(Exception ex){
             System.out.println(ex.getMessage());
         }
     }
