@@ -11,17 +11,16 @@ public class FeedBackDialogMessageBox {
     }
     //alla dialog rutor för specifika användarfel
     private  FragmentManager getSupportFragmentManager(){
-        FragmentManager fragmentManager = ((FragmentActivity)activity).getSupportFragmentManager();
-        return fragmentManager;
+        return ((FragmentActivity)activity).getSupportFragmentManager();
     }
 
     public void showRoundSucceededDialog(int score) {
         FeedBackDialog feedBackDialog = new FeedBackDialog("Tagna poäng: " + score, "Kasta för att börja nästa runda");
-        feedBackDialog.show(getSupportFragmentManager(), "CustomDialog");
+        feedBackDialog.show(getSupportFragmentManager(), FeedBackDialog.TAG);
     }
 
     public void showNoDieSelected() {
-        FeedBackDialog feedBackDialog = new FeedBackDialog("Ingen tärning vald!", "Du kan inte ta någon poäng om du inte valt någon tärning!");
-        feedBackDialog.show(getSupportFragmentManager(), "CustomDialog");
+        FeedBackDialog feedBackDialog = new FeedBackDialog("Ingen tärning vald!", "Välj en tärning/tärningar");
+        feedBackDialog.show(getSupportFragmentManager(), FeedBackDialog.TAG);
     }
 }

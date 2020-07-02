@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/image_view_dice1"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:contentDescription="@string/dice1"
         android:src="@drawable/white1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/image_view_dice2"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:contentDescription="@string/dice2"
         android:src="@drawable/white2"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,8 +36,8 @@
 
     <ImageView
         android:id="@+id/image_view_dice3"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:contentDescription="@string/dice3"
         android:src="@drawable/white3"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,8 +49,8 @@
 
     <ImageView
         android:id="@+id/image_view_dice4"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:contentDescription="@string/dice4"
         android:src="@drawable/white4"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,8 +62,8 @@
 
     <ImageView
         android:id="@+id/image_view_dice5"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:contentDescription="@string/dice5"
         android:src="@drawable/white5"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,8 +75,8 @@
 
     <ImageView
         android:id="@+id/image_view_dice6"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:contentDescription="@string/dice6"
         android:src="@drawable/white6"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,24 +86,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.594" />
 
+
     <Spinner
         android:id="@+id/spinnerChoice"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="404dp"
-        android:layout_marginRight="404dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginEnd="388dp"
+        android:layout_marginRight="388dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
     <TextView
         android:id="@+id/txtRounds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginBottom="288dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginRight="96dp"
+        android:layout_marginBottom="224dp"
         android:text="@string/numberOfRounds"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -114,9 +114,9 @@
         android:id="@+id/txtThrows"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="220dp"
-        android:layout_marginRight="220dp"
-        android:layout_marginBottom="288dp"
+        android:layout_marginEnd="232dp"
+        android:layout_marginRight="232dp"
+        android:layout_marginBottom="224dp"
         android:text="@string/numberOfThrows"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -127,9 +127,9 @@
         android:id="@+id/btnThrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:layout_marginBottom="124dp"
         android:text="@string/throwDice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -138,9 +138,9 @@
         android:id="@+id/btnTakePoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:layout_marginBottom="168dp"
+        android:layout_marginEnd="184dp"
+        android:layout_marginRight="184dp"
+        android:layout_marginBottom="124dp"
         android:text="@string/takePoints"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

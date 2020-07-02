@@ -1,5 +1,6 @@
 package se.umu.carl.thirty;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -34,14 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewThrows;
     private Spinner spinner;
     private ArrayAdapter<String> adapter;
-
     private Boolean spinnerTouched = false;
-
     ScoreLogic scoreLogic = new ScoreLogic(this);
     DiceLogic diceLogic = new DiceLogic(this);
     SpinnerLogic spinnerLogic = new SpinnerLogic(this);
     FeedBackDialogMessageBox messageBox = new FeedBackDialogMessageBox(MainActivity.this);
-
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("SetTextI18n")
@@ -118,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             spinner.setOnTouchListener(new View.OnTouchListener() {
+                @SuppressLint("ClickableViewAccessibility")
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     spinnerTouched = true;
@@ -216,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         try {
             outState.putBoolean("isFirstDieSelected", diceLogic.isFirstDieSelected);
