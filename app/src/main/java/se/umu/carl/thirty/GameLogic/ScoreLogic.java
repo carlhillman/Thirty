@@ -52,8 +52,6 @@ public class ScoreLogic extends Activity { //håller koll på poängräkninslogi
                     case "12":
                         calculateCurrentScore("12", 12, adapter);
                         break;
-                    case "Välj poängtyp": //ta bort detta alternativ ifall när man öppnar listan rensas detta alternativ
-                        System.out.println("Du har inte valt någon poängtyp, försök igen");
                 }
                 //lägga in någonstans det valet och den poängen man får för att visa slutresultatet.
                 ChoicePointResult.choicePoints.put((String) selectedItem, ChoicePointResult.score);

@@ -1,6 +1,8 @@
 package se.umu.carl.thirty.GameLogic;
 
+import android.graphics.Color;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -8,30 +10,75 @@ import java.util.ArrayList;
 
 import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.R;
-import se.umu.carl.thirty.Views.ChoicePointsSpinner;
+import se.umu.carl.thirty.Views.SpinnerItems;
 
+//hämtar tillbaka Gui komponenter vid skärmrotation
 public class RestoreGUI {
 
-   /* public static void restoreSpinner(Spinner spinner) {
-        ChoicePointsSpinner.retrieveAllItems(spinner);
-        spinner.setVisibility(View.VISIBLE);
+    public static boolean isBtnTakePointsDisplayed = false;
+    public static boolean isBtnThrowDisplayed = false;
+    public static boolean inChoosingPointProgress = false;
+
+    public static void setBtnThrowVisibility(Button btnThrow) {
+        if (RoundsLogic.totalNumberOfThrowsDisplayed == 3) {
+            btnThrow.setVisibility(View.GONE);
+        } else if (inChoosingPointProgress) {
+            btnThrow.setVisibility(View.GONE);
+        } else {
+            btnThrow.setVisibility(View.VISIBLE);
+        }
+    }
+    public static void setBtnTakePointsVisibility(Button btnTakePoints) {
+        if (inChoosingPointProgress) {
+            btnTakePoints.setVisibility(View.VISIBLE);
+        } else {
+            btnTakePoints.setVisibility(View.GONE);
+        }
     }
 
-    */
+    public static void setDieBackgroundColor(boolean isFirstDieSelected, boolean isSecondDieSelected, boolean isThirdDieSelected,
+                                             boolean isFourthDieSelected, boolean isFifthDieSelected, boolean isSixthDieSelected,
+                                             ImageView firstDieImageView,
+                                             ImageView secondDieImageView,
+                                             ImageView thirdDieImageView,
+                                             ImageView fourthDieImageView,
+                                             ImageView fifthDieImageView,
+                                             ImageView sixthDieImageView
+
+                                             ){
+        if (isFirstDieSelected) {
+            firstDieImageView.setBackgroundColor(Color.BLUE);
+        }
+        if (isSecondDieSelected) {
+            secondDieImageView.setBackgroundColor(Color.BLUE);
+        }
+        if (isThirdDieSelected) {
+            thirdDieImageView.setBackgroundColor(Color.BLUE);
+        }
+        if (isFourthDieSelected) {
+            fourthDieImageView.setBackgroundColor(Color.BLUE);
+        }
+        if (isFifthDieSelected) {
+            fifthDieImageView.setBackgroundColor(Color.BLUE);
+        }
+        if (isSixthDieSelected) {
+            sixthDieImageView.setBackgroundColor(Color.BLUE);
+        }
+    }
 
     public static void restoreDiceImageResource(ArrayList<Die> globalDice, ImageView firstDieImageView,
-                                                ImageView secondImageView,
-                                                ImageView thirdImageView,
-                                                ImageView fourthImageView,
-                                                ImageView fifthImageView,
-                                                ImageView sixthImageView) {
+                                                ImageView secondDieImageView,
+                                                ImageView thirdDieImageView,
+                                                ImageView fourthDieImageView,
+                                                ImageView fifthDieImageView,
+                                                ImageView sixthDieImageView) {
         if (globalDice.size() == 6) {
             restoreFirstDieImage(globalDice, firstDieImageView);
-            restoreSecondDieImage(globalDice, secondImageView);
-            restoreThirdDieImage(globalDice, thirdImageView);
-            restoreFourthDieImage(globalDice, fourthImageView);
-            restoreFifthDieImage(globalDice, fifthImageView);
-            restoreSixthDieImage(globalDice, sixthImageView);
+            restoreSecondDieImage(globalDice, secondDieImageView);
+            restoreThirdDieImage(globalDice, thirdDieImageView);
+            restoreFourthDieImage(globalDice, fourthDieImageView);
+            restoreFifthDieImage(globalDice, fifthDieImageView);
+            restoreSixthDieImage(globalDice, sixthDieImageView);
         }
     }
 

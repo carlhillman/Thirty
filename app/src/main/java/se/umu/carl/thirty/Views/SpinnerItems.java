@@ -5,7 +5,7 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-public class ChoicePointsSpinner {
+public class SpinnerItems {
 
     public static ArrayList<String> retrieveAllItems(Spinner theSpinner) {
         ArrayAdapter<String> adapter = (ArrayAdapter<String>) theSpinner.getAdapter();

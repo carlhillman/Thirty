@@ -27,6 +27,8 @@ public class DiceLogic {
     public boolean isFifthDieSelected = false;
     public boolean isSixthDieSelected = false;
 
+    //public boolean isBtnThrowDisplayed = false;
+
     public ArrayList<Die> globalDice = new ArrayList<>();
 
     public Context context;
@@ -123,6 +125,7 @@ public class DiceLogic {
         enableDiceImage();
         spinner.setEnabled(true);
         spinner.setVisibility(View.VISIBLE);
+        //spinner.setSelection(adapter.getPosition("Välj poängtyp"));
         ArrayList<ImageView> selectedDicesImages = new ArrayList<>();
         if (isFirstDieSelected) {
             selectedDicesImages.add(firstDieImageView);

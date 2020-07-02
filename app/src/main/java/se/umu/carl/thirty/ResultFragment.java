@@ -20,7 +20,7 @@ public class ResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = (View) inflater.inflate(R.layout.fragment_result, container, false);
+        View view = inflater.inflate(R.layout.fragment_result, container, false);
         TextView choice1 = view.findViewById(R.id.choiceRow1);
         TextView score1 = view.findViewById(R.id.scoreRow1);
 
@@ -145,7 +145,7 @@ public class ResultFragment extends Fragment {
                     break;
             }
         }
-        summaryText.setText(R.string.totalScore);
+        summaryText.setText(getResources().getString(R.string.totalScore));
         summaryScore.setText(String.valueOf(totalSum));
         return view;
     }
