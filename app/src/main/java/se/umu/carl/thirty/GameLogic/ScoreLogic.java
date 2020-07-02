@@ -18,7 +18,7 @@ import se.umu.carl.thirty.Views.FeedBackDialogMessageBox;
 
 // Logik som håller koll på nuvarande poäng, vilket val som ska räknas och validerar poängsättningen
 public class ScoreLogic {
-    public int currentScore;
+    public  int currentScore;
     //måste vara static eftersom den används i DiceLogic
     public static boolean pointTypeChoosen = false;
     private Context context;

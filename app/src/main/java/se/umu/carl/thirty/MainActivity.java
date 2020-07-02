@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 RestoreGUI.isBtnThrowDisplayed = savedInstanceState.getBoolean("isBtnThrowDisplayed");
                 RestoreGUI.isDiceImageViewEnabled = savedInstanceState.getBoolean("isDiceImageViewEnabled");
 
+
                 if (!RestoreGUI.isDiceImageViewEnabled) {
                     diceLogic.disableDiceImage();
                 } else {
@@ -194,6 +195,8 @@ public class MainActivity extends AppCompatActivity {
                             diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
                             diceLogic.fifthDieImageView, diceLogic.sixthDieImageView);
                 }
+
+
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -232,6 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
             outState.putInt("numberOfRounds", RoundsLogic.totalNumberOfRounds);
             outState.putInt("numberOfThrows", RoundsLogic.totalNumberOfThrowsDisplayed);
+            //outState.putInt("currentScore", scoreLogic.currentScore);
 
             outState.putBoolean("PointTypeChosen", ScoreLogic.pointTypeChoosen);
 

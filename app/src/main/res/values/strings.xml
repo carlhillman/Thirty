@@ -26,7 +26,7 @@
     <string name="numberOfThrows">Kast: </string>
     <string name="takePoints">Ta poäng</string>
 
-    <!-- Fragment-->
+    <!-- Resultat Fragment-->
     <string name="throwDice">Kasta</string>
     <string name="game_score">Spelets slutresultat</string>
     <string name="choice">Val</string>
