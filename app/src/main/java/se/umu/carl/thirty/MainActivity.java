@@ -1,6 +1,8 @@
 package se.umu.carl.thirty;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
@@ -24,7 +26,8 @@ import se.umu.carl.thirty.GameLogic.DiceLogic;
 import se.umu.carl.thirty.GameLogic.RestoreGUI;
 import se.umu.carl.thirty.GameLogic.RoundsLogic;
 import se.umu.carl.thirty.GameLogic.ScoreLogic;
-import se.umu.carl.thirty.Models.Die;
+
+import se.umu.carl.thirty.Views.ChoicePointsSpinner;
 import se.umu.carl.thirty.Views.MessageBox;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     DiceLogic diceLogic = new DiceLogic(this);
     MessageBox messageBox = new MessageBox(MainActivity.this);
+    int layoutId = R.layout.activity_main;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -49,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-            //diceLogic.setUIComponents();
             diceLogic.firstDieImageView = findViewById(R.id.image_view_dice1);
             diceLogic.secondDieImageView = findViewById(R.id.image_view_dice2);
             diceLogic.thirdDieImageView = findViewById(R.id.image_view_dice3);
@@ -154,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                         btnThrow.setVisibility(View.VISIBLE);
                         btnTakePoints.setVisibility(View.GONE);
 
-                        spinner.setSelection(adapter.getPosition("Välj poängtyp"));
                         spinner.setVisibility(View.GONE);
                         diceLogic.deselectAllDices();
                         diceLogic.disableDiceImage();
@@ -180,12 +182,13 @@ public class MainActivity extends AppCompatActivity {
 
             //restora/hämta tillbaka variabler vid rotation av skärmen
             if (savedInstanceState != null) {
-                savedInstanceState.getBoolean("dice1Selected");
-                savedInstanceState.getBoolean("dice2Selected");
-                savedInstanceState.getBoolean("dice3Selected");
-                savedInstanceState.getBoolean("dice4Selected");
-                savedInstanceState.getBoolean("dice5Selected");
-                savedInstanceState.getBoolean("dice6Selected");
+                diceLogic.isFirstDieSelected = savedInstanceState.getBoolean("isFirstDieSelected");
+                diceLogic.isSecondDieSelected = savedInstanceState.getBoolean("isSecondDieSelected");
+                diceLogic.isThirdDieSelected = savedInstanceState.getBoolean("isThirdDieSelected");
+                diceLogic.isFourthDieSelected = savedInstanceState.getBoolean("isFourthDieSelected");
+                diceLogic.isFifthDieSelected = savedInstanceState.getBoolean("isFifthDieSelected");
+                diceLogic.isSixthDieSelected = savedInstanceState.getBoolean("isSixthDieSelected");
+
                 int numberOfRounds = savedInstanceState.getInt("numberOfRounds");
                 int numberOfThrows = savedInstanceState.getInt("numberOfThrows");
                 textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + String.valueOf(numberOfRounds));
@@ -193,11 +196,22 @@ public class MainActivity extends AppCompatActivity {
                 savedInstanceState.getBoolean("PointTypeSucceeded");
                 savedInstanceState.getBoolean("PointTypeChosen");
 
-               diceLogic.globalDice = savedInstanceState.getParcelableArrayList("globalDice");
-                RestoreGUI.restoreDiceImageResource(diceLogic.globalDice, diceLogic.firstDieImageView,
-                        diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
-                        diceLogic.fifthDieImageView, diceLogic.sixthDieImageView);
+                if (savedInstanceState.getStringArrayList("choicePointsSpinner") != null) {
+                    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, savedInstanceState.getStringArrayList("choicePointsSpinner"));
+                    adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
+                    spinner.setVisibility(View.VISIBLE);
+                    spinner.setSelection(adapter.getPosition("Välj poängtyp"));
+                }
+
+                diceLogic.globalDice = savedInstanceState.getParcelableArrayList("globalDice");
+                if (diceLogic.globalDice != null) {
+                    RestoreGUI.restoreDiceImageResource(diceLogic.globalDice, diceLogic.firstDieImageView,
+                            diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
+                            diceLogic.fifthDieImageView, diceLogic.sixthDieImageView);
+                }
             }
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -222,12 +236,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         try {
-            outState.putBoolean("dice1Selected", diceLogic.isFirstDieSelected);
-            outState.putBoolean("dice2Selected", diceLogic.isSecondDieSelected);
-            outState.putBoolean("dice3Selected", diceLogic.isThirdDieSelected);
-            outState.putBoolean("dice4Selected", diceLogic.isFourthDieSelected);
-            outState.putBoolean("dice5Selected", diceLogic.isFifthDieSelected);
-            outState.putBoolean("dice6Selected", diceLogic.isSixthDieSelected);
+            outState.putBoolean("isFirstDieSelected", diceLogic.isFirstDieSelected);
+            outState.putBoolean("isSecondDieSelected", diceLogic.isSecondDieSelected);
+            outState.putBoolean("isThirdDieSelected", diceLogic.isThirdDieSelected);
+            outState.putBoolean("isFourthDieSelected", diceLogic.isFourthDieSelected);
+            outState.putBoolean("isFifthDieSelected", diceLogic.isFifthDieSelected);
+            outState.putBoolean("isSixthDieSelected", diceLogic.isSixthDieSelected);
 
             outState.putInt("numberOfRounds", RoundsLogic.totalNumberOfRounds);
             outState.putInt("numberOfThrows", RoundsLogic.totalNumberOfThrowsDisplayed);
@@ -236,16 +250,23 @@ public class MainActivity extends AppCompatActivity {
 
             outState.putParcelableArrayList("globalDice", diceLogic.globalDice);
 
+            outState.putStringArrayList("choicePointsSpinner", ChoicePointsSpinner.retrieveAllItems(spinner));
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        // TODO Auto-generated method stub
-        super.onConfigurationChanged(newConfig);
 
+/*
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("layoutId", layoutId);
+        super.onSaveInstanceState(outState);
     }
+
+
+ */
+
 }
 

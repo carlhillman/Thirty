@@ -38,8 +38,6 @@ public class Die implements Parcelable {
     }
 
     public void writeToParcel(Parcel out, int flags) {
-        //out.writeString(color);
-        //out.writeString(number);
         out.writeByte((byte) (selected == null ? 0 : selected ? 1 : 2));
         out.writeInt(value);
         out.writeString(color);

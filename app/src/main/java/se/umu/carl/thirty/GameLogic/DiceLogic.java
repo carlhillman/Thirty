@@ -34,13 +34,6 @@ public class DiceLogic {
     public DiceLogic(Context context) {
         this.context = context;
     }
-  /*  public void setUIComponents() {
-        View view = LayoutInflater.from(context).inflate(R.layout.activity_main, null);
-        txtThrows = view.findViewById(R.id.txtThrows);
-        txtRounds = view.findViewById(R.id.txtRounds);
-        btnThrow = view.findViewById(R.id.btnThrow);
-    }
-   */
 
     public void clickFirstDie() {
         if (globalDice.size() == 6) {
