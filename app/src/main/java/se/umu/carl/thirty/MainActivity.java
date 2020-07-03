@@ -28,6 +28,7 @@ import se.umu.carl.thirty.GameLogic.SpinnerLogic;
 import se.umu.carl.thirty.Views.SpinnerItems;
 import se.umu.carl.thirty.Views.FeedBackDialogMessageBox;
 
+// MainActivity en klass som initierar alla GUI element och dess klick event
 public class MainActivity extends AppCompatActivity {
     private Button btnThrow;
     private Button btnTakePoints;
@@ -202,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(ex.getMessage());
         }
     }
-
     //öppnar resultatvyn
     private void openResultFragment() {
         try {
@@ -216,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(ex.getMessage());
         }
     }
-
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -227,20 +226,14 @@ public class MainActivity extends AppCompatActivity {
             outState.putBoolean("isFourthDieSelected", diceLogic.isFourthDieSelected);
             outState.putBoolean("isFifthDieSelected", diceLogic.isFifthDieSelected);
             outState.putBoolean("isSixthDieSelected", diceLogic.isSixthDieSelected);
-
             outState.putBoolean("isBtnThrowDisplayed", RestoreGUIManager.isBtnThrowDisplayed);
             outState.putBoolean("isBtnTakePointsDisplayed", RestoreGUIManager.isBtnTakePointsDisplayed);
             outState.putBoolean("inChoosingPointProgress", RestoreGUIManager.inChoosingPointProgress);
             outState.putBoolean("isDiceImageViewEnabled", RestoreGUIManager.isDiceImageViewEnabled);
-
             outState.putInt("numberOfRounds", RoundsLogic.totalNumberOfRounds);
             outState.putInt("numberOfThrows", RoundsLogic.totalNumberOfThrowsDisplayed);
-            //outState.putInt("currentScore", scoreLogic.currentScore);
-
             outState.putBoolean("PointTypeChosen", ScoreLogic.pointTypeChoosen);
-
             outState.putParcelableArrayList("globalDice", diceLogic.globalDice);
-
             outState.putStringArrayList("choicePointsSpinner", SpinnerItems.retrieveAllItems(spinner));
 
         } catch (Exception ex) {
