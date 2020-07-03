@@ -7,6 +7,7 @@
     <string name="dice5">dice5</string>
     <string name="dice6">dice6</string>
 
+    <!--spinner items-->
     <string-array name="choices">
         <item>Välj poängtyp</item>
         <item>Low</item>
@@ -32,5 +33,12 @@
     <string name="choice">Val</string>
     <string name="score">Poäng</string>
     <string name="totalScore">Total poäng</string>
+
+    <!-- Feedback Fragment -->
+    <string name="succeededTitle">Tagna poäng: </string>
+    <string name="succeededMessage">Kasta för att börja nästa runda</string>
+
+    <string name="failedTitle">Ingen tärning vald!</string>
+    <string name="failedMessage">Du måste välja en tärning/tärningar </string>
 
 </resources>
