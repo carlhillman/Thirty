@@ -17,7 +17,7 @@ import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.Models.Dice;
 import se.umu.carl.thirty.R;
 
-//den generella Tärningslogiken som hanterar tärningskast
+//den generella logiken som hanterar tärningskast
 public class DiceLogic {
     public ImageView firstDieImageView, secondDieImageView, thirdDieImageView,
             fourthDieImageView, fifthDieImageView, sixthDieImageView;
@@ -119,7 +119,7 @@ public class DiceLogic {
             }
         }
     }
-
+// Klicket för kast av tärningar
     public void clickThrow(Spinner spinner, TextView txtThrows, TextView txtRounds, Button btnThrow) {
         enableDiceImage();
         spinner.setEnabled(true);
@@ -179,7 +179,7 @@ public class DiceLogic {
                 }
             }
         }
-        //om ingen eller alla tärningar har valts, kastas alla tärningar om. Och alla blir selected
+        // Om ingen tärning valts, blir alla valda
         if (selectedDicesImages.size() == 0) {
             selectedDicesImages.add(firstDieImageView);
             selectedDicesImages.add(secondDieImageView);
@@ -205,7 +205,6 @@ public class DiceLogic {
             txtThrows.setText(context.getResources().getString(R.string.numberOfThrows) + RoundsLogic.getAndSetThrows());
         }
     }
-
     public void rollDices(ArrayList<ImageView> selectedDicesImages, Button btnThrow) {
         try {
             setDiceImages(selectedDicesImages);
@@ -217,7 +216,7 @@ public class DiceLogic {
             System.out.println(ex.getMessage());
         }
     }
-
+ // Sätter bilder för tärningarna
     public void setDiceImages(ArrayList<ImageView> diceImages) {
         Random random = new Random();
         for (ImageView imageViewDice : diceImages) {
@@ -253,7 +252,7 @@ public class DiceLogic {
         }
         Dice.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, globalDice);
     }
-
+// Lägger till ett ny Tärningsobjekt/Die till listan eller uppdaterar befintlig
     private void addOrUpdateDie(int randomValue) {
         if (RoundsLogic.totalNumberOfThrowsDisplayed == 0) {
             Die die = new Die(false, randomValue);
@@ -268,7 +267,7 @@ public class DiceLogic {
             }
         }
     }
-
+// Sätter på klick funktionaliteten för alla tärningsbilder
     public void enableDiceImage() {
         firstDieImageView.setEnabled(true);
         secondDieImageView.setEnabled(true);
@@ -278,7 +277,7 @@ public class DiceLogic {
         sixthDieImageView.setEnabled(true);
         RestoreGUIManager.isDiceImageViewEnabled = true;
     }
-
+    // Stänger av klick funktionaliteten för alla tärningsbilder
     public void disableDiceImage() {
         firstDieImageView.setEnabled(false);
         secondDieImageView.setEnabled(false);
@@ -289,6 +288,7 @@ public class DiceLogic {
         RestoreGUIManager.isDiceImageViewEnabled = false;
     }
 
+    // Väljer bort alla tärningar
     public void deselectAllDices() {
         isFirstDieSelected = false;
         isSecondDieSelected = false;

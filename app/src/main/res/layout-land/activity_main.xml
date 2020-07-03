@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/image_view_dice1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:contentDescription="@string/dice1"
             android:src="@drawable/white1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -32,8 +32,8 @@
 
         <ImageView
             android:id="@+id/image_view_dice2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:contentDescription="@string/dice2"
             android:src="@drawable/white2"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,8 +45,8 @@
 
         <ImageView
             android:id="@+id/image_view_dice3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:contentDescription="@string/dice3"
             android:src="@drawable/white3"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -96,8 +96,8 @@
 
         <ImageView
             android:id="@+id/image_view_dice4"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:contentDescription="@string/dice4"
             android:src="@drawable/white4"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -109,8 +109,8 @@
 
         <ImageView
             android:id="@+id/image_view_dice5"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:contentDescription="@string/dice5"
             android:src="@drawable/white5"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -122,8 +122,8 @@
 
         <ImageView
             android:id="@+id/image_view_dice6"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:contentDescription="@string/dice6"
             android:src="@drawable/white6"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +151,7 @@
             android:layout_height="wrap_content"
             android:text="@string/takePoints"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.677"
+            app:layout_constraintHorizontal_bias="0.697"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
