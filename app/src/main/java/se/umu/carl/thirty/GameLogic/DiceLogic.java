@@ -124,7 +124,6 @@ public class DiceLogic {
         enableDiceImage();
         spinner.setEnabled(true);
         spinner.setVisibility(View.VISIBLE);
-        //spinner.setSelection(adapter.getPosition("Välj poängtyp"));
         ArrayList<ImageView> selectedDicesImages = new ArrayList<>();
         if (isFirstDieSelected) {
             selectedDicesImages.add(firstDieImageView);
@@ -277,7 +276,7 @@ public class DiceLogic {
         fourthDieImageView.setEnabled(true);
         fifthDieImageView.setEnabled(true);
         sixthDieImageView.setEnabled(true);
-        RestoreGUI.isDiceImageViewEnabled = true;
+        RestoreGUIManager.isDiceImageViewEnabled = true;
     }
 
     public void disableDiceImage() {
@@ -287,7 +286,7 @@ public class DiceLogic {
         fourthDieImageView.setEnabled(false);
         fifthDieImageView.setEnabled(false);
         sixthDieImageView.setEnabled(false);
-        RestoreGUI.isDiceImageViewEnabled = false;
+        RestoreGUIManager.isDiceImageViewEnabled = false;
     }
 
     public void deselectAllDices() {

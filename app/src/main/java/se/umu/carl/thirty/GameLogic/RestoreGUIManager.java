@@ -12,7 +12,7 @@ import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.R;
 
 // En hjälp klass som hämtar tillbaka GUI komponenter vid skärmrotation
-public class RestoreGUI {
+public class RestoreGUIManager {
 
     public static boolean isBtnTakePointsDisplayed = false;
     public static boolean isBtnThrowDisplayed = false;

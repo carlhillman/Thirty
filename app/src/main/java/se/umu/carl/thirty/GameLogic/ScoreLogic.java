@@ -108,9 +108,9 @@ public class ScoreLogic {
             setChoicePoint(spinner, adapter);
             messageBox.showRoundSucceededDialog(currentScore);
             currentScore = 0;
-            RestoreGUI.inChoosingPointProgress = false;
+            RestoreGUIManager.inChoosingPointProgress = false;
             btnThrow.setVisibility(View.VISIBLE);
-            RestoreGUI.isBtnThrowDisplayed = true;
+            RestoreGUIManager.isBtnThrowDisplayed = true;
             btnTakePoints.setVisibility(View.GONE);
             spinner.setVisibility(View.GONE);
             spinner.setSelection(adapter.getPosition(context.getResources().getStringArray(R.array.choices)[0]));
