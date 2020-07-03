@@ -37,7 +37,7 @@
     <!-- Feedback Fragment -->
     <string name="succeededTitle">Tagna poäng: </string>
     <string name="succeededMessage">Kasta för att börja nästa runda</string>
-
+    <string name="gameOverMessage">Spelet är slut</string>
     <string name="failedTitle">Ingen tärning vald!</string>
     <string name="failedMessage">Du måste välja en tärning/tärningar </string>
 

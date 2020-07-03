@@ -30,6 +30,7 @@ public class RestoreGUIManager {
             btnThrow.setVisibility(View.VISIBLE);
         }
     }
+
     public static void setBtnTakePointsVisibility(Button btnTakePoints) {
         if (inChoosingPointProgress) {
             btnTakePoints.setVisibility(View.VISIBLE);
@@ -37,6 +38,7 @@ public class RestoreGUIManager {
             btnTakePoints.setVisibility(View.GONE);
         }
     }
+
     public static void setSpinnerState(Spinner spinner) {
         if (RoundsLogic.totalNumberOfThrowsDisplayed >= 1) {
             spinner.setVisibility(View.VISIBLE);
@@ -56,6 +58,7 @@ public class RestoreGUIManager {
         }
     }
 
+    // Sätter tillbaka färg runt tärningsbilderna
     public static void setDieBackgroundColor(boolean isFirstDieSelected, boolean isSecondDieSelected, boolean isThirdDieSelected,
                                              boolean isFourthDieSelected, boolean isFifthDieSelected, boolean isSixthDieSelected,
                                              ImageView firstDieImageView,
@@ -86,6 +89,7 @@ public class RestoreGUIManager {
         }
     }
 
+    // Sätter tillbaka vilka tärnings bilder som ska visa för ImageViews
     public static void restoreDiceImageResource(ArrayList<Die> globalDice, ImageView firstDieImageView,
                                                 ImageView secondDieImageView,
                                                 ImageView thirdDieImageView,
@@ -101,7 +105,7 @@ public class RestoreGUIManager {
             restoreSixthDieImage(globalDice, sixthDieImageView);
         }
     }
-
+  // Bestämer vilken bild som ska visas för den första tärningen
     private static void restoreFirstDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(0).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
@@ -117,7 +121,7 @@ public class RestoreGUIManager {
             dieImageView.setImageResource(R.drawable.white6);
         }
     }
-
+    // Bestämer vilken bild som ska visas för den andra tärningen
     private static void restoreSecondDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(1).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
@@ -133,7 +137,7 @@ public class RestoreGUIManager {
             dieImageView.setImageResource(R.drawable.white6);
         }
     }
-
+    // Bestämer vilken bild som ska visas för den tredje tärningen
     private static void restoreThirdDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(2).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
@@ -149,7 +153,7 @@ public class RestoreGUIManager {
             dieImageView.setImageResource(R.drawable.white6);
         }
     }
-
+    // Bestämer vilken bild som ska visas för den fjärde tärningen
     private static void restoreFourthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(3).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
@@ -165,7 +169,7 @@ public class RestoreGUIManager {
             dieImageView.setImageResource(R.drawable.white6);
         }
     }
-
+    // Bestämer vilken bild som ska visas för den femte tärningen
     private static void restoreFifthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(4).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
@@ -181,7 +185,7 @@ public class RestoreGUIManager {
             dieImageView.setImageResource(R.drawable.white6);
         }
     }
-
+    // Bestämer vilken bild som ska visas för den sjätte tärningen
     private static void restoreSixthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(5).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);

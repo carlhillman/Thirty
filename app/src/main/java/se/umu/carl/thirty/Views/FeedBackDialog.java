@@ -16,14 +16,18 @@ public class FeedBackDialog extends AppCompatDialogFragment {
     protected String title;
     protected String message;
     protected Integer score;
+    protected boolean gameIsOver = false;
 
-    public void setRestoreSucceededMessage(int score) {
+    public void restoreSucceededMessage(int score) {
         title = getResources().getString(R.string.succeededTitle) + score;
         message = getResources().getString(R.string.succeededMessage);
 
     }
-
-    public void setRestoreNoDieChosenMessage() {
+    public void restoreGameOverMessage(int score){
+        title = getResources().getString(R.string.succeededTitle) + score;
+        message = getResources().getString(R.string.gameOverMessage);
+    }
+    public void restoreNoDieChosenMessage() {
         title = getResources().getString(R.string.failedTitle);
         message = getResources().getString(R.string.failedMessage);
     }
@@ -33,10 +37,15 @@ public class FeedBackDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             score = savedInstanceState.getInt("currentScore");
+            gameIsOver = savedInstanceState.getBoolean("gameIsOver");
             if (score == -1) {
-                setRestoreNoDieChosenMessage();
-            } else {
-                setRestoreSucceededMessage(score);
+                restoreNoDieChosenMessage();
+            }
+            else if(score >= 0 && !gameIsOver){
+                restoreSucceededMessage(score);
+            }
+            else if(gameIsOver){
+                restoreGameOverMessage(score);
             }
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -52,6 +61,7 @@ public class FeedBackDialog extends AppCompatDialogFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("currentScore", score);
+        outState.putBoolean("gameIsOver", gameIsOver);
     }
 }
 

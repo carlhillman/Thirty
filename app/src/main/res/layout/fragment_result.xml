@@ -19,8 +19,8 @@
             android:layout_marginVertical="20dp"
             android:gravity="center"
             android:text="@string/game_score"
-            android:textSize="22sp"
-            android:textStyle="bold"/>
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TableRow>
 
