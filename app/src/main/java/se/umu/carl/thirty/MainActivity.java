@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
             outState.putBoolean("isDiceImageViewEnabled", RestoreGUIManager.isDiceImageViewEnabled);
             outState.putInt("numberOfRounds", RoundsLogic.totalNumberOfRounds);
             outState.putInt("numberOfThrows", RoundsLogic.totalNumberOfThrowsDisplayed);
-            outState.putBoolean("PointTypeChosen", ScoreLogic.pointTypeChoosen);
+            outState.putBoolean("PointTypeChosen", ScoreLogic.pointTypeChosen);
             outState.putParcelableArrayList("globalDice", diceLogic.globalDice);
             outState.putStringArrayList("choicePointsSpinner", SpinnerItems.retrieveAllItems(spinner));
 

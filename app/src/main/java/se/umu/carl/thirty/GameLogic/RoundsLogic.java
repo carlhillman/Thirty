@@ -7,13 +7,20 @@ public class RoundsLogic {
     public static boolean isNewRound = false;
     public static boolean isGameOver = false;
 
+    /**
+     * metod som kollar om antal rundor är 10 och spelaren tar sina sista poäng, och därefter avslutar spelet
+     * @return isGameOver
+     */
     public static boolean getAndSetGameOver() {
-        if (ScoreLogic.pointTypeChoosen && totalNumberOfRounds == 10) {
+        if (ScoreLogic.pointTypeChosen && totalNumberOfRounds == 10) {
             isGameOver = true;
         }
         return isGameOver;
     }
-
+    /**
+     * metod som kollar ifall en ny runda har påbörjats och inkrementerar i så fall antal kast
+     * @return totalNumberOfThrowsDisplayed
+     */
     public static int getAndSetThrows() {
         if (isNewRound) {
             totalNumberOfThrowsDisplayed = 0;
@@ -21,7 +28,10 @@ public class RoundsLogic {
         totalNumberOfThrowsDisplayed++;
         return totalNumberOfThrowsDisplayed;
     }
-
+    /**
+     * metod som kollar ifall en ny runda har påbörjats och inkrementerar i så fall antal rundor
+     * @return totalNumberOfRounds
+     */
     public static int getAndSetRounds() {
         if (isNewRound) {
             totalNumberOfRounds++;

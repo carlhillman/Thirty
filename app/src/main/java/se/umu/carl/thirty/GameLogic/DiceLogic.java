@@ -38,6 +38,10 @@ public class DiceLogic {
 
     int numberOfBlueDice = 0;
 
+    /**
+     * Bestämmer vad som ska ske när man klickar på den första tärningen
+     * @param btnThrow
+     */
     public void clickFirstDie(Button btnThrow) {
         if (globalDice.size() == 6) {
             if (isFirstDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
@@ -65,7 +69,10 @@ public class DiceLogic {
             }
         }
     }
-
+    /**
+     * Bestämmer vad som ska ske när man klickar på den andra tärningen
+     * @param btnThrow
+     */
     public void clickSecondDie(Button btnThrow) {
         if (globalDice.size() == 6) {
             if (isSecondDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
@@ -93,7 +100,10 @@ public class DiceLogic {
             }
         }
     }
-
+    /**
+     * Bestämmer vad som ska ske när man klickar på den tredje tärningen
+     * @param btnThrow
+     */
     public void clickThirdDie(Button btnThrow) {
         if (globalDice.size() == 6) {
             if (isThirdDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
@@ -121,7 +131,10 @@ public class DiceLogic {
             }
         }
     }
-
+    /**
+     * Bestämmer vad som ska ske när man klickar på den fjärde tärningen
+     * @param btnThrow
+     */
     public void clickFourthDie(Button btnThrow) {
         if (globalDice.size() == 6) {
             if (isFourthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
@@ -149,7 +162,10 @@ public class DiceLogic {
             }
         }
     }
-
+    /**
+     * Bestämmer vad som ska ske när man klickar på den femte tärningen
+     * @param btnThrow
+     */
     public void clickFifthDie(Button btnThrow) {
         if (globalDice.size() == 6) {
             if (isFifthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
@@ -177,7 +193,10 @@ public class DiceLogic {
             }
         }
     }
-
+    /**
+     * Bestämmer vad som ska ske när man klickar på den sjätte tärningen
+     * @param btnThrow
+     */
     public void clickSixthDie(Button btnThrow) {
         if (globalDice.size() == 6) {
             if (isSixthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
@@ -205,8 +224,13 @@ public class DiceLogic {
             }
         }
     }
-
-    // Klicket för kast av tärningar
+    /**
+     *  Klicket för kast av tärningar
+     * @param spinner
+     * @param txtThrows
+     * @param txtRounds
+     * @param btnThrow
+     */
     public void clickThrow(Spinner spinner, TextView txtThrows, TextView txtRounds, Button btnThrow) {
         enableDiceImage();
         spinner.setEnabled(true);
@@ -268,22 +292,17 @@ public class DiceLogic {
         }
         // Om ingen tärning valts, blir alla valda
         if (selectedDicesImages.size() == 0) {
-            selectedDicesImages.add(firstDieImageView);
-            selectedDicesImages.add(secondDieImageView);
-            selectedDicesImages.add(thirdDieImageView);
-            selectedDicesImages.add(fourthDieImageView);
-            selectedDicesImages.add(fifthDieImageView);
-            selectedDicesImages.add(sixthDieImageView);
+            addAllDiceImages(selectedDicesImages);
             selectAllDice();
             for (Die die : globalDice) {
                 die.selected = true;
             }
         }
         //kasta till ny runda
-        if (ScoreLogic.pointTypeChoosen) {
+        if (ScoreLogic.pointTypeChosen) {
             txtThrows.setText(context.getResources().getString(R.string.numberOfThrows) + RoundsLogic.getAndSetThrows());
             txtRounds.setText(context.getResources().getString(R.string.numberOfRounds) + RoundsLogic.getAndSetRounds());
-            ScoreLogic.pointTypeChoosen = false;
+            ScoreLogic.pointTypeChosen = false;
             rollDices(selectedDicesImages, btnThrow);
             numberOfBlueDice = 0;
         }
@@ -299,7 +318,7 @@ public class DiceLogic {
         try {
             setDiceImages(selectedDicesImages);
             //Efter att man har kastat tre gånger göm kasta knappen
-            if (RoundsLogic.totalNumberOfThrowsDisplayed == 2 && !ScoreLogic.pointTypeChoosen) {
+            if (RoundsLogic.totalNumberOfThrowsDisplayed == 2 && !ScoreLogic.pointTypeChosen) {
                 btnThrow.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
@@ -382,7 +401,7 @@ public class DiceLogic {
         RestoreGUIManager.isDiceImageViewEnabled = false;
     }
 
-    public void selectAllDice() {
+    private void selectAllDice() {
         isFirstDieSelected = true;
         isSecondDieSelected = true;
         isThirdDieSelected = true;
@@ -390,7 +409,14 @@ public class DiceLogic {
         isFifthDieSelected = true;
         isSixthDieSelected = true;
     }
-
+    private void addAllDiceImages(ArrayList<ImageView>selectedDicesImages) {
+        selectedDicesImages.add(firstDieImageView);
+        selectedDicesImages.add(secondDieImageView);
+        selectedDicesImages.add(thirdDieImageView);
+        selectedDicesImages.add(fourthDieImageView);
+        selectedDicesImages.add(fifthDieImageView);
+        selectedDicesImages.add(sixthDieImageView);
+    }
     // Väljer bort alla tärningar
     public void deselectAllDice() {
         isFirstDieSelected = false;

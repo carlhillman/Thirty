@@ -1,6 +1,5 @@
 package se.umu.carl.thirty.GameLogic;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,15 +17,20 @@ import se.umu.carl.thirty.Views.FeedBackDialogMessageBox;
 
 // Logik som håller koll på nuvarande poäng, vilket val som ska räknas och validerar poängsättningen
 public class ScoreLogic {
-    public  int currentScore;
+    public int currentScore;
     //måste vara static eftersom den används i DiceLogic
-    public static boolean pointTypeChoosen = false;
+    public static boolean pointTypeChosen = false;
     private Context context;
-    public ScoreLogic(Context context){
+
+    public ScoreLogic(Context context) {
         this.context = context;
     }
 
-    //bestämer vilken poäng som ska sättas.
+    /**
+     * bestämer vilken poäng som ska sättas.
+     * @param spinner - spinner används för att få tag på vilket poängval användaren valt.
+     * @param adapter - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
+     */
     public void setChoicePoint(Spinner spinner, ArrayAdapter<String> adapter) {
         String selectedItem = spinner.getSelectedItem().toString();
         if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
@@ -70,7 +74,13 @@ public class ScoreLogic {
             }
         }
     }
-    //kollar vilka kombinationer och tärningar som finns på fältet
+
+    /**
+     * kollar vilka kombinationer och tärningar som finns på fältet
+     * @param selectedItem - används för att veta vilket poängval som gjordes
+     * @param adapter - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
+     * @param choicePoint - används för att veta vilket värde/heltal poängtypen har
+     */
     protected void calculateCurrentScore(String selectedItem, int choicePoint, ArrayAdapter<String> adapter) {
         ArrayList<Die> dice = new ArrayList<>();
         try {
@@ -78,11 +88,26 @@ public class ScoreLogic {
                 dice = entry.getValue();
                 break;
             }
+            int selectedDieSize = 0;
+            ArrayList<Die> selectedDice = new ArrayList<>();
             for (Die die : dice) {
                 if (die.selected) {
                     currentScore += die.value;
+                    selectedDice.add(die);
                 }
             }
+          /*  for(Die die : selectedDice){
+                if(die.value == choicePoint){
+                    currentScore+= die.value;
+                    die.value = 0;
+                }
+                if(selectedDice.get(0).value + selectedDice.get(1).value == choicePoint){
+                    currentScore += choicePoint;
+                }
+            }
+
+           */
+
             //ifall summan av tärningarna är delbart med valet
             if (currentScore % choicePoint == 0 && currentScore >= choicePoint) {
                 ResultStorage.score = currentScore;
@@ -91,7 +116,7 @@ public class ScoreLogic {
                 currentScore = 0;
                 ResultStorage.score = 0;
             }
-            pointTypeChoosen = true;
+            pointTypeChosen = true;
             adapter.remove(selectedItem);
             adapter.notifyDataSetChanged();
             RoundsLogic.isNewRound = true;
@@ -101,9 +126,17 @@ public class ScoreLogic {
             System.out.println(ex.getMessage());
         }
     }
-
-    public void getPoints(Spinner spinner, ArrayAdapter<String>adapter, FeedBackDialogMessageBox messageBox
-    , Button btnThrow, Button btnTakePoints, DiceLogic diceLogic){
+    /**
+     * anropar metoden setChoicePoint och sätter tillbaka default värdet "välj poängtyp" i spinnern
+     * @param spinner - används för att veta vilket poängval som gjordes
+     * @param adapter - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
+     * @param messageBox - används för att visa en dialogruta som ger feedback
+     * @param btnThrow - används för att gömma kast knappen
+     * @param btnTakePoints - används för att gömma ta poäng knappen
+     * @param diceLogic - används för att kalla på metoden deselectAllDice och disableDiceImage
+     */
+    public void getPoints(Spinner spinner, ArrayAdapter<String> adapter, FeedBackDialogMessageBox messageBox
+            , Button btnThrow, Button btnTakePoints, DiceLogic diceLogic) {
         try {
             setChoicePoint(spinner, adapter);
             messageBox.showRoundSucceededDialog(currentScore);
@@ -116,8 +149,7 @@ public class ScoreLogic {
             spinner.setSelection(adapter.getPosition(context.getResources().getStringArray(R.array.choices)[0]));
             diceLogic.deselectAllDice();
             diceLogic.disableDiceImage();
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
