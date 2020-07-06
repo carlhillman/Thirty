@@ -275,5 +275,19 @@
                 android:gravity="center" />
         </TableRow>
 
+        <TableRow>
+            <Button
+                android:id="@+id/btnRestart"
+                android:text="@string/playAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:textStyle="bold" />
+        </TableRow>
+
     </TableLayout>
 </LinearLayout>

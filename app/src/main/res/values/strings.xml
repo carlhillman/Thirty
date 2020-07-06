@@ -40,5 +40,6 @@
     <string name="gameOverMessage">Spelet är slut</string>
     <string name="failedTitle">Ingen tärning vald!</string>
     <string name="failedMessage">Du måste välja en tärning/tärningar </string>
+    <string name="playAgain">Spela igen</string>
 
 </resources>
