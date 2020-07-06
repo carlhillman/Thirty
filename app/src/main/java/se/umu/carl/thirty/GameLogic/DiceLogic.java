@@ -21,12 +21,12 @@ import se.umu.carl.thirty.R;
 public class DiceLogic {
     public ImageView firstDieImageView, secondDieImageView, thirdDieImageView,
             fourthDieImageView, fifthDieImageView, sixthDieImageView;
-    public boolean isFirstDieSelected = false;
-    public boolean isSecondDieSelected = false;
-    public boolean isThirdDieSelected = false;
-    public boolean isFourthDieSelected = false;
-    public boolean isFifthDieSelected = false;
-    public boolean isSixthDieSelected = false;
+    public boolean isFirstDieSelected = true;
+    public boolean isSecondDieSelected = true;
+    public boolean isThirdDieSelected = true;
+    public boolean isFourthDieSelected = true;
+    public boolean isFifthDieSelected = true;
+    public boolean isSixthDieSelected = true;
 
     public ArrayList<Die> globalDice = new ArrayList<>();
 
@@ -36,90 +36,177 @@ public class DiceLogic {
         this.context = context;
     }
 
-    public void clickFirstDie() {
+    int numberOfBlueDice = 0;
+
+    public void clickFirstDie(Button btnThrow) {
         if (globalDice.size() == 6) {
-            if (!isFirstDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+            if (isFirstDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isFirstDieSelected = false;
+                firstDieImageView.setBackgroundColor(Color.BLUE);
+                globalDice.get(0).selected = false;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
+            } else if (RestoreGUIManager.inChoosingPointProgress) {
                 isFirstDieSelected = true;
                 firstDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(0).selected = true;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
             } else {
-                isFirstDieSelected = false;
+                isFirstDieSelected = true;
                 firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
-                globalDice.get(0).selected = false;
+                globalDice.get(0).selected = true;
+                numberOfBlueDice--;
+                btnThrow.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    public void clickSecondDie() {
+    public void clickSecondDie(Button btnThrow) {
         if (globalDice.size() == 6) {
-            if (!isSecondDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+            if (isSecondDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isSecondDieSelected = false;
+                secondDieImageView.setBackgroundColor(Color.BLUE);
+                globalDice.get(1).selected = false;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
+            } else if (RestoreGUIManager.inChoosingPointProgress) {
                 isSecondDieSelected = true;
                 secondDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(1).selected = true;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
             } else {
-                isSecondDieSelected = false;
+                isSecondDieSelected = true;
                 secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
-                globalDice.get(1).selected = false;
+                globalDice.get(1).selected = true;
+                numberOfBlueDice--;
+                btnThrow.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    public void clickThirdDie() {
+    public void clickThirdDie(Button btnThrow) {
         if (globalDice.size() == 6) {
-            if (!isThirdDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+            if (isThirdDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isThirdDieSelected = false;
+                thirdDieImageView.setBackgroundColor(Color.BLUE);
+                globalDice.get(2).selected = false;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
+            } else if (RestoreGUIManager.inChoosingPointProgress) {
                 isThirdDieSelected = true;
                 thirdDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(2).selected = true;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
             } else {
-                isThirdDieSelected = false;
+                isThirdDieSelected = true;
                 thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
-                globalDice.get(2).selected = false;
+                globalDice.get(2).selected = true;
+                numberOfBlueDice--;
+                btnThrow.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    public void clickFourthDie() {
+    public void clickFourthDie(Button btnThrow) {
         if (globalDice.size() == 6) {
-            if (!isFourthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+            if (isFourthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isFourthDieSelected = false;
+                fourthDieImageView.setBackgroundColor(Color.BLUE);
+                globalDice.get(3).selected = false;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
+            } else if (RestoreGUIManager.inChoosingPointProgress) {
                 isFourthDieSelected = true;
                 fourthDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(3).selected = true;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
             } else {
-                isFourthDieSelected = false;
+                isFourthDieSelected = true;
                 fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
-                globalDice.get(3).selected = false;
+                globalDice.get(3).selected = true;
+                numberOfBlueDice--;
+                btnThrow.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    public void clickFifthDie() {
+    public void clickFifthDie(Button btnThrow) {
         if (globalDice.size() == 6) {
-            if (!isFifthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+            if (isFifthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isFifthDieSelected = false;
+                fifthDieImageView.setBackgroundColor(Color.BLUE);
+                globalDice.get(4).selected = false;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
+            } else if (RestoreGUIManager.inChoosingPointProgress) {
                 isFifthDieSelected = true;
                 fifthDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(4).selected = true;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
             } else {
-                isFifthDieSelected = false;
+                isFifthDieSelected = true;
                 fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
-                globalDice.get(4).selected = false;
+                globalDice.get(4).selected = true;
+                numberOfBlueDice--;
+                btnThrow.setVisibility(View.VISIBLE);
             }
         }
     }
 
-    public void clickSixthDie() {
+    public void clickSixthDie(Button btnThrow) {
         if (globalDice.size() == 6) {
-            if (!isSixthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+            if (isSixthDieSelected && RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+                isSixthDieSelected = false;
+                sixthDieImageView.setBackgroundColor(Color.BLUE);
+                globalDice.get(5).selected = false;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
+            } else if (RestoreGUIManager.inChoosingPointProgress) {
                 isSixthDieSelected = true;
                 sixthDieImageView.setBackgroundColor(Color.BLUE);
                 globalDice.get(5).selected = true;
-            } else {
-                isSixthDieSelected = false;
+                numberOfBlueDice++;
+                if (numberOfBlueDice == 6) {
+                    btnThrow.setVisibility(View.GONE);
+                }
+            }  else {
+                isSixthDieSelected = true;
                 sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
-                globalDice.get(5).selected = false;
+                globalDice.get(5).selected = true;
+                numberOfBlueDice--;
+                btnThrow.setVisibility(View.VISIBLE);
             }
         }
     }
-// Klicket för kast av tärningar
+
+    // Klicket för kast av tärningar
     public void clickThrow(Spinner spinner, TextView txtThrows, TextView txtRounds, Button btnThrow) {
         enableDiceImage();
         spinner.setEnabled(true);
@@ -187,6 +274,7 @@ public class DiceLogic {
             selectedDicesImages.add(fourthDieImageView);
             selectedDicesImages.add(fifthDieImageView);
             selectedDicesImages.add(sixthDieImageView);
+            selectAllDice();
             for (Die die : globalDice) {
                 die.selected = true;
             }
@@ -197,6 +285,7 @@ public class DiceLogic {
             txtRounds.setText(context.getResources().getString(R.string.numberOfRounds) + RoundsLogic.getAndSetRounds());
             ScoreLogic.pointTypeChoosen = false;
             rollDices(selectedDicesImages, btnThrow);
+            numberOfBlueDice = 0;
         }
         //Kast i en befintlig runda.
         else {
@@ -205,6 +294,7 @@ public class DiceLogic {
             txtThrows.setText(context.getResources().getString(R.string.numberOfThrows) + RoundsLogic.getAndSetThrows());
         }
     }
+
     public void rollDices(ArrayList<ImageView> selectedDicesImages, Button btnThrow) {
         try {
             setDiceImages(selectedDicesImages);
@@ -216,7 +306,8 @@ public class DiceLogic {
             System.out.println(ex.getMessage());
         }
     }
- // Sätter bilder för tärningarna
+
+    // Sätter bilder för tärningarna
     public void setDiceImages(ArrayList<ImageView> diceImages) {
         Random random = new Random();
         for (ImageView imageViewDice : diceImages) {
@@ -252,7 +343,8 @@ public class DiceLogic {
         }
         Dice.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, globalDice);
     }
-// Lägger till ett ny Tärningsobjekt/Die till listan eller uppdaterar befintlig
+
+    // Lägger till ett ny Tärningsobjekt/Die till listan eller uppdaterar befintlig
     private void addOrUpdateDie(int randomValue) {
         if (RoundsLogic.totalNumberOfThrowsDisplayed == 0) {
             Die die = new Die(false, randomValue);
@@ -267,7 +359,8 @@ public class DiceLogic {
             }
         }
     }
-// Sätter på klick funktionaliteten för alla tärningsbilder
+
+    // Sätter på klick funktionaliteten för alla tärningsbilder
     public void enableDiceImage() {
         firstDieImageView.setEnabled(true);
         secondDieImageView.setEnabled(true);
@@ -277,6 +370,7 @@ public class DiceLogic {
         sixthDieImageView.setEnabled(true);
         RestoreGUIManager.isDiceImageViewEnabled = true;
     }
+
     // Stänger av klick funktionaliteten för alla tärningsbilder
     public void disableDiceImage() {
         firstDieImageView.setEnabled(false);
@@ -288,8 +382,17 @@ public class DiceLogic {
         RestoreGUIManager.isDiceImageViewEnabled = false;
     }
 
+    public void selectAllDice() {
+        isFirstDieSelected = true;
+        isSecondDieSelected = true;
+        isThirdDieSelected = true;
+        isFourthDieSelected = true;
+        isFifthDieSelected = true;
+        isSixthDieSelected = true;
+    }
+
     // Väljer bort alla tärningar
-    public void deselectAllDices() {
+    public void deselectAllDice() {
         isFirstDieSelected = false;
         isSecondDieSelected = false;
         isThirdDieSelected = false;

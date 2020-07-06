@@ -14,7 +14,7 @@ public class SpinnerLogic {
     }
     public void clickSelectedSpinnerItem(DiceLogic diceLogic, Spinner spinner, Button btnTakePoints,
                                          Button btnThrow){
-        diceLogic.deselectAllDices();
+        diceLogic.deselectAllDice();
         spinner.setEnabled(false);
         btnTakePoints.setVisibility(View.VISIBLE);
         RestoreGUIManager.isBtnTakePointsDisplayed = true;

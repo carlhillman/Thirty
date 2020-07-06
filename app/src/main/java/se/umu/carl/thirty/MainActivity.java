@@ -55,17 +55,14 @@ public class MainActivity extends AppCompatActivity {
             diceLogic.fourthDieImageView = findViewById(R.id.image_view_dice4);
             diceLogic.fifthDieImageView = findViewById(R.id.image_view_dice5);
             diceLogic.sixthDieImageView = findViewById(R.id.image_view_dice6);
-
             spinner = findViewById(R.id.spinnerChoice);
             ArrayList<String> choices = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.choices)));
-
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
             adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
             spinner.setVisibility(View.GONE);
             textViewRounds = findViewById(R.id.txtRounds);
             textViewThrows = findViewById(R.id.txtThrows);
-
             btnThrow = findViewById(R.id.btnThrow);
             btnTakePoints = findViewById(R.id.btnTakePoints);
             btnTakePoints.setVisibility(View.GONE);
@@ -75,40 +72,39 @@ public class MainActivity extends AppCompatActivity {
             diceLogic.firstDieImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    diceLogic.clickFirstDie();
+                    diceLogic.clickFirstDie(btnThrow);
                 }
             });
             diceLogic.secondDieImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    diceLogic.clickSecondDie();
+                    diceLogic.clickSecondDie(btnThrow);
                 }
             });
             diceLogic.thirdDieImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    diceLogic.clickThirdDie();
+                    diceLogic.clickThirdDie(btnThrow);
                 }
             });
             diceLogic.fourthDieImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    diceLogic.clickFourthDie();
+                    diceLogic.clickFourthDie(btnThrow);
                 }
             });
             diceLogic.fifthDieImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    diceLogic.clickFifthDie();
+                    diceLogic.clickFifthDie(btnThrow);
                 }
             });
             diceLogic.sixthDieImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    diceLogic.clickSixthDie();
+                    diceLogic.clickSixthDie(btnThrow);
                 }
             });
-
             //lägger till en, flera eller alla tärningarnas bilder i en ArrayList
             btnThrow.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -151,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-
             //restora/hämta tillbaka variabler och utseende vid rotation av skärmen
             if (savedInstanceState != null) {
                 diceLogic.isFirstDieSelected = savedInstanceState.getBoolean("isFirstDieSelected");

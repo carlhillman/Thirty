@@ -114,7 +114,7 @@ public class ScoreLogic {
             btnTakePoints.setVisibility(View.GONE);
             spinner.setVisibility(View.GONE);
             spinner.setSelection(adapter.getPosition(context.getResources().getStringArray(R.array.choices)[0]));
-            diceLogic.deselectAllDices();
+            diceLogic.deselectAllDice();
             diceLogic.disableDiceImage();
         }
         catch(Exception ex){
