@@ -27,8 +27,8 @@ public class ScoreLogic {
     }
 
     /**
-     * bestämer vilken poäng som ska sättas.
-     * @param spinner - spinner används för att få tag på vilket poängval användaren valt.
+     * bestämer vilken poäng som ska sättas
+     * @param spinner - spinner används för att få tag på vilket poängval användaren valt
      * @param adapter - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
      */
     public void setChoicePoint(Spinner spinner, ArrayAdapter<String> adapter) {

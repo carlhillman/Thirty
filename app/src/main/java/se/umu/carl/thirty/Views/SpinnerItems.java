@@ -7,6 +7,11 @@ import java.util.ArrayList;
 
 public class SpinnerItems {
 
+    /**
+     * Hämtar hela listan på alla element i spinnern
+     * @param theSpinner
+     * @return items
+     */
     public static ArrayList<String> retrieveAllItems(Spinner theSpinner) {
         ArrayAdapter<String> adapter = (ArrayAdapter<String>) theSpinner.getAdapter();
         int count = adapter.getCount();

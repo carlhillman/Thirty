@@ -18,15 +18,26 @@ public class FeedBackDialog extends AppCompatDialogFragment {
     protected Integer score;
     protected boolean gameIsOver = false;
 
+    /**
+     * Återställer titel, meddelande när användaren tagit poäng
+     * @param score
+     */
     public void restoreSucceededMessage(int score) {
         title = getResources().getString(R.string.succeededTitle) + score;
         message = getResources().getString(R.string.succeededMessage);
 
     }
+    /**
+     * Återställer meddelande för användaren att spelet är slut
+     * @param score
+     */
     public void restoreGameOverMessage(int score){
         title = getResources().getString(R.string.succeededTitle) + score;
         message = getResources().getString(R.string.gameOverMessage);
     }
+    /**
+     * Återställer meddelande för användaren att ingen tärning har valts
+     */
     public void restoreNoDieChosenMessage() {
         title = getResources().getString(R.string.failedTitle);
         message = getResources().getString(R.string.failedMessage);

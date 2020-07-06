@@ -191,8 +191,6 @@ public class MainActivity extends AppCompatActivity {
                             diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
                             diceLogic.fifthDieImageView, diceLogic.sixthDieImageView);
                 }
-
-
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

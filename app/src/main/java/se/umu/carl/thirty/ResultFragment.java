@@ -150,7 +150,14 @@ public class ResultFragment extends Fragment {
         return view;
     }
 
-    //summera en lista av heltal
+
+    /**
+     * summera en lista av heltal
+     *
+     * @param list - används för att veta vilket poängval som gjordes
+     * @return sum
+     */
+
     private static int sumList(List<Integer> list) {
         int sum = 0;
         for (int integer : list) {

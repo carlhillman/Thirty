@@ -10,16 +10,18 @@ import se.umu.carl.thirty.R;
 
 public class FeedBackDialogMessageBox {
     Activity activity;
-
     public FeedBackDialogMessageBox(Activity activity) {
         this.activity = activity;
     }
 
-    //alla dialog rutor för specifika användarfel
     private FragmentManager getSupportFragmentManager() {
         return ((FragmentActivity) activity).getSupportFragmentManager();
     }
 
+    /**
+     * Sätter titel, meddelande och poäng för FeedBackDialog när användaren tagit poäng
+     * @param score
+     */
     public void showRoundSucceededDialog(int score) {
         try {
             FeedBackDialog feedBackDialog = new FeedBackDialog();
@@ -36,7 +38,9 @@ public class FeedBackDialogMessageBox {
             System.out.println(ex.getMessage());
         }
     }
-
+    /**
+     * Varnar ifall ingen tärning är vald för användaren när denne ska ta sina poäng
+     */
     public void showNoDieSelected() {
         try {
             FeedBackDialog feedBackDialog = new FeedBackDialog();
