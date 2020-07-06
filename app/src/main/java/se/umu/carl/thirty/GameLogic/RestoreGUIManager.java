@@ -107,27 +107,96 @@ public class RestoreGUIManager {
                                              ImageView sixthDieImageView
 
     ) {
-        if (isFirstDieSelected) {
+
+        setFirstDieImageViewColor(isFirstDieSelected, firstDieImageView);
+
+        setSecondDieImageViewColor(isSecondDieSelected, secondDieImageView);
+
+        setThirdDieImageViewColor(isThirdDieSelected, thirdDieImageView);
+
+        setFourthDieImageViewColor(isFourthDieSelected, fourthDieImageView);
+
+        setFifthDieImageViewColor(isFifthDieSelected, fifthDieImageView);
+
+        setSixthDieImageViewColor(isSixthDieSelected, sixthDieImageView);
+    }
+
+    private static void setFirstDieImageViewColor(boolean isFirstDieSelected, ImageView firstDieImageView) {
+        if (isFirstDieSelected && inChoosingPointProgress) {
             firstDieImageView.setBackgroundColor(Color.BLUE);
-        }
-        if (isSecondDieSelected) {
-            secondDieImageView.setBackgroundColor(Color.BLUE);
-        }
-        if (isThirdDieSelected) {
-            thirdDieImageView.setBackgroundColor(Color.BLUE);
-        }
-        if (isFourthDieSelected) {
-            fourthDieImageView.setBackgroundColor(Color.BLUE);
-        }
-        if (isFifthDieSelected) {
-            fifthDieImageView.setBackgroundColor(Color.BLUE);
-        }
-        if (isSixthDieSelected) {
-            sixthDieImageView.setBackgroundColor(Color.BLUE);
+        } else if (!isFirstDieSelected && inChoosingPointProgress) {
+            firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        } else if (!isFirstDieSelected) {
+            firstDieImageView.setBackgroundColor(Color.BLUE);
+        } else {
+            firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
+
+    private static void setSecondDieImageViewColor(boolean isSecondDieSelected, ImageView secondDieImageView) {
+        if (isSecondDieSelected && inChoosingPointProgress) {
+            secondDieImageView.setBackgroundColor(Color.BLUE);
+        } else if (!isSecondDieSelected && inChoosingPointProgress) {
+            secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        } else if (!isSecondDieSelected) {
+            secondDieImageView.setBackgroundColor(Color.BLUE);
+        } else {
+            secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    private static void setThirdDieImageViewColor(boolean isThirdDieSelected, ImageView thirdDieImageView) {
+        if (isThirdDieSelected && inChoosingPointProgress) {
+            thirdDieImageView.setBackgroundColor(Color.BLUE);
+        } else if (!isThirdDieSelected && inChoosingPointProgress) {
+            thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        } else if (!isThirdDieSelected) {
+            thirdDieImageView.setBackgroundColor(Color.BLUE);
+        } else {
+            thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    private static void setFourthDieImageViewColor(boolean isFourthDieSelected, ImageView fourthDieImageView) {
+        if (isFourthDieSelected && inChoosingPointProgress) {
+            fourthDieImageView.setBackgroundColor(Color.BLUE);
+        } else if (!isFourthDieSelected && inChoosingPointProgress) {
+            fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        } else if (!isFourthDieSelected) {
+            fourthDieImageView.setBackgroundColor(Color.BLUE);
+        } else {
+            fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    private static void setFifthDieImageViewColor(boolean isFifthDieSelected, ImageView fifthDieImageView) {
+        if (isFifthDieSelected && inChoosingPointProgress) {
+            fifthDieImageView.setBackgroundColor(Color.BLUE);
+        } else if (!isFifthDieSelected && inChoosingPointProgress) {
+            fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        } else if (!isFifthDieSelected) {
+            fifthDieImageView.setBackgroundColor(Color.BLUE);
+        } else {
+            fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    private static void setSixthDieImageViewColor(boolean isSixthDieSelected, ImageView sixthDieImageView) {
+        if (isSixthDieSelected && inChoosingPointProgress) {
+            sixthDieImageView.setBackgroundColor(Color.BLUE);
+        } else if (!isSixthDieSelected && inChoosingPointProgress) {
+            sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        } else if (!isSixthDieSelected) {
+            sixthDieImageView.setBackgroundColor(Color.BLUE);
+        } else {
+            sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+
     /**
      * Sätter tillbaka vilka tärnings bilder som ska visa för respektive ImageView
+     *
      * @param globalDice
      * @param firstDieImageView
      * @param secondDieImageView
@@ -154,6 +223,7 @@ public class RestoreGUIManager {
 
     /**
      * Bestämer vilken bild som ska visas för den första tärningen
+     *
      * @param globalDice
      * @param dieImageView
      */
@@ -175,6 +245,7 @@ public class RestoreGUIManager {
 
     /**
      * Bestämer vilken bild som ska visas för den andra tärningen
+     *
      * @param globalDice
      * @param dieImageView
      */
@@ -196,6 +267,7 @@ public class RestoreGUIManager {
 
     /**
      * Bestämer vilken bild som ska visas för den tredje tärningen
+     *
      * @param globalDice
      * @param dieImageView
      */
@@ -217,6 +289,7 @@ public class RestoreGUIManager {
 
     /**
      * Bestämer vilken bild som ska visas för den fjärde tärningen
+     *
      * @param globalDice
      * @param dieImageView
      */
@@ -238,6 +311,7 @@ public class RestoreGUIManager {
 
     /**
      * Bestämer vilken bild som ska visas för den femte tärningen
+     *
      * @param globalDice
      * @param dieImageView
      */
@@ -259,6 +333,7 @@ public class RestoreGUIManager {
 
     /**
      * Bestämer vilken bild som ska visas för den sjätte tärningen
+     *
      * @param globalDice
      * @param dieImageView
      */
