@@ -22,8 +22,12 @@ public class ScoreLogic {
     public static boolean pointTypeChosen = false;
     private Context context;
 
-    public ScoreLogic(Context context) {
+    public Dice diceClass;
+    ResultStorage resultStorage;
+    public ScoreLogic(Context context, Dice diceClass, ResultStorage resultStorage) {
         this.context = context;
+        this.diceClass = diceClass;
+        this.resultStorage = resultStorage;
 
     }
 
@@ -69,7 +73,7 @@ public class ScoreLogic {
                         break;
                 }
                 //lägga in någonstans det valet och den poängen man får för att visa slutresultatet.
-                ResultStorage.choicePoints.put(selectedItem, ResultStorage.score);
+                resultStorage.choicePoints.put(selectedItem, resultStorage.score);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -85,7 +89,7 @@ public class ScoreLogic {
     protected void calculateCurrentScore(String selectedItem, int choicePoint, ArrayAdapter<String> adapter) {
         ArrayList<Die> dice = new ArrayList<>();
         try {
-            for (Map.Entry<Integer, ArrayList<Die>> entry : Dice.triesAndDiceNumbers.entrySet()) {
+            for (Map.Entry<Integer, ArrayList<Die>> entry : diceClass.triesAndDiceNumbers.entrySet()) {
                 dice = entry.getValue();
                 break;
             }
@@ -111,17 +115,17 @@ public class ScoreLogic {
 
             //ifall summan av tärningarna är delbart med valet
             if (currentScore % choicePoint == 0 && currentScore >= choicePoint) {
-                ResultStorage.score = currentScore;
+                resultStorage.score = currentScore;
             } else {
                 //ifall tärningarna på spelplanen inte går att göra upp till valet får spelaren 0 poäng
                 currentScore = 0;
-                ResultStorage.score = 0;
+                resultStorage.score = 0;
             }
             pointTypeChosen = true;
             adapter.remove(selectedItem);
             adapter.notifyDataSetChanged();
             RoundsLogic.isNewRound = true;
-            Dice.triesAndDiceNumbers.clear();
+            diceClass.triesAndDiceNumbers.clear();
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

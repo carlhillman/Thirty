@@ -15,7 +15,6 @@ import se.umu.carl.thirty.R;
 // En hjälp klass som hämtar tillbaka GUI komponenter vid skärmrotation
 public class RestoreGUIManager {
 
-
     public static boolean isBtnTakePointsDisplayed = false;
     public static boolean isBtnThrowDisplayed = false;
     public static boolean inChoosingPointProgress = false;

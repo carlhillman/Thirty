@@ -27,19 +27,21 @@ public class DiceLogic {
     public boolean isFourthDieSelected = true;
     public boolean isFifthDieSelected = true;
     public boolean isSixthDieSelected = true;
-
+    Dice dice;
     public ArrayList<Die> globalDice = new ArrayList<>();
 
     private Context context;
 
-    public DiceLogic(Context context) {
+    public DiceLogic(Context context, Dice dice) {
         this.context = context;
+        this.dice = dice;
     }
 
     public int numberOfBlueDice = 0;
 
     /**
      * Bestämmer vad som ska ske när man klickar på den första tärningen
+     *
      * @param btnThrow
      */
     public void clickFirstDie(Button btnThrow) {
@@ -69,8 +71,10 @@ public class DiceLogic {
             }
         }
     }
+
     /**
      * Bestämmer vad som ska ske när man klickar på den andra tärningen
+     *
      * @param btnThrow
      */
     public void clickSecondDie(Button btnThrow) {
@@ -100,8 +104,10 @@ public class DiceLogic {
             }
         }
     }
+
     /**
      * Bestämmer vad som ska ske när man klickar på den tredje tärningen
+     *
      * @param btnThrow
      */
     public void clickThirdDie(Button btnThrow) {
@@ -131,8 +137,10 @@ public class DiceLogic {
             }
         }
     }
+
     /**
      * Bestämmer vad som ska ske när man klickar på den fjärde tärningen
+     *
      * @param btnThrow
      */
     public void clickFourthDie(Button btnThrow) {
@@ -162,8 +170,10 @@ public class DiceLogic {
             }
         }
     }
+
     /**
      * Bestämmer vad som ska ske när man klickar på den femte tärningen
+     *
      * @param btnThrow
      */
     public void clickFifthDie(Button btnThrow) {
@@ -193,8 +203,10 @@ public class DiceLogic {
             }
         }
     }
+
     /**
      * Bestämmer vad som ska ske när man klickar på den sjätte tärningen
+     *
      * @param btnThrow
      */
     public void clickSixthDie(Button btnThrow) {
@@ -215,7 +227,7 @@ public class DiceLogic {
                 if (numberOfBlueDice == 6) {
                     btnThrow.setVisibility(View.GONE);
                 }
-            }  else {
+            } else {
                 isSixthDieSelected = true;
                 sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
                 globalDice.get(5).selected = true;
@@ -224,8 +236,10 @@ public class DiceLogic {
             }
         }
     }
+
     /**
-     *  Klicket för kast av en, flera eller alla tärningar. Uppdaterar även Die objekten i Dice listan
+     * Klicket för kast av en, flera eller alla tärningar. Uppdaterar även Die objekten i Dice listan
+     *
      * @param spinner
      * @param txtThrows
      * @param txtRounds
@@ -237,7 +251,7 @@ public class DiceLogic {
         spinner.setVisibility(View.VISIBLE);
         ArrayList<ImageView> selectedDicesImages = new ArrayList<>();
 
-        if (isFirstDieSelected && globalDice.size()==6) {
+        if (isFirstDieSelected && globalDice.size() == 6) {
             selectedDicesImages.add(firstDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(0);
@@ -246,7 +260,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (isSecondDieSelected && globalDice.size()==6) {
+        if (isSecondDieSelected && globalDice.size() == 6) {
             selectedDicesImages.add(secondDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(1);
@@ -255,7 +269,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (isThirdDieSelected && globalDice.size()==6) {
+        if (isThirdDieSelected && globalDice.size() == 6) {
             selectedDicesImages.add(thirdDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(2);
@@ -264,7 +278,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (isFourthDieSelected && globalDice.size()==6) {
+        if (isFourthDieSelected && globalDice.size() == 6) {
             selectedDicesImages.add(fourthDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(3);
@@ -273,7 +287,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (isFifthDieSelected && globalDice.size()==6) {
+        if (isFifthDieSelected && globalDice.size() == 6) {
             selectedDicesImages.add(fifthDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(4);
@@ -282,7 +296,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (isSixthDieSelected && globalDice.size()==6) {
+        if (isSixthDieSelected && globalDice.size() == 6) {
             selectedDicesImages.add(sixthDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(5);
@@ -314,8 +328,10 @@ public class DiceLogic {
             txtThrows.setText(context.getResources().getString(R.string.numberOfThrows) + RoundsLogic.getAndSetThrows());
         }
     }
+
     /**
      * Anropar setDiceImages metoden och gömmer kast knappen på villkor
+     *
      * @param selectedDicesImages
      * @param btnThrow
      */
@@ -333,6 +349,7 @@ public class DiceLogic {
 
     /**
      * Ändrar bilderna för tärningarna utifrån en Random generator
+     *
      * @param diceImages
      */
     public void setDiceImages(ArrayList<ImageView> diceImages) {
@@ -368,11 +385,12 @@ public class DiceLogic {
             Animation rotate = AnimationUtils.loadAnimation(context, R.anim.rotate);
             imageViewDice.startAnimation(rotate);
         }
-        Dice.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, globalDice);
+        dice.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, globalDice);
     }
 
     /**
      * Lägger till ett ny Tärningsobjekt/Die till listan eller uppdaterar befintlig tärning/Die
+     *
      * @param randomValue
      */
     private void addOrUpdateDie(int randomValue) {
@@ -402,6 +420,7 @@ public class DiceLogic {
         sixthDieImageView.setEnabled(true);
         RestoreGUIManager.isDiceImageViewEnabled = true;
     }
+
     /**
      * Stänger av klick funktionaliteten för alla tärningsbilder
      */
@@ -414,6 +433,7 @@ public class DiceLogic {
         sixthDieImageView.setEnabled(false);
         RestoreGUIManager.isDiceImageViewEnabled = false;
     }
+
     /**
      * Väljer alla tärningar
      */
@@ -425,10 +445,11 @@ public class DiceLogic {
         isFifthDieSelected = true;
         isSixthDieSelected = true;
     }
+
     /**
      * Metod som anropas i metoden clickThrow som lägger till alla ImageView i en ArrayList
      */
-    private void addAllDiceImages(ArrayList<ImageView>selectedDicesImages) {
+    private void addAllDiceImages(ArrayList<ImageView> selectedDicesImages) {
         selectedDicesImages.add(firstDieImageView);
         selectedDicesImages.add(secondDieImageView);
         selectedDicesImages.add(thirdDieImageView);
@@ -436,6 +457,7 @@ public class DiceLogic {
         selectedDicesImages.add(fifthDieImageView);
         selectedDicesImages.add(sixthDieImageView);
     }
+
     /**
      * Metod som väljer bort alla tärningar
      */

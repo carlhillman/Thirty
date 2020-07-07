@@ -27,6 +27,8 @@ import se.umu.carl.thirty.GameLogic.RestoreGUIManager;
 import se.umu.carl.thirty.GameLogic.RoundsLogic;
 import se.umu.carl.thirty.GameLogic.ScoreLogic;
 import se.umu.carl.thirty.GameLogic.SpinnerLogic;
+import se.umu.carl.thirty.Models.Dice;
+import se.umu.carl.thirty.Models.ResultStorage;
 import se.umu.carl.thirty.Views.SpinnerItems;
 import se.umu.carl.thirty.Views.FeedBackDialogMessageBox;
 
@@ -39,9 +41,14 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinner;
     private ArrayAdapter<String> adapter;
     private Boolean spinnerTouched = false;
-    ScoreLogic scoreLogic = new ScoreLogic(this);
-    DiceLogic diceLogic = new DiceLogic(this);
+    Dice dice = new Dice();
+    ResultStorage resultStorage = new ResultStorage();
+
+    // Logik klasser
+    ScoreLogic scoreLogic = new ScoreLogic(this, dice, resultStorage);
+    DiceLogic diceLogic = new DiceLogic(this, dice);
     SpinnerLogic spinnerLogic = new SpinnerLogic(this);
+    // Dialogruta
     FeedBackDialogMessageBox messageBox = new FeedBackDialogMessageBox(MainActivity.this);
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -171,9 +178,11 @@ private void initUIElements(Activity activity){
     private void openResultFragment() {
         try {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.main_layout, new ResultFragment());
+            ResultFragment resultFragment = new ResultFragment();
+            resultFragment.resultStorage = resultStorage;
+            ft.replace(R.id.main_layout, resultFragment);
             ft.commit();
-            //gömmer resultat och kast knappen
+            // gömmer ta poäng och kast knappen
             btnThrow.setVisibility(View.GONE);
             btnTakePoints.setVisibility(View.GONE);
         } catch (Exception ex) {

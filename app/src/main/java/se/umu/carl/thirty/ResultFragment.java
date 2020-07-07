@@ -1,19 +1,12 @@
 package se.umu.carl.thirty;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.icu.text.RelativeDateTimeFormatter;
-import android.os.Build;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +15,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
-import se.umu.carl.thirty.GameLogic.DiceLogic;
 import se.umu.carl.thirty.GameLogic.RoundsLogic;
 import se.umu.carl.thirty.GameLogic.ScoreLogic;
 import se.umu.carl.thirty.Models.Dice;
 import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.Models.ResultStorage;
-
-import static android.content.ContentValues.TAG;
 
 public class ResultFragment extends Fragment {
 
@@ -61,12 +51,11 @@ public class ResultFragment extends Fragment {
     Button btnRestart;
     int totalSum = 0;
 
-
-
-
+    ResultStorage resultStorage;
     /**
      * Anropar metoden initUIElements och sätter klick event för btnRestart som startar om aktiviteten och nollställer
      * viktig data
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -75,7 +64,6 @@ public class ResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_result, container, false);
-
         initUIElements(view);
         btnRestart.setOnClickListener(new View.OnClickListener() {
             //   @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -85,32 +73,32 @@ public class ResultFragment extends Fragment {
                     getActivity().recreate();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
-
-                    DiceLogic diceLogic = new DiceLogic(getActivity());
-                    ScoreLogic scoreLogic = new ScoreLogic(getActivity());
-                    RoundsLogic roundsLogic = new RoundsLogic();
                     RoundsLogic.totalNumberOfThrowsDisplayed = 0;
-                    Dice dice = new Dice();
-                    Die die = new Die(null, 0);
-                    ResultStorage resultStorage = new ResultStorage();
                     ScoreLogic.pointTypeChosen = false;
-
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
             }
         });
 
-        setColumnChoiceText();
-        setColumnChoiceValueResult();
+        if (savedInstanceState != null) {
+            ArrayList<String> keys = savedInstanceState.getStringArrayList("keys");
+            ArrayList<Integer> values = savedInstanceState.getIntegerArrayList("values");
+            setColumnChoiceText(keys);
+            setColumnChoiceValueResult(values);
+        }
+        else {
+            setColumnChoiceText(new ArrayList<>(resultStorage.getChoicePoints().keySet()));
+            setColumnChoiceValueResult(new ArrayList<>(resultStorage.getChoicePoints().values()));
+        }
         return view;
     }
 
     /**
      * sätter alla valtyper för textfälten i vänstra kolumnen
      */
-    private void setColumnChoiceText() {
-        ArrayList<String> keys = new ArrayList<>(ResultStorage.choicePoints.keySet());
+    private void setColumnChoiceText(ArrayList<String> keys) {
+        //keys = new ArrayList<>(resultStorage.getChoicePoints().keySet());
         for (int index = 0; index < keys.size(); index++) {
             switch (index) {
                 case 0:
@@ -161,8 +149,8 @@ public class ResultFragment extends Fragment {
     /**
      * sätter alla poängvärden för textfälten i högra kolumnen
      */
-    private void setColumnChoiceValueResult() {
-        ArrayList<Integer> values = new ArrayList<>(ResultStorage.choicePoints.values());
+    private void setColumnChoiceValueResult(ArrayList<Integer> values) {
+       // values = new ArrayList<>(resultStorage.getChoicePoints().values());
         totalSum = sumList(values);
         for (int index = 0; index < values.size(); index++) {
             switch (index) {
@@ -266,4 +254,20 @@ public class ResultFragment extends Fragment {
         }
         return sum;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        try {
+            ArrayList<String>keys = new ArrayList<>(resultStorage.choicePoints.keySet());
+            ArrayList<Integer>values = new ArrayList<>(resultStorage.choicePoints.values());
+            outState.putStringArrayList("keys", keys);
+            outState.putIntegerArrayList("values", values);
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+    }
+
+
 }
