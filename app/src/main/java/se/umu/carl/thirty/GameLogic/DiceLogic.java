@@ -36,7 +36,7 @@ public class DiceLogic {
         this.context = context;
     }
 
-    int numberOfBlueDice = 0;
+    public int numberOfBlueDice = 0;
 
     /**
      * Bestämmer vad som ska ske när man klickar på den första tärningen
@@ -236,7 +236,8 @@ public class DiceLogic {
         spinner.setEnabled(true);
         spinner.setVisibility(View.VISIBLE);
         ArrayList<ImageView> selectedDicesImages = new ArrayList<>();
-        if (isFirstDieSelected) {
+
+        if (isFirstDieSelected && globalDice.size()==6) {
             selectedDicesImages.add(firstDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(0);
@@ -245,7 +246,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (isSecondDieSelected) {
+        if (isSecondDieSelected && globalDice.size()==6) {
             selectedDicesImages.add(secondDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(1);
@@ -254,7 +255,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (isThirdDieSelected) {
+        if (isThirdDieSelected && globalDice.size()==6) {
             selectedDicesImages.add(thirdDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(2);
@@ -263,7 +264,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (isFourthDieSelected) {
+        if (isFourthDieSelected && globalDice.size()==6) {
             selectedDicesImages.add(fourthDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(3);
@@ -272,7 +273,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (isFifthDieSelected) {
+        if (isFifthDieSelected && globalDice.size()==6) {
             selectedDicesImages.add(fifthDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(4);
@@ -281,7 +282,7 @@ public class DiceLogic {
                 }
             }
         }
-        if (isSixthDieSelected) {
+        if (isSixthDieSelected && globalDice.size()==6) {
             selectedDicesImages.add(sixthDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
                 Die die = globalDice.get(5);

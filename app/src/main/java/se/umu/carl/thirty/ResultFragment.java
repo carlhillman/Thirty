@@ -1,11 +1,19 @@
 package se.umu.carl.thirty;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.icu.text.RelativeDateTimeFormatter;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +22,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import se.umu.carl.thirty.GameLogic.DiceLogic;
+import se.umu.carl.thirty.GameLogic.RoundsLogic;
+import se.umu.carl.thirty.GameLogic.ScoreLogic;
+import se.umu.carl.thirty.Models.Dice;
+import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.Models.ResultStorage;
+
+import static android.content.ContentValues.TAG;
 
 public class ResultFragment extends Fragment {
 
@@ -43,34 +59,57 @@ public class ResultFragment extends Fragment {
     TextView scoreTen;
     TextView summaryScore;
     Button btnRestart;
-int totalSum = 0;
+    int totalSum = 0;
+
+
+
+
+    /**
+     * Anropar metoden initUIElements och sätter klick event för btnRestart som startar om aktiviteten och nollställer
+     * viktig data
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     */
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_result, container, false);
 
         initUIElements(view);
-      /*  btnRestart.setOnClickListener(new View.OnClickListener() {
+        btnRestart.setOnClickListener(new View.OnClickListener() {
+            //   @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 try {
                     getActivity().recreate();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
+
+                    DiceLogic diceLogic = new DiceLogic(getActivity());
+                    ScoreLogic scoreLogic = new ScoreLogic(getActivity());
+                    RoundsLogic roundsLogic = new RoundsLogic();
+                    RoundsLogic.totalNumberOfThrowsDisplayed = 0;
+                    Dice dice = new Dice();
+                    Die die = new Die(null, 0);
+                    ResultStorage resultStorage = new ResultStorage();
+                    ScoreLogic.pointTypeChosen = false;
+
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
             }
         });
-       */
+
         setColumnChoiceText();
         setColumnChoiceValueResult();
-        summaryText.setText(getResources().getString(R.string.totalScore));
-        summaryScore.setText(String.valueOf(totalSum));
         return view;
     }
 
-    private void setColumnChoiceText(){
+    /**
+     * sätter alla valtyper för textfälten i vänstra kolumnen
+     */
+    private void setColumnChoiceText() {
         ArrayList<String> keys = new ArrayList<>(ResultStorage.choicePoints.keySet());
         for (int index = 0; index < keys.size(); index++) {
             switch (index) {
@@ -116,9 +155,13 @@ int totalSum = 0;
                     break;
             }
         }
+        summaryText.setText(getResources().getString(R.string.totalScore));
     }
 
-    private void setColumnChoiceValueResult(){
+    /**
+     * sätter alla poängvärden för textfälten i högra kolumnen
+     */
+    private void setColumnChoiceValueResult() {
         ArrayList<Integer> values = new ArrayList<>(ResultStorage.choicePoints.values());
         totalSum = sumList(values);
         for (int index = 0; index < values.size(); index++) {
@@ -165,8 +208,12 @@ int totalSum = 0;
                     break;
             }
         }
+        summaryScore.setText(String.valueOf(totalSum));
     }
 
+    /**
+     * initierar alla UI element
+     */
     private void initUIElements(View view) {
         choiceOne = view.findViewById(R.id.choiceRow1);
         scoreOne = view.findViewById(R.id.scoreRow1);

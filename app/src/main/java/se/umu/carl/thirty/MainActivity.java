@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             initUIElements(this);
             initClickListeners();
+
             getSavedInstanceState(savedInstanceState);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -202,7 +204,8 @@ private void initUIElements(Activity activity){
             } else {
                 diceLogic.enableDiceImage();
             }
-            RestoreGUIManager.setBtnThrowVisibility(btnThrow);
+
+            RestoreGUIManager.setBtnThrowVisibility(btnThrow, savedInstanceState.getInt("numberOfBlueDice"));
             RestoreGUIManager.setBtnTakePointsVisibility(btnTakePoints);
             RestoreGUIManager.hideButtonOnResultFragmentOrientationChange(btnThrow);
             RestoreGUIManager.setDieBackgroundColor(diceLogic.isFirstDieSelected, diceLogic.isSecondDieSelected, diceLogic.isThirdDieSelected,
@@ -250,6 +253,7 @@ private void initUIElements(Activity activity){
             outState.putBoolean("PointTypeChosen", ScoreLogic.pointTypeChosen);
             outState.putParcelableArrayList("globalDice", diceLogic.globalDice);
             outState.putStringArrayList("choicePointsSpinner", SpinnerItems.retrieveAllItems(spinner));
+            outState.putInt("numberOfBlueDice", diceLogic.numberOfBlueDice);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

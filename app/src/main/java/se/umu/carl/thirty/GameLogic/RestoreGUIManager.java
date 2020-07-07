@@ -8,11 +8,13 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
+import se.umu.carl.thirty.Models.Dice;
 import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.R;
 
 // En hjälp klass som hämtar tillbaka GUI komponenter vid skärmrotation
 public class RestoreGUIManager {
+
 
     public static boolean isBtnTakePointsDisplayed = false;
     public static boolean isBtnThrowDisplayed = false;
@@ -25,11 +27,11 @@ public class RestoreGUIManager {
      * @param btnThrow
      */
 
-    public static void setBtnThrowVisibility(Button btnThrow) {
+    public static void setBtnThrowVisibility(Button btnThrow, int numberOfBlueDice) {
         if (RoundsLogic.totalNumberOfThrowsDisplayed == 3) {
             btnThrow.setVisibility(View.GONE);
         }
-        if (inChoosingPointProgress || ScoreLogic.pointTypeChosen) {
+        if (inChoosingPointProgress || ScoreLogic.pointTypeChosen || numberOfBlueDice == 6) {
             btnThrow.setVisibility(View.GONE);
         }
         if (ScoreLogic.pointTypeChosen) {

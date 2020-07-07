@@ -24,6 +24,7 @@ public class ScoreLogic {
 
     public ScoreLogic(Context context) {
         this.context = context;
+
     }
 
     /**

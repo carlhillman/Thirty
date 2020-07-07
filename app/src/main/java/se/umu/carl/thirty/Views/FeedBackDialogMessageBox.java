@@ -10,6 +10,7 @@ import se.umu.carl.thirty.R;
 
 public class FeedBackDialogMessageBox {
     Activity activity;
+
     public FeedBackDialogMessageBox(Activity activity) {
         this.activity = activity;
     }
