@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Objects;
 
 import se.umu.carl.thirty.GameLogic.DiceLogic;
@@ -207,7 +208,13 @@ private void initUIElements(Activity activity){
             RestoreGUIManager.inChoosingPointProgress = savedInstanceState.getBoolean("inChoosingPointProgress");
             RestoreGUIManager.isBtnThrowDisplayed = savedInstanceState.getBoolean("isBtnThrowDisplayed");
             RestoreGUIManager.isDiceImageViewEnabled = savedInstanceState.getBoolean("isDiceImageViewEnabled");
+            textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + savedInstanceState.getInt("numberOfRounds"));
+            textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + savedInstanceState.getInt("numberOfThrows"));
 
+            resultStorage.choicePoints = (HashMap<String, Integer>) savedInstanceState.getSerializable("resultStorage.choicePoints");
+
+            diceLogic.globalDice = savedInstanceState.getParcelableArrayList("globalDice");
+            dice.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, diceLogic.globalDice);
             if (!RestoreGUIManager.isDiceImageViewEnabled) {
                 diceLogic.disableDiceImage();
             } else {
@@ -220,11 +227,7 @@ private void initUIElements(Activity activity){
             RestoreGUIManager.setDieBackgroundColor(diceLogic.isFirstDieSelected, diceLogic.isSecondDieSelected, diceLogic.isThirdDieSelected,
                     diceLogic.isFourthDieSelected, diceLogic.isFifthDieSelected, diceLogic.isSixthDieSelected,
                     diceLogic.firstDieImageView, diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
-                    diceLogic.fifthDieImageView, diceLogic.sixthDieImageView);
-
-
-            textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + savedInstanceState.getInt("numberOfRounds"));
-            textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + savedInstanceState.getInt("numberOfThrows"));
+                    diceLogic.fifthDieImageView, diceLogic.sixthDieImageView, diceLogic.globalDice);
 
             spinner.setSelection(adapter.getPosition(getResources().getStringArray(R.array.choices)[0]));
 
@@ -234,7 +237,7 @@ private void initUIElements(Activity activity){
                 spinner.setAdapter(adapter);
                 RestoreGUIManager.setSpinnerState(spinner);
             }
-            diceLogic.globalDice = savedInstanceState.getParcelableArrayList("globalDice");
+
             if (diceLogic.globalDice != null) {
                 RestoreGUIManager.restoreDiceImageResource(diceLogic.globalDice, diceLogic.firstDieImageView,
                         diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
@@ -263,6 +266,8 @@ private void initUIElements(Activity activity){
             outState.putParcelableArrayList("globalDice", diceLogic.globalDice);
             outState.putStringArrayList("choicePointsSpinner", SpinnerItems.retrieveAllItems(spinner));
             outState.putInt("numberOfBlueDice", diceLogic.numberOfBlueDice);
+
+            outState.putSerializable("resultStorage.choicePoints", resultStorage.choicePoints);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

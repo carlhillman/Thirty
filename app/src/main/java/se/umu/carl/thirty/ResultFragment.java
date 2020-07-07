@@ -17,9 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import se.umu.carl.thirty.GameLogic.RestoreGUIManager;
 import se.umu.carl.thirty.GameLogic.RoundsLogic;
 import se.umu.carl.thirty.GameLogic.ScoreLogic;
-import se.umu.carl.thirty.Models.Dice;
+//import se.umu.carl.thirty.Models.Dice;
 import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.Models.ResultStorage;
 
@@ -74,7 +75,10 @@ public class ResultFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                     RoundsLogic.totalNumberOfThrowsDisplayed = 0;
+                    RoundsLogic.totalNumberOfRounds = 1;
                     ScoreLogic.pointTypeChosen = false;
+                    RestoreGUIManager.inChoosingPointProgress = false;
+                    RoundsLogic.isGameOver = false;
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }

@@ -6,9 +6,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import androidx.annotation.ArrayRes;
+
 import java.util.ArrayList;
 
-import se.umu.carl.thirty.Models.Dice;
+//import se.umu.carl.thirty.Models.Dice;
 import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.R;
 
@@ -105,26 +107,27 @@ public class RestoreGUIManager {
                                              ImageView thirdDieImageView,
                                              ImageView fourthDieImageView,
                                              ImageView fifthDieImageView,
-                                             ImageView sixthDieImageView
+                                             ImageView sixthDieImageView, ArrayList<Die>dice
 
     ) {
 
-        setFirstDieImageViewColor(isFirstDieSelected, firstDieImageView);
+        setFirstDieImageViewColor(isFirstDieSelected, firstDieImageView, dice);
 
-        setSecondDieImageViewColor(isSecondDieSelected, secondDieImageView);
+        setSecondDieImageViewColor(isSecondDieSelected, secondDieImageView, dice);
 
-        setThirdDieImageViewColor(isThirdDieSelected, thirdDieImageView);
+        setThirdDieImageViewColor(isThirdDieSelected, thirdDieImageView, dice);
 
-        setFourthDieImageViewColor(isFourthDieSelected, fourthDieImageView);
+        setFourthDieImageViewColor(isFourthDieSelected, fourthDieImageView, dice);
 
-        setFifthDieImageViewColor(isFifthDieSelected, fifthDieImageView);
+        setFifthDieImageViewColor(isFifthDieSelected, fifthDieImageView, dice);
 
-        setSixthDieImageViewColor(isSixthDieSelected, sixthDieImageView);
+        setSixthDieImageViewColor(isSixthDieSelected, sixthDieImageView, dice);
     }
 
-    private static void setFirstDieImageViewColor(boolean isFirstDieSelected, ImageView firstDieImageView) {
+    private static void setFirstDieImageViewColor(boolean isFirstDieSelected, ImageView firstDieImageView, ArrayList<Die>dice) {
         if (isFirstDieSelected && inChoosingPointProgress) {
             firstDieImageView.setBackgroundColor(Color.BLUE);
+            dice.get(0).selected = true;
         } else if (!isFirstDieSelected && inChoosingPointProgress) {
             firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isFirstDieSelected) {
@@ -134,9 +137,10 @@ public class RestoreGUIManager {
         }
     }
 
-    private static void setSecondDieImageViewColor(boolean isSecondDieSelected, ImageView secondDieImageView) {
+    private static void setSecondDieImageViewColor(boolean isSecondDieSelected, ImageView secondDieImageView, ArrayList<Die>dice) {
         if (isSecondDieSelected && inChoosingPointProgress) {
             secondDieImageView.setBackgroundColor(Color.BLUE);
+            dice.get(1).selected = true;
         } else if (!isSecondDieSelected && inChoosingPointProgress) {
             secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isSecondDieSelected) {
@@ -146,9 +150,10 @@ public class RestoreGUIManager {
         }
     }
 
-    private static void setThirdDieImageViewColor(boolean isThirdDieSelected, ImageView thirdDieImageView) {
+    private static void setThirdDieImageViewColor(boolean isThirdDieSelected, ImageView thirdDieImageView, ArrayList<Die>dice) {
         if (isThirdDieSelected && inChoosingPointProgress) {
             thirdDieImageView.setBackgroundColor(Color.BLUE);
+            dice.get(2).selected = true;
         } else if (!isThirdDieSelected && inChoosingPointProgress) {
             thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isThirdDieSelected) {
@@ -158,9 +163,10 @@ public class RestoreGUIManager {
         }
     }
 
-    private static void setFourthDieImageViewColor(boolean isFourthDieSelected, ImageView fourthDieImageView) {
+    private static void setFourthDieImageViewColor(boolean isFourthDieSelected, ImageView fourthDieImageView, ArrayList<Die>dice) {
         if (isFourthDieSelected && inChoosingPointProgress) {
             fourthDieImageView.setBackgroundColor(Color.BLUE);
+            dice.get(3).selected = true;
         } else if (!isFourthDieSelected && inChoosingPointProgress) {
             fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isFourthDieSelected) {
@@ -170,9 +176,10 @@ public class RestoreGUIManager {
         }
     }
 
-    private static void setFifthDieImageViewColor(boolean isFifthDieSelected, ImageView fifthDieImageView) {
+    private static void setFifthDieImageViewColor(boolean isFifthDieSelected, ImageView fifthDieImageView, ArrayList<Die>dice) {
         if (isFifthDieSelected && inChoosingPointProgress) {
             fifthDieImageView.setBackgroundColor(Color.BLUE);
+            dice.get(4).selected = true;
         } else if (!isFifthDieSelected && inChoosingPointProgress) {
             fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isFifthDieSelected) {
@@ -182,9 +189,10 @@ public class RestoreGUIManager {
         }
     }
 
-    private static void setSixthDieImageViewColor(boolean isSixthDieSelected, ImageView sixthDieImageView) {
+    private static void setSixthDieImageViewColor(boolean isSixthDieSelected, ImageView sixthDieImageView, ArrayList<Die>dice) {
         if (isSixthDieSelected && inChoosingPointProgress) {
             sixthDieImageView.setBackgroundColor(Color.BLUE);
+            dice.get(5).selected = true;
         } else if (!isSixthDieSelected && inChoosingPointProgress) {
             sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isSixthDieSelected) {
