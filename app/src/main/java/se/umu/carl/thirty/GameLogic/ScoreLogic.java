@@ -24,15 +24,16 @@ public class ScoreLogic {
 
     public Dice diceClass;
     ResultStorage resultStorage;
+
     public ScoreLogic(Context context, Dice diceClass, ResultStorage resultStorage) {
         this.context = context;
         this.diceClass = diceClass;
         this.resultStorage = resultStorage;
-
     }
 
     /**
      * bestämer vilken poäng som ska sättas
+     *
      * @param spinner - spinner används för att få tag på vilket poängval användaren valt
      * @param adapter - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
      */
@@ -82,9 +83,10 @@ public class ScoreLogic {
 
     /**
      * kollar vilka kombinationer och tärningar som finns på fältet
+     *
      * @param selectedItem - används för att veta vilket poängval som gjordes
-     * @param adapter - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
-     * @param choicePoint - används för att veta vilket värde/heltal poängtypen har
+     * @param adapter      - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
+     * @param choicePoint  - används för att veta vilket värde/heltal poängtypen har
      */
     protected void calculateCurrentScore(String selectedItem, int choicePoint, ArrayAdapter<String> adapter) {
         ArrayList<Die> dice = new ArrayList<>();
@@ -93,25 +95,18 @@ public class ScoreLogic {
                 dice = entry.getValue();
                 break;
             }
-            int selectedDieSize = 0;
             ArrayList<Die> selectedDice = new ArrayList<>();
             for (Die die : dice) {
                 if (die.selected) {
-                    currentScore += die.value;
                     selectedDice.add(die);
                 }
             }
-          /*  for(Die die : selectedDice){
-                if(die.value == choicePoint){
-                    currentScore+= die.value;
-                    die.value = 0;
-                }
-                if(selectedDice.get(0).value + selectedDice.get(1).value == choicePoint){
+            for (int i = 0; i < selectedDice.size(); i++) {
+                if (selectedDice.get(i).value == choicePoint) { //tärningar som direkt matchar valet tilldelas värde 0
                     currentScore += choicePoint;
+                    selectedDice.get(i).value = 0;
                 }
             }
-
-           */
 
             //ifall summan av tärningarna är delbart med valet
             if (currentScore % choicePoint == 0 && currentScore >= choicePoint) {
@@ -126,21 +121,23 @@ public class ScoreLogic {
             adapter.notifyDataSetChanged();
             RoundsLogic.isNewRound = true;
             diceClass.triesAndDiceNumbers.clear();
-
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
+
     /**
      * anropar metoden setChoicePoint och sätter tillbaka default värdet "välj poängtyp" i spinnern
-     * @param spinner - används för att veta vilket poängval som gjordes
-     * @param adapter - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
-     * @param messageBox - används för att visa en dialogruta som ger feedback
-     * @param btnThrow - används för att gömma kast knappen
+     *
+     * @param spinner       - används för att veta vilket poängval som gjordes
+     * @param adapter       - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
+     * @param messageBox    - används för att visa en dialogruta som ger feedback
+     * @param btnThrow      - används för att gömma kast knappen
      * @param btnTakePoints - används för att gömma ta poäng knappen
-     * @param diceLogic - används för att kalla på metoden deselectAllDice och disableDiceImage
+     * @param diceLogic     - används för att kalla på metoden deselectAllDice och disableDiceImage
      */
-    public void getPoints(Spinner spinner, ArrayAdapter<String> adapter, FeedBackDialogMessageBox messageBox
+    public void getPoints(Spinner
+                                  spinner, ArrayAdapter<String> adapter, FeedBackDialogMessageBox messageBox
             , Button btnThrow, Button btnTakePoints, DiceLogic diceLogic) {
         try {
             setChoicePoint(spinner, adapter);

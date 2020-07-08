@@ -317,7 +317,6 @@ public class DiceLogic {
         spinner.setEnabled(true);
         spinner.setVisibility(View.VISIBLE);
         ArrayList<ImageView> selectedDicesImages = new ArrayList<>();
-
         if (isFirstDieSelected && globalDice.size() == 6) {
             selectedDicesImages.add(firstDieImageView);
             if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
@@ -372,8 +371,7 @@ public class DiceLogic {
                 }
             }
         }
-        // Om ingen tärning valts, blir alla valda
-        if (selectedDicesImages.size() == 0) {
+        if (selectedDicesImages.size() == 0) {  // Om ingen tärning valts, blir alla valda
             addAllDiceImages(selectedDicesImages);
             selectAllDice();
             for (Die die : globalDice) {

@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import androidx.annotation.ArrayRes;
 
 import java.util.ArrayList;
 
@@ -87,8 +86,8 @@ public class RestoreGUIManager {
 
 
     /**
-     * metod som sätter tillbaka den blå färgen runt tärningsbilderna
-     *
+     * metod som anropar metoderna setFirstDieImageViewColor, setSecondDieImageViewColor, setThirdDieImageViewColor
+     * setFourthDieImageViewColor, setFifthDieImageViewColor och setSixthDieImageViewColor
      * @param isFirstDieSelected
      * @param isSecondDieSelected
      * @param isThirdDieSelected
@@ -125,7 +124,13 @@ public class RestoreGUIManager {
 
         setSixthDieImageViewColor(isSixthDieSelected, sixthDieImageView, dice);
     }
-
+    /**
+     * metod som beroende på första tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
+     * en ArrayList anses vara vald eller inte
+     * @param isFirstDieSelected
+     * @param firstDieImageView
+     * @param dice
+     */
     private static void setFirstDieImageViewColor(boolean isFirstDieSelected, ImageView firstDieImageView, ArrayList<Die>dice) {
         if (isFirstDieSelected && inChoosingPointProgress) {
             firstDieImageView.setBackgroundColor(Color.BLUE);
@@ -143,7 +148,13 @@ public class RestoreGUIManager {
             firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
-
+    /**
+     * metod som beroende på andra tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
+     * en ArrayList anses vara vald eller inte
+     * @param isSecondDieSelected
+     * @param secondDieImageView
+     * @param dice
+     */
     private static void setSecondDieImageViewColor(boolean isSecondDieSelected, ImageView secondDieImageView, ArrayList<Die>dice) {
         if (isSecondDieSelected && inChoosingPointProgress) {
             secondDieImageView.setBackgroundColor(Color.BLUE);
@@ -161,7 +172,13 @@ public class RestoreGUIManager {
             secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
-
+    /**
+     * metod som beroende på tredje tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
+     * en ArrayList anses vara vald eller inte
+     * @param isThirdDieSelected
+     * @param thirdDieImageView
+     * @param dice
+     */
     private static void setThirdDieImageViewColor(boolean isThirdDieSelected, ImageView thirdDieImageView, ArrayList<Die>dice) {
         if (isThirdDieSelected && inChoosingPointProgress) {
             thirdDieImageView.setBackgroundColor(Color.BLUE);
@@ -179,7 +196,13 @@ public class RestoreGUIManager {
             thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
-
+    /**
+     * metod som beroende på fjärde tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
+     * en ArrayList anses vara vald eller inte
+     * @param isFourthDieSelected
+     * @param fourthDieImageView
+     * @param dice
+     */
     private static void setFourthDieImageViewColor(boolean isFourthDieSelected, ImageView fourthDieImageView, ArrayList<Die>dice) {
         if (isFourthDieSelected && inChoosingPointProgress) {
             fourthDieImageView.setBackgroundColor(Color.BLUE);
@@ -197,7 +220,13 @@ public class RestoreGUIManager {
             fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
-
+    /**
+     * metod som beroende på femte tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
+     * en ArrayList anses vara vald eller inte
+     * @param isFifthDieSelected
+     * @param fifthDieImageView
+     * @param dice
+     */
     private static void setFifthDieImageViewColor(boolean isFifthDieSelected, ImageView fifthDieImageView, ArrayList<Die>dice) {
         if (isFifthDieSelected && inChoosingPointProgress) {
             fifthDieImageView.setBackgroundColor(Color.BLUE);
@@ -215,7 +244,13 @@ public class RestoreGUIManager {
             fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
-
+    /**
+     * metod som beroende på sjätte tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
+     * en ArrayList anses vara vald eller inte
+     * @param isSixthDieSelected
+     * @param sixthDieImageView
+     * @param dice
+     */
     private static void setSixthDieImageViewColor(boolean isSixthDieSelected, ImageView sixthDieImageView, ArrayList<Die>dice) {
         if (isSixthDieSelected && inChoosingPointProgress) {
             sixthDieImageView.setBackgroundColor(Color.BLUE);
@@ -236,7 +271,7 @@ public class RestoreGUIManager {
 
 
     /**
-     * Sätter tillbaka vilka tärnings bilder som ska visa för respektive ImageView
+     * Sätter tillbaka vilka tärnings bilder/bild resurs som ska visa för respektive ImageView
      *
      * @param globalDice
      * @param firstDieImageView
