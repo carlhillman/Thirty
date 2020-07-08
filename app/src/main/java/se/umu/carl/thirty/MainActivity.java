@@ -67,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(ex.getMessage());
         }
     }
+
     /**
      * initierar UI elementens klick lyssnare
-     *
      */
-    private void initClickListeners(){
+    private void initClickListeners() {
         diceLogic.firstDieImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 spinnerTouched = false;
             }
+
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
@@ -147,34 +148,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      * initierar UI element som knappar, texter, spinner osv
-     *
      */
-private void initUIElements(Activity activity){
-    diceLogic.firstDieImageView = activity.findViewById(R.id.image_view_dice1);
-    diceLogic.secondDieImageView = activity.findViewById(R.id.image_view_dice2);
-    diceLogic.thirdDieImageView = activity.findViewById(R.id.image_view_dice3);
-    diceLogic.fourthDieImageView = activity.findViewById(R.id.image_view_dice4);
-    diceLogic.fifthDieImageView = activity.findViewById(R.id.image_view_dice5);
-    diceLogic.sixthDieImageView = activity.findViewById(R.id.image_view_dice6);
-    spinner = activity.findViewById(R.id.spinnerChoice);
-    ArrayList<String> choices = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.choices)));
-    adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
-    adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-    spinner.setAdapter(adapter);
-    spinner.setVisibility(View.GONE);
-    textViewRounds = activity.findViewById(R.id.txtRounds);
-    textViewThrows = activity.findViewById(R.id.txtThrows);
-    btnThrow = activity.findViewById(R.id.btnThrow);
-    btnTakePoints = activity.findViewById(R.id.btnTakePoints);
-    btnTakePoints.setVisibility(View.GONE);
-    // Sätter antal rundor till 1 i början av spelet
-    textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + RoundsLogic.totalNumberOfRounds);
-}
+    private void initUIElements(Activity activity) {
+        diceLogic.firstDieImageView = activity.findViewById(R.id.image_view_dice1);
+        diceLogic.secondDieImageView = activity.findViewById(R.id.image_view_dice2);
+        diceLogic.thirdDieImageView = activity.findViewById(R.id.image_view_dice3);
+        diceLogic.fourthDieImageView = activity.findViewById(R.id.image_view_dice4);
+        diceLogic.fifthDieImageView = activity.findViewById(R.id.image_view_dice5);
+        diceLogic.sixthDieImageView = activity.findViewById(R.id.image_view_dice6);
+        spinner = activity.findViewById(R.id.spinnerChoice);
+        ArrayList<String> choices = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.choices)));
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, choices);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setVisibility(View.GONE);
+        textViewRounds = activity.findViewById(R.id.txtRounds);
+        textViewThrows = activity.findViewById(R.id.txtThrows);
+        btnThrow = activity.findViewById(R.id.btnThrow);
+        btnTakePoints = activity.findViewById(R.id.btnTakePoints);
+        btnTakePoints.setVisibility(View.GONE);
+        // Sätter antal rundor till 1 i början av spelet
+        textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + RoundsLogic.totalNumberOfRounds);
+    }
+
     /**
      * öppnar resultatvyn
-     *
      */
     private void openResultFragment() {
         try {
@@ -212,7 +213,7 @@ private void initUIElements(Activity activity){
             textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + savedInstanceState.getInt("numberOfThrows"));
 
             resultStorage.choicePoints = (HashMap<String, Integer>) savedInstanceState.getSerializable("resultStorage.choicePoints");
-
+            RestoreGUIManager.isPointTypeChosenOnRestore = savedInstanceState.getBoolean("pointTypeChosen");
             diceLogic.globalDice = savedInstanceState.getParcelableArrayList("globalDice");
             dice.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, diceLogic.globalDice);
             if (!RestoreGUIManager.isDiceImageViewEnabled) {
@@ -220,8 +221,9 @@ private void initUIElements(Activity activity){
             } else {
                 diceLogic.enableDiceImage();
             }
-
-            RestoreGUIManager.setBtnThrowVisibility(btnThrow, savedInstanceState.getInt("numberOfBlueDice"));
+            int numberOfBlueDice = savedInstanceState.getInt("numberOfBlueDice");
+            RestoreGUIManager.setBtnThrowVisibility(btnThrow, numberOfBlueDice);
+            diceLogic.numberOfBlueDice = numberOfBlueDice;
             RestoreGUIManager.setBtnTakePointsVisibility(btnTakePoints);
             RestoreGUIManager.hideButtonOnResultFragmentOrientationChange(btnThrow);
             RestoreGUIManager.setDieBackgroundColor(diceLogic.isFirstDieSelected, diceLogic.isSecondDieSelected, diceLogic.isThirdDieSelected,
@@ -262,7 +264,7 @@ private void initUIElements(Activity activity){
             outState.putBoolean("isDiceImageViewEnabled", RestoreGUIManager.isDiceImageViewEnabled);
             outState.putInt("numberOfRounds", RoundsLogic.totalNumberOfRounds);
             outState.putInt("numberOfThrows", RoundsLogic.totalNumberOfThrowsDisplayed);
-            outState.putBoolean("PointTypeChosen", ScoreLogic.pointTypeChosen);
+            outState.putBoolean("pointTypeChosen", ScoreLogic.pointTypeChosen);
             outState.putParcelableArrayList("globalDice", diceLogic.globalDice);
             outState.putStringArrayList("choicePointsSpinner", SpinnerItems.retrieveAllItems(spinner));
             outState.putInt("numberOfBlueDice", diceLogic.numberOfBlueDice);

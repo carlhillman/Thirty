@@ -21,6 +21,8 @@ public class RestoreGUIManager {
     public static boolean isBtnThrowDisplayed = false;
     public static boolean inChoosingPointProgress = false;
     public static boolean isDiceImageViewEnabled = false;
+    //används för att se till tärningarnas blåmarkering när man roterar skärmen efter man tagit poäng
+    public static boolean isPointTypeChosenOnRestore = false;
 
     /**
      * metod som gömmer eller visar Button btnThrow beroende på spelets nuvarande status
@@ -131,7 +133,12 @@ public class RestoreGUIManager {
         } else if (!isFirstDieSelected && inChoosingPointProgress) {
             firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isFirstDieSelected) {
-            firstDieImageView.setBackgroundColor(Color.BLUE);
+            if(isPointTypeChosenOnRestore){
+                firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
+            }
+            else {
+                firstDieImageView.setBackgroundColor(Color.BLUE);
+            }
         } else {
             firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
@@ -144,7 +151,12 @@ public class RestoreGUIManager {
         } else if (!isSecondDieSelected && inChoosingPointProgress) {
             secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isSecondDieSelected) {
-            secondDieImageView.setBackgroundColor(Color.BLUE);
+            if(isPointTypeChosenOnRestore){
+                secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
+            }
+            else {
+                secondDieImageView.setBackgroundColor(Color.BLUE);
+            }
         } else {
             secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
@@ -157,7 +169,12 @@ public class RestoreGUIManager {
         } else if (!isThirdDieSelected && inChoosingPointProgress) {
             thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isThirdDieSelected) {
-            thirdDieImageView.setBackgroundColor(Color.BLUE);
+            if(isPointTypeChosenOnRestore){
+                thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
+            }
+            else {
+                thirdDieImageView.setBackgroundColor(Color.BLUE);
+            }
         } else {
             thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
@@ -170,7 +187,12 @@ public class RestoreGUIManager {
         } else if (!isFourthDieSelected && inChoosingPointProgress) {
             fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isFourthDieSelected) {
-            fourthDieImageView.setBackgroundColor(Color.BLUE);
+            if(isPointTypeChosenOnRestore){
+                fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+            }
+            else {
+                fourthDieImageView.setBackgroundColor(Color.BLUE);
+            }
         } else {
             fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
@@ -183,7 +205,12 @@ public class RestoreGUIManager {
         } else if (!isFifthDieSelected && inChoosingPointProgress) {
             fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isFifthDieSelected) {
-            fifthDieImageView.setBackgroundColor(Color.BLUE);
+            if(isPointTypeChosenOnRestore){
+                fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+            }
+            else {
+                fifthDieImageView.setBackgroundColor(Color.BLUE);
+            }
         } else {
             fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
@@ -196,7 +223,12 @@ public class RestoreGUIManager {
         } else if (!isSixthDieSelected && inChoosingPointProgress) {
             sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isSixthDieSelected) {
-            sixthDieImageView.setBackgroundColor(Color.BLUE);
+            if(isPointTypeChosenOnRestore){
+                sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
+            }
+            else {
+                sixthDieImageView.setBackgroundColor(Color.BLUE);
+            }
         } else {
             sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
