@@ -21,7 +21,7 @@ public class FeedBackDialogMessageBox {
 
     /**
      * Sätter titel, meddelande och poäng för FeedBackDialog när användaren tagit poäng
-     * @param score
+     * @param score - poäng tagna
      */
     public void showRoundSucceededDialog(int score) {
         try {

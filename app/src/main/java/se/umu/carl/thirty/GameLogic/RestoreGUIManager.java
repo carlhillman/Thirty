@@ -20,13 +20,12 @@ public class RestoreGUIManager {
     public static boolean isBtnThrowDisplayed = false;
     public static boolean inChoosingPointProgress = false;
     public static boolean isDiceImageViewEnabled = false;
-    //används för att se till tärningarnas blåmarkering när man roterar skärmen efter man tagit poäng
     public static boolean isPointTypeChosenOnRestore = false;
 
     /**
      * metod som gömmer eller visar Button btnThrow beroende på spelets nuvarande status
      *
-     * @param btnThrow
+     * @param btnThrow - kast knappen
      */
 
     public static void setBtnThrowVisibility(Button btnThrow, int numberOfBlueDice) {
@@ -44,7 +43,7 @@ public class RestoreGUIManager {
     /**
      * metod som gömmer eller visar Button btnTakePoints beroende på spelets nuvarande status
      *
-     * @param btnTakePoints
+     * @param btnTakePoints - ta poäng knappen
      */
     public static void setBtnTakePointsVisibility(Button btnTakePoints) {
         if (inChoosingPointProgress) {
@@ -58,7 +57,7 @@ public class RestoreGUIManager {
      * metod som gömmer eller visar samt enablar eller disablar Spinner spinner
      * beroende på spelets nuvarande status
      *
-     * @param spinner
+     * @param spinner - spinner med poängval
      */
     public static void setSpinnerState(Spinner spinner) {
         if (RoundsLogic.totalNumberOfThrowsDisplayed >= 1) {
@@ -76,7 +75,7 @@ public class RestoreGUIManager {
     /**
      * metod som gömmer kast knappen när spelet är slut
      *
-     * @param btnThrow
+     * @param btnThrow - kast knappen
      */
     public static void hideButtonOnResultFragmentOrientationChange(Button btnThrow) {
         if (RoundsLogic.getAndSetGameOver()) {
@@ -88,18 +87,18 @@ public class RestoreGUIManager {
     /**
      * metod som anropar metoderna setFirstDieImageViewColor, setSecondDieImageViewColor, setThirdDieImageViewColor
      * setFourthDieImageViewColor, setFifthDieImageViewColor och setSixthDieImageViewColor
-     * @param isFirstDieSelected
-     * @param isSecondDieSelected
-     * @param isThirdDieSelected
-     * @param isFourthDieSelected
-     * @param isFifthDieSelected
-     * @param isSixthDieSelected
-     * @param firstDieImageView
-     * @param secondDieImageView
-     * @param thirdDieImageView
-     * @param fourthDieImageView
-     * @param fifthDieImageView
-     * @param sixthDieImageView
+     * @param isFirstDieSelected - boolean för första tärningsbilden
+     * @param isSecondDieSelected - boolean för andra tärningsbilden
+     * @param isThirdDieSelected - boolean för tredje tärningsbilden
+     * @param isFourthDieSelected - boolean för fjärde tärningsbilden
+     * @param isFifthDieSelected - boolean för femte tärningsbilden
+     * @param isSixthDieSelected - boolean för första tärningsbilden
+     * @param firstDieImageView - imageview för första tärningsbilden
+     * @param secondDieImageView - imageview för andra tärningsbilden
+     * @param thirdDieImageView - imageview för tredje tärningsbilden
+     * @param fourthDieImageView - imageview för fjärde tärningsbilden
+     * @param fifthDieImageView - imageview för femte tärningsbilden
+     * @param sixthDieImageView - imageview för sjätte tärningsbilden
      */
     public static void setDieBackgroundColor(boolean isFirstDieSelected, boolean isSecondDieSelected, boolean isThirdDieSelected,
                                              boolean isFourthDieSelected, boolean isFifthDieSelected, boolean isSixthDieSelected,
@@ -129,7 +128,7 @@ public class RestoreGUIManager {
      * en ArrayList anses vara vald eller inte
      * @param isFirstDieSelected
      * @param firstDieImageView
-     * @param dice
+     * @param dice - lista med tärningar/Die objekt
      */
     private static void setFirstDieImageViewColor(boolean isFirstDieSelected, ImageView firstDieImageView, ArrayList<Die>dice) {
         if (isFirstDieSelected && inChoosingPointProgress) {
@@ -153,7 +152,7 @@ public class RestoreGUIManager {
      * en ArrayList anses vara vald eller inte
      * @param isSecondDieSelected
      * @param secondDieImageView
-     * @param dice
+     * @param dice - lista med tärningar/Die objekt
      */
     private static void setSecondDieImageViewColor(boolean isSecondDieSelected, ImageView secondDieImageView, ArrayList<Die>dice) {
         if (isSecondDieSelected && inChoosingPointProgress) {
@@ -177,7 +176,7 @@ public class RestoreGUIManager {
      * en ArrayList anses vara vald eller inte
      * @param isThirdDieSelected
      * @param thirdDieImageView
-     * @param dice
+     * @param dice - lista med tärningar/Die objekt
      */
     private static void setThirdDieImageViewColor(boolean isThirdDieSelected, ImageView thirdDieImageView, ArrayList<Die>dice) {
         if (isThirdDieSelected && inChoosingPointProgress) {
@@ -201,7 +200,7 @@ public class RestoreGUIManager {
      * en ArrayList anses vara vald eller inte
      * @param isFourthDieSelected
      * @param fourthDieImageView
-     * @param dice
+     * @param dice - lista med tärningar/Die objekt
      */
     private static void setFourthDieImageViewColor(boolean isFourthDieSelected, ImageView fourthDieImageView, ArrayList<Die>dice) {
         if (isFourthDieSelected && inChoosingPointProgress) {
@@ -225,7 +224,7 @@ public class RestoreGUIManager {
      * en ArrayList anses vara vald eller inte
      * @param isFifthDieSelected
      * @param fifthDieImageView
-     * @param dice
+     * @param dice - lista med tärningar/Die objekt
      */
     private static void setFifthDieImageViewColor(boolean isFifthDieSelected, ImageView fifthDieImageView, ArrayList<Die>dice) {
         if (isFifthDieSelected && inChoosingPointProgress) {
@@ -249,7 +248,7 @@ public class RestoreGUIManager {
      * en ArrayList anses vara vald eller inte
      * @param isSixthDieSelected
      * @param sixthDieImageView
-     * @param dice
+     * @param dice - lista med tärningar/Die objekt
      */
     private static void setSixthDieImageViewColor(boolean isSixthDieSelected, ImageView sixthDieImageView, ArrayList<Die>dice) {
         if (isSixthDieSelected && inChoosingPointProgress) {
@@ -273,7 +272,7 @@ public class RestoreGUIManager {
     /**
      * Sätter tillbaka vilka tärnings bilder/bild resurs som ska visa för respektive ImageView
      *
-     * @param globalDice
+     * @param globalDice - lista med tärningar/Die objekt
      * @param firstDieImageView
      * @param secondDieImageView
      * @param thirdDieImageView
@@ -300,7 +299,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den första tärningen
      *
-     * @param globalDice
+     * @param globalDice - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreFirstDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
@@ -322,7 +321,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den andra tärningen
      *
-     * @param globalDice
+     * @param globalDice - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreSecondDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
@@ -344,7 +343,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den tredje tärningen
      *
-     * @param globalDice
+     * @param globalDice - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreThirdDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
@@ -366,7 +365,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den fjärde tärningen
      *
-     * @param globalDice
+     * @param globalDice - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreFourthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
@@ -388,7 +387,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den femte tärningen
      *
-     * @param globalDice
+     * @param globalDice - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreFifthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
@@ -410,7 +409,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den sjätte tärningen
      *
-     * @param globalDice
+     * @param globalDice - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreSixthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {

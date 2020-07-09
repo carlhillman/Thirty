@@ -191,12 +191,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
     /**
      * Hämtar tillbaka variabler och utseende av GUI element vid rotation av skärmen
      *
      * @param savedInstanceState
      */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getSavedInstanceState(Bundle savedInstanceState) {
         try {
             if (savedInstanceState != null) {

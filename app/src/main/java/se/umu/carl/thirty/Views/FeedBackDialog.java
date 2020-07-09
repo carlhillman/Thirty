@@ -20,7 +20,7 @@ public class FeedBackDialog extends AppCompatDialogFragment {
 
     /**
      * Återställer titel, meddelande när användaren tagit poäng
-     * @param score
+     * @param score - poäng tagna
      */
     public void restoreSucceededMessage(int score) {
         title = getResources().getString(R.string.succeededTitle) + score;
@@ -29,7 +29,7 @@ public class FeedBackDialog extends AppCompatDialogFragment {
     }
     /**
      * Återställer meddelande för användaren att spelet är slut
-     * @param score
+     * @param score - poäng tagna
      */
     public void restoreGameOverMessage(int score){
         title = getResources().getString(R.string.succeededTitle) + score;

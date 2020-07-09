@@ -9,7 +9,7 @@ public class SpinnerItems {
 
     /**
      * Hämtar hela listan på alla element i spinnern
-     * @param theSpinner
+     * @param theSpinner - spinnern
      * @return items
      */
     public static ArrayList<String> retrieveAllItems(Spinner theSpinner) {
