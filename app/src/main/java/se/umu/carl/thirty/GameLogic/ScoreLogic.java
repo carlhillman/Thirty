@@ -90,6 +90,7 @@ public class ScoreLogic {
      */
     protected void calculateCurrentScore(String selectedItem, int choicePoint, ArrayAdapter<String> adapter) {
         ArrayList<Die> dice = new ArrayList<>();
+        //boolean canBeCombinated = false;
         try {
             for (Map.Entry<Integer, ArrayList<Die>> entry : diceClass.triesAndDiceNumbers.entrySet()) {
                 dice = entry.getValue();
@@ -101,13 +102,61 @@ public class ScoreLogic {
                     selectedDice.add(die);
                 }
             }
+
             for (int i = 0; i < selectedDice.size(); i++) {
-                if (selectedDice.get(i).value == choicePoint) { //tärningar som direkt matchar valet tilldelas värde 0
-                    currentScore += choicePoint;
+                if (selectedDice.get(i).value == choicePoint) {
                     selectedDice.get(i).value = 0;
+                    currentScore += choicePoint;
+                }
+                for (int j = i + 1; j < selectedDice.size(); j++) {
+                    if (selectedDice.get(i).value + selectedDice.get(j).value == choicePoint) {
+                        selectedDice.get(i).value = 0;
+                        selectedDice.get(j).value = 0;
+                        currentScore += choicePoint;
+                    }
+                    for (int k = j + 1; k < selectedDice.size(); k++) {
+                        if (selectedDice.get(i).value + selectedDice.get(j).value + selectedDice.get(k).value == choicePoint) {
+                            selectedDice.get(i).value = 0;
+                            selectedDice.get(j).value = 0;
+                            selectedDice.get(k).value = 0;
+                            currentScore += choicePoint;
+                        }
+                        for (int l = k + 1; l < selectedDice.size(); l++) {
+                            if (selectedDice.get(i).value + selectedDice.get(j).value +
+                                    selectedDice.get(k).value + selectedDice.get(l).value == choicePoint) {
+                                selectedDice.get(i).value = 0;
+                                selectedDice.get(j).value = 0;
+                                selectedDice.get(k).value = 0;
+                                selectedDice.get(l).value = 0;
+                                currentScore += choicePoint;
+                            }
+                            for (int m = l + 1; m < selectedDice.size(); m++) {
+                                if (selectedDice.get(i).value + selectedDice.get(j).value + selectedDice.get(k).value +
+                                        selectedDice.get(l).value + selectedDice.get(m).value == choicePoint) {
+                                    selectedDice.get(i).value = 0;
+                                    selectedDice.get(j).value = 0;
+                                    selectedDice.get(k).value = 0;
+                                    selectedDice.get(l).value = 0;
+                                    selectedDice.get(m).value = 0;
+                                    currentScore += choicePoint;
+                                }
+                                for (int n = m + 1; n < selectedDice.size(); n++) {
+                                    if (selectedDice.get(i).value + selectedDice.get(j).value + selectedDice.get(k).value +
+                                            selectedDice.get(l).value + selectedDice.get(m).value + selectedDice.get(n).value == choicePoint) {
+                                        selectedDice.get(i).value = 0;
+                                        selectedDice.get(j).value = 0;
+                                        selectedDice.get(k).value = 0;
+                                        selectedDice.get(l).value = 0;
+                                        selectedDice.get(m).value = 0;
+                                        selectedDice.get(n).value = 0;
+                                        currentScore += choicePoint;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
-
             //ifall summan av tärningarna är delbart med valet
             if (currentScore % choicePoint == 0 && currentScore >= choicePoint) {
                 resultStorage.score = currentScore;
