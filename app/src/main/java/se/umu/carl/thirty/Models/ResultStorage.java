@@ -6,12 +6,4 @@ import java.util.HashMap;
 public class ResultStorage {
        public int score;
        public HashMap<String, Integer> choicePoints = new HashMap<>();
-
-       /**
-       * Retunerar HashMap choicePoints
-       * @return choicePoints
-        */
-       public HashMap<String,Integer>getChoicePoints(){
-              return choicePoints;
-       }
 }

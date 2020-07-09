@@ -82,26 +82,58 @@ public class ScoreLogic {
     }
 
     /**
-     * Kollar vilka kombinationer och tärningar som finns på fältet och räknar bara med kombinationer.
-     * Skulle man ta med tärningar som inte ger den valda kombinationen ignorereas dem och spelaren får 0 poäng för dem
+     * Lägger in valda tärningar i selectedDice listan som används som parameter när metoden anropar metoden getCurrentScoreFromCombination
      * @param selectedItem - används för att veta vilket poängval som gjordes
      * @param adapter      - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
      * @param choicePoint  - används för att veta vilket värde/heltal poängvalet har
      */
     protected void calculateCurrentScore(String selectedItem, int choicePoint, ArrayAdapter<String> adapter) {
         ArrayList<Die> dice = new ArrayList<>();
+        ArrayList<Die> selectedDice = new ArrayList<>();
         try {
             for (Map.Entry<Integer, ArrayList<Die>> entry : diceClass.triesAndDiceNumbers.entrySet()) {
                 dice = entry.getValue();
                 break;
             }
-            ArrayList<Die> selectedDice = new ArrayList<>();
             for (Die die : dice) {
                 if (die.selected) {
                     selectedDice.add(die);
                 }
             }
-            for (int i = 0; i < selectedDice.size(); i++) {
+            int currentScoreFromCombination = getCurrentScoreFromCombination(selectedDice, choicePoint);
+            if (choicePoint == 3) {
+                resultStorage.score = currentScoreFromCombination;
+            } else {
+                if (currentScoreFromCombination % choicePoint == 0 && currentScoreFromCombination >= choicePoint) {
+                    resultStorage.score = currentScoreFromCombination;
+                } else {
+                    resultStorage.score = 0;
+                }
+            }
+            pointTypeChosen = true;
+            adapter.remove(selectedItem);
+            adapter.notifyDataSetChanged();
+            RoundsLogic.isNewRound = true;
+            diceClass.triesAndDiceNumbers.clear();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    /**
+     * Räknar och kombinerar på de tärningar som användaren valt att räkna på.
+     * Skulle man ta med tärningar som inte ger den valda kombinationen ignorereas dem och spelaren får 0 poäng för just dem tärningarna
+     *
+     * @param selectedDice - används för att veta vilket poängval som gjordes
+     * @param choicePoint  - används för att veta vilket värde/heltal poängvalet har
+     * @return currentScore - retunerar poäng som kommit från tärningskombinationen
+     */
+    private int getCurrentScoreFromCombination(ArrayList<Die> selectedDice, int choicePoint) {
+        for (int i = 0; i < selectedDice.size(); i++) {
+            if (choicePoint == 3) {
+                if (selectedDice.get(i).value <= 3) {
+                    currentScore += selectedDice.get(i).value;
+                }
+            } else {
                 if (selectedDice.get(i).value == choicePoint) {
                     selectedDice.get(i).value = 0;
                     currentScore += choicePoint;
@@ -155,21 +187,10 @@ public class ScoreLogic {
                     }
                 }
             }
-            if (currentScore % choicePoint == 0 && currentScore >= choicePoint) {
-                resultStorage.score = currentScore;
-            } else {
-                currentScore = 0;
-                resultStorage.score = 0;
-            }
-            pointTypeChosen = true;
-            adapter.remove(selectedItem);
-            adapter.notifyDataSetChanged();
-            RoundsLogic.isNewRound = true;
-            diceClass.triesAndDiceNumbers.clear();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
         }
+        return currentScore;
     }
+
     /**
      * anropar metoden setChoicePoint och sätter tillbaka standard värdet "välj poängtyp" i spinnern
      *

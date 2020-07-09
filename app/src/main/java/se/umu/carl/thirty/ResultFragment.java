@@ -21,8 +21,6 @@ import java.util.Set;
 import se.umu.carl.thirty.GameLogic.RestoreGUIManager;
 import se.umu.carl.thirty.GameLogic.RoundsLogic;
 import se.umu.carl.thirty.GameLogic.ScoreLogic;
-//import se.umu.carl.thirty.Models.Dice;
-import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.Models.ResultStorage;
 
 public class ResultFragment extends Fragment {
@@ -60,6 +58,7 @@ public class ResultFragment extends Fragment {
      * @param inflater
      * @param container
      * @param savedInstanceState
+     * @Return view
      */
     @SuppressLint("SetTextI18n")
     @Override
