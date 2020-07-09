@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * initierar UI elementens klick lyssnare
+     * initierar UI elementen som knappar, bilder och spinnerns klick lyssnare
      */
     private void initClickListeners() {
         diceLogic.firstDieImageView.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
         btnThrow = activity.findViewById(R.id.btnThrow);
         btnTakePoints = activity.findViewById(R.id.btnTakePoints);
         btnTakePoints.setVisibility(View.GONE);
-        // Sätter antal rundor till 1 i början av spelet
         textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + RoundsLogic.totalNumberOfRounds);
     }
 
@@ -194,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     /**
-     * restora/hämtar tillbaka variabler och utseende vid rotation av skärmen
+     * Hämtar tillbaka variabler och utseende av GUI element vid rotation av skärmen
      *
      * @param savedInstanceState
      */
@@ -268,7 +267,6 @@ public class MainActivity extends AppCompatActivity {
             outState.putParcelableArrayList("globalDice", diceLogic.globalDice);
             outState.putStringArrayList("choicePointsSpinner", SpinnerItems.retrieveAllItems(spinner));
             outState.putInt("numberOfBlueDice", diceLogic.numberOfBlueDice);
-
             outState.putSerializable("resultStorage.choicePoints", resultStorage.choicePoints);
 
         } catch (Exception ex) {

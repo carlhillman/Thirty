@@ -82,15 +82,14 @@ public class ScoreLogic {
     }
 
     /**
-     * kollar vilka kombinationer och tärningar som finns på fältet
-     *
+     * Kollar vilka kombinationer och tärningar som finns på fältet och räknar bara med kombinationer.
+     * Skulle man ta med tärningar som inte ger den valda kombinationen ignorereas dem och spelaren får 0 poäng för dem
      * @param selectedItem - används för att veta vilket poängval som gjordes
      * @param adapter      - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
-     * @param choicePoint  - används för att veta vilket värde/heltal poängtypen har
+     * @param choicePoint  - används för att veta vilket värde/heltal poängvalet har
      */
     protected void calculateCurrentScore(String selectedItem, int choicePoint, ArrayAdapter<String> adapter) {
         ArrayList<Die> dice = new ArrayList<>();
-        //boolean canBeCombinated = false;
         try {
             for (Map.Entry<Integer, ArrayList<Die>> entry : diceClass.triesAndDiceNumbers.entrySet()) {
                 dice = entry.getValue();
@@ -102,7 +101,6 @@ public class ScoreLogic {
                     selectedDice.add(die);
                 }
             }
-
             for (int i = 0; i < selectedDice.size(); i++) {
                 if (selectedDice.get(i).value == choicePoint) {
                     selectedDice.get(i).value = 0;
@@ -157,11 +155,9 @@ public class ScoreLogic {
                     }
                 }
             }
-            //ifall summan av tärningarna är delbart med valet
             if (currentScore % choicePoint == 0 && currentScore >= choicePoint) {
                 resultStorage.score = currentScore;
             } else {
-                //ifall tärningarna på spelplanen inte går att göra upp till valet får spelaren 0 poäng
                 currentScore = 0;
                 resultStorage.score = 0;
             }
@@ -174,9 +170,8 @@ public class ScoreLogic {
             System.out.println(ex.getMessage());
         }
     }
-
     /**
-     * anropar metoden setChoicePoint och sätter tillbaka default värdet "välj poängtyp" i spinnern
+     * anropar metoden setChoicePoint och sätter tillbaka standard värdet "välj poängtyp" i spinnern
      *
      * @param spinner       - används för att veta vilket poängval som gjordes
      * @param adapter       - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom

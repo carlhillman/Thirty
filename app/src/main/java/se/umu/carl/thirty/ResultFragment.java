@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -52,11 +53,10 @@ public class ResultFragment extends Fragment {
     Button btnRestart;
     int totalSum = 0;
 
-    ResultStorage resultStorage;
+    ResultStorage resultStorage = new ResultStorage();
     /**
-     * Anropar metoden initUIElements och sätter klick event för btnRestart som startar om aktiviteten och nollställer
-     * viktig data
-     *
+     * Anropar metoden initUIElements och sätter klick event för btnRestart som startar om aktiviteten
+     * och nollställer speldata
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -86,23 +86,18 @@ public class ResultFragment extends Fragment {
         });
 
         if (savedInstanceState != null) {
-            ArrayList<String> keys = savedInstanceState.getStringArrayList("keys");
-            ArrayList<Integer> values = savedInstanceState.getIntegerArrayList("values");
-            setColumnChoiceText(keys);
-            setColumnChoiceValueResult(values);
+            resultStorage.choicePoints = (HashMap<String, Integer>) savedInstanceState.getSerializable("choicePointsResult");
         }
-        else {
-            setColumnChoiceText(new ArrayList<>(resultStorage.getChoicePoints().keySet()));
-            setColumnChoiceValueResult(new ArrayList<>(resultStorage.getChoicePoints().values()));
-        }
+        setColumnChoiceText();
+        setColumnChoiceValueResult();
         return view;
     }
 
     /**
-     * sätter alla valtyper för textfälten i vänstra kolumnen
+     * Sätter alla valtyper för textfälten i vänstra kolumnen
      */
-    private void setColumnChoiceText(ArrayList<String> keys) {
-        //keys = new ArrayList<>(resultStorage.getChoicePoints().keySet());
+    private void setColumnChoiceText() {
+        ArrayList<String>keys = new ArrayList<>(resultStorage.choicePoints.keySet());
         for (int index = 0; index < keys.size(); index++) {
             switch (index) {
                 case 0:
@@ -151,10 +146,10 @@ public class ResultFragment extends Fragment {
     }
 
     /**
-     * sätter alla poängvärden för textfälten i högra kolumnen
+     * Sätter alla poängvärden för textfälten i högra kolumnen
      */
-    private void setColumnChoiceValueResult(ArrayList<Integer> values) {
-       // values = new ArrayList<>(resultStorage.getChoicePoints().values());
+    private void setColumnChoiceValueResult() {
+        ArrayList<Integer>values = new ArrayList<>(resultStorage.choicePoints.values());
         totalSum = sumList(values);
         for (int index = 0; index < values.size(); index++) {
             switch (index) {
@@ -204,7 +199,7 @@ public class ResultFragment extends Fragment {
     }
 
     /**
-     * initierar alla UI element
+     * Initierar alla UI element
      */
     private void initUIElements(View view) {
         choiceOne = view.findViewById(R.id.choiceRow1);
@@ -244,7 +239,7 @@ public class ResultFragment extends Fragment {
     }
 
     /**
-     * summera en lista av heltal
+     * Summerar en lista av heltal
      *
      * @param list - används för att summera den totala poängen
      * @return sum
@@ -263,15 +258,10 @@ public class ResultFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         try {
-            ArrayList<String>keys = new ArrayList<>(resultStorage.choicePoints.keySet());
-            ArrayList<Integer>values = new ArrayList<>(resultStorage.choicePoints.values());
-            outState.putStringArrayList("keys", keys);
-            outState.putIntegerArrayList("values", values);
+            outState.putSerializable("choicePointsResult", resultStorage.choicePoints);
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
     }
-
-
 }
