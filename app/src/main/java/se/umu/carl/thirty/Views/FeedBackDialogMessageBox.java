@@ -10,9 +10,10 @@ import se.umu.carl.thirty.R;
 
 public class FeedBackDialogMessageBox {
     Activity activity;
-
-    public FeedBackDialogMessageBox(Activity activity) {
+RoundsLogic roundsLogic;
+    public FeedBackDialogMessageBox(Activity activity, RoundsLogic roundsLogic) {
         this.activity = activity;
+        this.roundsLogic = roundsLogic;
     }
 
     private FragmentManager getSupportFragmentManager() {
@@ -28,7 +29,7 @@ public class FeedBackDialogMessageBox {
             FeedBackDialog feedBackDialog = new FeedBackDialog();
             feedBackDialog.score = score;
             feedBackDialog.title = activity.getResources().getString(R.string.succeededTitle) + score;
-            if (RoundsLogic.getAndSetGameOver()) {
+            if (roundsLogic.getAndSetGameOver()) {
                 feedBackDialog.message = activity.getResources().getString(R.string.gameOverMessage);
                 feedBackDialog.gameIsOver = true;
             } else {

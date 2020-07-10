@@ -22,14 +22,18 @@ public class RestoreGUIManager {
     public static boolean isDiceImageViewEnabled = false;
     public static boolean isPointTypeChosenOnRestore = false;
 
+    RoundsLogic roundsLogic;
+    public RestoreGUIManager(RoundsLogic roundsLogic){
+        this.roundsLogic = roundsLogic;
+    }
     /**
      * metod som gömmer eller visar Button btnThrow beroende på spelets nuvarande status
      *
      * @param btnThrow - kast knappen
      */
 
-    public static void setBtnThrowVisibility(Button btnThrow, int numberOfBlueDice) {
-        if (RoundsLogic.totalNumberOfThrowsDisplayed == 3) {
+    public  void setBtnThrowVisibility(Button btnThrow, int numberOfBlueDice) {
+        if (roundsLogic.totalNumberOfThrowsDisplayed == 3) {
             btnThrow.setVisibility(View.GONE);
         }
         if (inChoosingPointProgress || ScoreLogic.pointTypeChosen || numberOfBlueDice == 6) {
@@ -59,8 +63,8 @@ public class RestoreGUIManager {
      *
      * @param spinner - spinner med poängval
      */
-    public static void setSpinnerState(Spinner spinner) {
-        if (RoundsLogic.totalNumberOfThrowsDisplayed >= 1) {
+    public  void setSpinnerState(Spinner spinner) {
+        if (roundsLogic.totalNumberOfThrowsDisplayed >= 1) {
             spinner.setVisibility(View.VISIBLE);
             spinner.setEnabled(true);
         }
@@ -77,8 +81,8 @@ public class RestoreGUIManager {
      *
      * @param btnThrow - kast knappen
      */
-    public static void hideButtonOnResultFragmentOrientationChange(Button btnThrow) {
-        if (RoundsLogic.getAndSetGameOver()) {
+    public  void hideButtonOnResultFragmentOrientationChange(Button btnThrow) {
+        if (roundsLogic.getAndSetGameOver()) {
             btnThrow.setVisibility(View.GONE);
         }
     }

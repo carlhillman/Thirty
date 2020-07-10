@@ -46,11 +46,14 @@ public class MainActivity extends AppCompatActivity {
     ResultStorage resultStorage = new ResultStorage();
 
     // Logik klasser
-    ScoreLogic scoreLogic = new ScoreLogic(this, dice, resultStorage);
-    DiceLogic diceLogic = new DiceLogic(this, dice);
+    RoundsLogic roundsLogic = new RoundsLogic();
+    ScoreLogic scoreLogic = new ScoreLogic(this, dice, resultStorage, roundsLogic);
+    DiceLogic diceLogic = new DiceLogic(this, dice, roundsLogic);
     SpinnerLogic spinnerLogic = new SpinnerLogic(this);
+    RestoreGUIManager restoreGUIManager = new RestoreGUIManager(roundsLogic);
+
     // Dialogruta
-    FeedBackDialogMessageBox messageBox = new FeedBackDialogMessageBox(MainActivity.this);
+    FeedBackDialogMessageBox messageBox = new FeedBackDialogMessageBox(MainActivity.this, roundsLogic);
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint("SetTextI18n")
@@ -141,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     messageBox.showNoDieSelected();
                 } else {
                     scoreLogic.getPoints(spinner, adapter, messageBox, btnThrow, btnTakePoints, diceLogic);
-                    if (RoundsLogic.getAndSetGameOver()) {
+                    if (roundsLogic.getAndSetGameOver()) {
                         openResultFragment();
                     }
                 }
@@ -170,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         btnThrow = activity.findViewById(R.id.btnThrow);
         btnTakePoints = activity.findViewById(R.id.btnTakePoints);
         btnTakePoints.setVisibility(View.GONE);
-        textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + RoundsLogic.totalNumberOfRounds);
+        textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + roundsLogic.totalNumberOfRounds);
     }
 
     /**
@@ -210,23 +213,28 @@ public class MainActivity extends AppCompatActivity {
                 RestoreGUIManager.inChoosingPointProgress = savedInstanceState.getBoolean("inChoosingPointProgress");
                 RestoreGUIManager.isBtnThrowDisplayed = savedInstanceState.getBoolean("isBtnThrowDisplayed");
                 RestoreGUIManager.isDiceImageViewEnabled = savedInstanceState.getBoolean("isDiceImageViewEnabled");
-                textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + savedInstanceState.getInt("numberOfRounds"));
-                textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + savedInstanceState.getInt("numberOfThrows"));
+                int totalNumberOfRounds = savedInstanceState.getInt("numberOfRounds");
+                textViewRounds.setText(getResources().getString(R.string.numberOfRounds) + totalNumberOfRounds);
+                roundsLogic.totalNumberOfRounds = totalNumberOfRounds;
+                int totalNumberOfThrows = savedInstanceState.getInt("numberOfThrows");
+                textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + totalNumberOfThrows);
+                roundsLogic.totalNumberOfThrowsDisplayed = totalNumberOfThrows;
+                roundsLogic.isNewRound = savedInstanceState.getBoolean("isNewRound");
 
                 resultStorage.choicePoints = (HashMap<String, Integer>) savedInstanceState.getSerializable("resultStorage.choicePoints");
                 RestoreGUIManager.isPointTypeChosenOnRestore = savedInstanceState.getBoolean("pointTypeChosen");
                 diceLogic.globalDice = savedInstanceState.getParcelableArrayList("globalDice");
-                dice.triesAndDiceNumbers.put(RoundsLogic.totalNumberOfThrowsDisplayed, diceLogic.globalDice);
+                dice.triesAndDiceNumbers.put(roundsLogic.totalNumberOfThrowsDisplayed, diceLogic.globalDice);
                 if (!RestoreGUIManager.isDiceImageViewEnabled) {
                     diceLogic.disableDiceImage();
                 } else {
                     diceLogic.enableDiceImage();
                 }
                 int numberOfBlueDice = savedInstanceState.getInt("numberOfBlueDice");
-                RestoreGUIManager.setBtnThrowVisibility(btnThrow, numberOfBlueDice);
+                restoreGUIManager.setBtnThrowVisibility(btnThrow, numberOfBlueDice);
                 diceLogic.numberOfBlueDice = numberOfBlueDice;
                 RestoreGUIManager.setBtnTakePointsVisibility(btnTakePoints);
-                RestoreGUIManager.hideButtonOnResultFragmentOrientationChange(btnThrow);
+                restoreGUIManager.hideButtonOnResultFragmentOrientationChange(btnThrow);
                 RestoreGUIManager.setDieBackgroundColor(diceLogic.isFirstDieSelected, diceLogic.isSecondDieSelected, diceLogic.isThirdDieSelected,
                         diceLogic.isFourthDieSelected, diceLogic.isFifthDieSelected, diceLogic.isSixthDieSelected,
                         diceLogic.firstDieImageView, diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
@@ -238,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Objects.requireNonNull(savedInstanceState.getStringArrayList("choicePointsSpinner")));
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
-                    RestoreGUIManager.setSpinnerState(spinner);
+                    restoreGUIManager.setSpinnerState(spinner);
                 }
 
                 if (diceLogic.globalDice != null) {
@@ -266,8 +274,9 @@ public class MainActivity extends AppCompatActivity {
             outState.putBoolean("isBtnTakePointsDisplayed", RestoreGUIManager.isBtnTakePointsDisplayed);
             outState.putBoolean("inChoosingPointProgress", RestoreGUIManager.inChoosingPointProgress);
             outState.putBoolean("isDiceImageViewEnabled", RestoreGUIManager.isDiceImageViewEnabled);
-            outState.putInt("numberOfRounds", RoundsLogic.totalNumberOfRounds);
-            outState.putInt("numberOfThrows", RoundsLogic.totalNumberOfThrowsDisplayed);
+            outState.putInt("numberOfRounds", roundsLogic.totalNumberOfRounds);
+            outState.putInt("numberOfThrows", roundsLogic.totalNumberOfThrowsDisplayed);
+            outState.putBoolean("isNewRound", roundsLogic.isNewRound);
             outState.putBoolean("pointTypeChosen", ScoreLogic.pointTypeChosen);
             outState.putParcelableArrayList("globalDice", diceLogic.globalDice);
             outState.putStringArrayList("choicePointsSpinner", SpinnerItems.retrieveAllItems(spinner));

@@ -24,11 +24,13 @@ public class ScoreLogic {
 
     public Dice diceClass;
     ResultStorage resultStorage;
+    RoundsLogic roundsLogic;
 
-    public ScoreLogic(Context context, Dice diceClass, ResultStorage resultStorage) {
+    public ScoreLogic(Context context, Dice diceClass, ResultStorage resultStorage, RoundsLogic roundsLogic) {
         this.context = context;
         this.diceClass = diceClass;
         this.resultStorage = resultStorage;
+        this.roundsLogic = roundsLogic;
     }
 
     /**
@@ -39,7 +41,7 @@ public class ScoreLogic {
      */
     public void setChoicePoint(Spinner spinner, ArrayAdapter<String> adapter) {
         String selectedItem = spinner.getSelectedItem().toString();
-        if (RoundsLogic.totalNumberOfThrowsDisplayed > 0) {
+        if (roundsLogic.totalNumberOfThrowsDisplayed > 0) {
             try {
                 switch (selectedItem) {
                     case "Low":
@@ -83,6 +85,7 @@ public class ScoreLogic {
 
     /**
      * Lägger in valda tärningar i selectedDice listan som används som parameter när metoden anropar metoden getCurrentScoreFromCombination
+     *
      * @param selectedItem - används för att veta vilket poängval som gjordes
      * @param adapter      - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
      * @param choicePoint  - används för att veta vilket värde/heltal poängvalet har
@@ -113,12 +116,13 @@ public class ScoreLogic {
             pointTypeChosen = true;
             adapter.remove(selectedItem);
             adapter.notifyDataSetChanged();
-            RoundsLogic.isNewRound = true;
+            roundsLogic.isNewRound = true;
             diceClass.triesAndDiceNumbers.clear();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
+
     /**
      * Räknar och kombinerar på de tärningar som användaren valt att räkna på.
      * Skulle man ta med tärningar som inte ger den valda kombinationen ignorereas dem och spelaren får 0 poäng för just dem tärningarna

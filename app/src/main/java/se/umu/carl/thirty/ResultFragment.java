@@ -73,11 +73,11 @@ public class ResultFragment extends Fragment {
                     getActivity().recreate();
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
-                    RoundsLogic.totalNumberOfThrowsDisplayed = 0;
-                    RoundsLogic.totalNumberOfRounds = 1;
+               //     RoundsLogic.totalNumberOfThrowsDisplayed = 0;
+              //      RoundsLogic.totalNumberOfRounds = 1;
                     ScoreLogic.pointTypeChosen = false;
                     RestoreGUIManager.inChoosingPointProgress = false;
-                    RoundsLogic.isGameOver = false;
+              //      RoundsLogic.isGameOver = false;
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
