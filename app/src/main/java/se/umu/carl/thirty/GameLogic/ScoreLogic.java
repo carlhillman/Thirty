@@ -19,7 +19,7 @@ import se.umu.carl.thirty.Views.FeedBackDialogMessageBox;
 public class ScoreLogic {
     public int currentScore;
     //måste vara static eftersom den används i DiceLogic
-    public static boolean pointTypeChosen = false;
+    // public  boolean pointTypeChosen = false;
     private Context context;
 
     public Dice diceClass;
@@ -113,7 +113,7 @@ public class ScoreLogic {
                     resultStorage.score = 0;
                 }
             }
-            pointTypeChosen = true;
+            roundsLogic.pointTypeChosen = true;
             adapter.remove(selectedItem);
             adapter.notifyDataSetChanged();
             roundsLogic.isNewRound = true;

@@ -33,10 +33,12 @@ public class DiceLogic {
     private Context context;
     RoundsLogic roundsLogic;
 
+
     public DiceLogic(Context context, Dice dice, RoundsLogic roundsLogic) {
         this.context = context;
         this.dice = dice;
         this.roundsLogic = roundsLogic;
+
     }
 
     public int numberOfBlueDice = 0;
@@ -381,10 +383,10 @@ public class DiceLogic {
             }
         }
         //kasta till ny runda
-        if (ScoreLogic.pointTypeChosen) {
+        if (roundsLogic.pointTypeChosen) {
             txtThrows.setText(context.getResources().getString(R.string.numberOfThrows) + roundsLogic.getAndSetThrows());
             txtRounds.setText(context.getResources().getString(R.string.numberOfRounds) + roundsLogic.getAndSetRounds());
-            ScoreLogic.pointTypeChosen = false;
+            roundsLogic.pointTypeChosen = false;
             rollDices(selectedDicesImages, btnThrow);
             numberOfBlueDice = 0;
         }
@@ -406,7 +408,7 @@ public class DiceLogic {
         try {
             setDiceImages(selectedDicesImages);
             //Efter att man har kastat tre gånger göm kasta knappen
-            if (roundsLogic.totalNumberOfThrowsDisplayed == 2 && !ScoreLogic.pointTypeChosen) {
+            if (roundsLogic.totalNumberOfThrowsDisplayed == 2 && !roundsLogic.pointTypeChosen) {
                 btnThrow.setVisibility(View.GONE);
             }
         } catch (Exception ex) {

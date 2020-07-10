@@ -75,7 +75,6 @@ public class ResultFragment extends Fragment {
                     startActivity(intent);
                //     RoundsLogic.totalNumberOfThrowsDisplayed = 0;
               //      RoundsLogic.totalNumberOfRounds = 1;
-                    ScoreLogic.pointTypeChosen = false;
                     RestoreGUIManager.inChoosingPointProgress = false;
               //      RoundsLogic.isGameOver = false;
                 } catch (Exception ex) {

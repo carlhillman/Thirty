@@ -6,13 +6,13 @@ public class RoundsLogic {
     public  int totalNumberOfThrowsDisplayed = 0;
     public  boolean isNewRound = false;
     public  boolean isGameOver = false;
-
+    public boolean pointTypeChosen = false;
     /**
      * Metod som kollar om antal rundor är 10 och spelaren tar sina sista poäng, och därefter avslutar spelet
      * @return isGameOver
      */
     public  boolean getAndSetGameOver() {
-        if (ScoreLogic.pointTypeChosen && totalNumberOfRounds == 5) {
+        if (pointTypeChosen && totalNumberOfRounds == 5) {
             isGameOver = true;
         }
         return isGameOver;

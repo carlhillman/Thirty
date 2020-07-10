@@ -220,11 +220,14 @@ public class MainActivity extends AppCompatActivity {
                 textViewThrows.setText(getResources().getString(R.string.numberOfThrows) + totalNumberOfThrows);
                 roundsLogic.totalNumberOfThrowsDisplayed = totalNumberOfThrows;
                 roundsLogic.isNewRound = savedInstanceState.getBoolean("isNewRound");
-
+                boolean pointTypeChosen = savedInstanceState.getBoolean("pointTypeChosen");
+                roundsLogic.pointTypeChosen = pointTypeChosen;
                 resultStorage.choicePoints = (HashMap<String, Integer>) savedInstanceState.getSerializable("resultStorage.choicePoints");
-                RestoreGUIManager.isPointTypeChosenOnRestore = savedInstanceState.getBoolean("pointTypeChosen");
+                RestoreGUIManager.isPointTypeChosenOnRestore = pointTypeChosen;
                 diceLogic.globalDice = savedInstanceState.getParcelableArrayList("globalDice");
                 dice.triesAndDiceNumbers.put(roundsLogic.totalNumberOfThrowsDisplayed, diceLogic.globalDice);
+
+
                 if (!RestoreGUIManager.isDiceImageViewEnabled) {
                     diceLogic.disableDiceImage();
                 } else {
@@ -277,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
             outState.putInt("numberOfRounds", roundsLogic.totalNumberOfRounds);
             outState.putInt("numberOfThrows", roundsLogic.totalNumberOfThrowsDisplayed);
             outState.putBoolean("isNewRound", roundsLogic.isNewRound);
-            outState.putBoolean("pointTypeChosen", ScoreLogic.pointTypeChosen);
+            outState.putBoolean("pointTypeChosen", roundsLogic.pointTypeChosen);
             outState.putParcelableArrayList("globalDice", diceLogic.globalDice);
             outState.putStringArrayList("choicePointsSpinner", SpinnerItems.retrieveAllItems(spinner));
             outState.putInt("numberOfBlueDice", diceLogic.numberOfBlueDice);

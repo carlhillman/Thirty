@@ -36,10 +36,10 @@ public class RestoreGUIManager {
         if (roundsLogic.totalNumberOfThrowsDisplayed == 3) {
             btnThrow.setVisibility(View.GONE);
         }
-        if (inChoosingPointProgress || ScoreLogic.pointTypeChosen || numberOfBlueDice == 6) {
+        if (inChoosingPointProgress || roundsLogic.pointTypeChosen || numberOfBlueDice == 6) {
             btnThrow.setVisibility(View.GONE);
         }
-        if (ScoreLogic.pointTypeChosen) {
+        if (roundsLogic.pointTypeChosen) {
             btnThrow.setVisibility(View.VISIBLE);
         }
     }
@@ -71,7 +71,7 @@ public class RestoreGUIManager {
         if (inChoosingPointProgress) {
             spinner.setEnabled(false);
         }
-        if (ScoreLogic.pointTypeChosen) {
+        if (roundsLogic.pointTypeChosen) {
             spinner.setVisibility(View.GONE);
         }
     }
