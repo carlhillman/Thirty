@@ -1,7 +1,9 @@
 package se.umu.carl.thirty.GameLogic;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -290,11 +292,11 @@ public class RestoreGUIManager {
      * @param sixthDieImageView
      */
     public void restoreDiceImageResource(ArrayList<Die> globalDice, ImageView firstDieImageView,
-                                                ImageView secondDieImageView,
-                                                ImageView thirdDieImageView,
-                                                ImageView fourthDieImageView,
-                                                ImageView fifthDieImageView,
-                                                ImageView sixthDieImageView) {
+                                         ImageView secondDieImageView,
+                                         ImageView thirdDieImageView,
+                                         ImageView fourthDieImageView,
+                                         ImageView fifthDieImageView,
+                                         ImageView sixthDieImageView) {
         if (globalDice.size() == 6) {
             restoreFirstDieImage(globalDice, firstDieImageView);
             restoreSecondDieImage(globalDice, secondDieImageView);

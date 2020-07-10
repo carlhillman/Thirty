@@ -25,11 +25,13 @@ public class SpinnerLogic {
 
     public void clickSelectedSpinnerItem(DiceLogic diceLogic, Spinner spinner, Button btnTakePoints,
                                          Button btnThrow){
-        diceLogic.deselectAllDice();
-        spinner.setEnabled(false);
-        btnTakePoints.setVisibility(View.VISIBLE);
-        restoreGUIManager.isBtnTakePointsDisplayed = true;
-        btnThrow.setVisibility(View.GONE);
-        restoreGUIManager.inChoosingPointProgress = true;
+        if(!spinner.getSelectedItem().toString().equals("Välj poängtyp")) {
+            diceLogic.deselectAllDice();
+            spinner.setEnabled(false);
+            btnTakePoints.setVisibility(View.VISIBLE);
+            restoreGUIManager.isBtnTakePointsDisplayed = true;
+            btnThrow.setVisibility(View.GONE);
+            restoreGUIManager.inChoosingPointProgress = true;
+        }
     }
 }

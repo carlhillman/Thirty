@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -244,12 +245,14 @@ public class MainActivity extends AppCompatActivity {
                         diceLogic.firstDieImageView, diceLogic.secondDieImageView, diceLogic.thirdDieImageView, diceLogic.fourthDieImageView,
                         diceLogic.fifthDieImageView, diceLogic.sixthDieImageView, diceLogic.globalDice);
 
-                spinner.setSelection(adapter.getPosition(getResources().getStringArray(R.array.choices)[0]));
+              //  spinner.setSelection(adapter.getPosition(getResources().getStringArray(R.array.choices)[0]));
+                spinnerTouched = savedInstanceState.getBoolean("spinnerTouched");
 
                 if (savedInstanceState.getStringArrayList("choicePointsSpinner") != null) {
                     adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Objects.requireNonNull(savedInstanceState.getStringArrayList("choicePointsSpinner")));
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
+
                     restoreGUIManager.setSpinnerState(spinner);
                 }
 
@@ -286,10 +289,21 @@ public class MainActivity extends AppCompatActivity {
             outState.putStringArrayList("choicePointsSpinner", spinnerItems.retrieveAllItems(spinner));
             outState.putInt("numberOfBlueDice", diceLogic.numberOfBlueDice);
             outState.putSerializable("resultStorage.choicePoints", resultStorage.choicePoints);
+            outState.putBoolean("spinnerTouched", spinnerTouched);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    /**
+     * Metod som stänger applikationen ifall man klickar på tillbaka knappen
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+        finish();
     }
 }
 
