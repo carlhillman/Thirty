@@ -6,33 +6,31 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-
 import java.util.ArrayList;
 
-//import se.umu.carl.thirty.Models.Dice;
 import se.umu.carl.thirty.Models.Die;
 import se.umu.carl.thirty.R;
 
 // En hjälp klass som hämtar tillbaka GUI komponenter vid skärmrotation
 public class RestoreGUIManager {
 
-    public static boolean isBtnTakePointsDisplayed = false;
-    public static boolean isBtnThrowDisplayed = false;
-    public static boolean inChoosingPointProgress = false;
-    public static boolean isDiceImageViewEnabled = false;
-    public static boolean isPointTypeChosenOnRestore = false;
-
+    public boolean isBtnTakePointsDisplayed = false;
+    public boolean isBtnThrowDisplayed = false;
+    public boolean inChoosingPointProgress = false;
+    public boolean isDiceImageViewEnabled = false;
     RoundsLogic roundsLogic;
-    public RestoreGUIManager(RoundsLogic roundsLogic){
+
+    public RestoreGUIManager(RoundsLogic roundsLogic) {
         this.roundsLogic = roundsLogic;
     }
+
     /**
      * metod som gömmer eller visar Button btnThrow beroende på spelets nuvarande status
      *
      * @param btnThrow - kast knappen
      */
 
-    public  void setBtnThrowVisibility(Button btnThrow, int numberOfBlueDice) {
+    public void setBtnThrowVisibility(Button btnThrow, int numberOfBlueDice) {
         if (roundsLogic.totalNumberOfThrowsDisplayed == 3) {
             btnThrow.setVisibility(View.GONE);
         }
@@ -49,7 +47,7 @@ public class RestoreGUIManager {
      *
      * @param btnTakePoints - ta poäng knappen
      */
-    public static void setBtnTakePointsVisibility(Button btnTakePoints) {
+    public void setBtnTakePointsVisibility(Button btnTakePoints) {
         if (inChoosingPointProgress) {
             btnTakePoints.setVisibility(View.VISIBLE);
         } else {
@@ -63,7 +61,7 @@ public class RestoreGUIManager {
      *
      * @param spinner - spinner med poängval
      */
-    public  void setSpinnerState(Spinner spinner) {
+    public void setSpinnerState(Spinner spinner) {
         if (roundsLogic.totalNumberOfThrowsDisplayed >= 1) {
             spinner.setVisibility(View.VISIBLE);
             spinner.setEnabled(true);
@@ -81,7 +79,7 @@ public class RestoreGUIManager {
      *
      * @param btnThrow - kast knappen
      */
-    public  void hideButtonOnResultFragmentOrientationChange(Button btnThrow) {
+    public void hideButtonOnResultFragmentOrientationChange(Button btnThrow) {
         if (roundsLogic.getAndSetGameOver()) {
             btnThrow.setVisibility(View.GONE);
         }
@@ -91,27 +89,28 @@ public class RestoreGUIManager {
     /**
      * metod som anropar metoderna setFirstDieImageViewColor, setSecondDieImageViewColor, setThirdDieImageViewColor
      * setFourthDieImageViewColor, setFifthDieImageViewColor och setSixthDieImageViewColor
-     * @param isFirstDieSelected - boolean för första tärningsbilden
+     *
+     * @param isFirstDieSelected  - boolean för första tärningsbilden
      * @param isSecondDieSelected - boolean för andra tärningsbilden
-     * @param isThirdDieSelected - boolean för tredje tärningsbilden
+     * @param isThirdDieSelected  - boolean för tredje tärningsbilden
      * @param isFourthDieSelected - boolean för fjärde tärningsbilden
-     * @param isFifthDieSelected - boolean för femte tärningsbilden
-     * @param isSixthDieSelected - boolean för första tärningsbilden
-     * @param firstDieImageView - imageview för första tärningsbilden
-     * @param secondDieImageView - imageview för andra tärningsbilden
-     * @param thirdDieImageView - imageview för tredje tärningsbilden
-     * @param fourthDieImageView - imageview för fjärde tärningsbilden
-     * @param fifthDieImageView - imageview för femte tärningsbilden
-     * @param sixthDieImageView - imageview för sjätte tärningsbilden
+     * @param isFifthDieSelected  - boolean för femte tärningsbilden
+     * @param isSixthDieSelected  - boolean för första tärningsbilden
+     * @param firstDieImageView   - imageview för första tärningsbilden
+     * @param secondDieImageView  - imageview för andra tärningsbilden
+     * @param thirdDieImageView   - imageview för tredje tärningsbilden
+     * @param fourthDieImageView  - imageview för fjärde tärningsbilden
+     * @param fifthDieImageView   - imageview för femte tärningsbilden
+     * @param sixthDieImageView   - imageview för sjätte tärningsbilden
      */
-    public static void setDieBackgroundColor(boolean isFirstDieSelected, boolean isSecondDieSelected, boolean isThirdDieSelected,
-                                             boolean isFourthDieSelected, boolean isFifthDieSelected, boolean isSixthDieSelected,
-                                             ImageView firstDieImageView,
-                                             ImageView secondDieImageView,
-                                             ImageView thirdDieImageView,
-                                             ImageView fourthDieImageView,
-                                             ImageView fifthDieImageView,
-                                             ImageView sixthDieImageView, ArrayList<Die>dice
+    public void setDieBackgroundColor(boolean isFirstDieSelected, boolean isSecondDieSelected, boolean isThirdDieSelected,
+                                      boolean isFourthDieSelected, boolean isFifthDieSelected, boolean isSixthDieSelected,
+                                      ImageView firstDieImageView,
+                                      ImageView secondDieImageView,
+                                      ImageView thirdDieImageView,
+                                      ImageView fourthDieImageView,
+                                      ImageView fifthDieImageView,
+                                      ImageView sixthDieImageView, ArrayList<Die> dice
 
     ) {
 
@@ -127,144 +126,150 @@ public class RestoreGUIManager {
 
         setSixthDieImageViewColor(isSixthDieSelected, sixthDieImageView, dice);
     }
+
     /**
      * metod som beroende på första tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
      * en ArrayList anses vara vald eller inte
+     *
      * @param isFirstDieSelected
      * @param firstDieImageView
-     * @param dice - lista med tärningar/Die objekt
+     * @param dice               - lista med tärningar/Die objekt
      */
-    private static void setFirstDieImageViewColor(boolean isFirstDieSelected, ImageView firstDieImageView, ArrayList<Die>dice) {
+    private void setFirstDieImageViewColor(boolean isFirstDieSelected, ImageView firstDieImageView, ArrayList<Die> dice) {
         if (isFirstDieSelected && inChoosingPointProgress) {
             firstDieImageView.setBackgroundColor(Color.BLUE);
             dice.get(0).selected = true;
         } else if (!isFirstDieSelected && inChoosingPointProgress) {
             firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isFirstDieSelected) {
-            if(isPointTypeChosenOnRestore){
+            if (roundsLogic.pointTypeChosen) {
                 firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
-            }
-            else {
+            } else {
                 firstDieImageView.setBackgroundColor(Color.BLUE);
             }
         } else {
             firstDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
+
     /**
      * metod som beroende på andra tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
      * en ArrayList anses vara vald eller inte
+     *
      * @param isSecondDieSelected
      * @param secondDieImageView
-     * @param dice - lista med tärningar/Die objekt
+     * @param dice                - lista med tärningar/Die objekt
      */
-    private static void setSecondDieImageViewColor(boolean isSecondDieSelected, ImageView secondDieImageView, ArrayList<Die>dice) {
+    private void setSecondDieImageViewColor(boolean isSecondDieSelected, ImageView secondDieImageView, ArrayList<Die> dice) {
         if (isSecondDieSelected && inChoosingPointProgress) {
             secondDieImageView.setBackgroundColor(Color.BLUE);
             dice.get(1).selected = true;
         } else if (!isSecondDieSelected && inChoosingPointProgress) {
             secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isSecondDieSelected) {
-            if(isPointTypeChosenOnRestore){
+            if (roundsLogic.pointTypeChosen) {
                 secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
-            }
-            else {
+            } else {
                 secondDieImageView.setBackgroundColor(Color.BLUE);
             }
         } else {
             secondDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
+
     /**
      * metod som beroende på tredje tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
      * en ArrayList anses vara vald eller inte
+     *
      * @param isThirdDieSelected
      * @param thirdDieImageView
-     * @param dice - lista med tärningar/Die objekt
+     * @param dice               - lista med tärningar/Die objekt
      */
-    private static void setThirdDieImageViewColor(boolean isThirdDieSelected, ImageView thirdDieImageView, ArrayList<Die>dice) {
+    private void setThirdDieImageViewColor(boolean isThirdDieSelected, ImageView thirdDieImageView, ArrayList<Die> dice) {
         if (isThirdDieSelected && inChoosingPointProgress) {
             thirdDieImageView.setBackgroundColor(Color.BLUE);
             dice.get(2).selected = true;
         } else if (!isThirdDieSelected && inChoosingPointProgress) {
             thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isThirdDieSelected) {
-            if(isPointTypeChosenOnRestore){
+            if (roundsLogic.pointTypeChosen) {
                 thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
-            }
-            else {
+            } else {
                 thirdDieImageView.setBackgroundColor(Color.BLUE);
             }
         } else {
             thirdDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
+
     /**
      * metod som beroende på fjärde tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
      * en ArrayList anses vara vald eller inte
+     *
      * @param isFourthDieSelected
      * @param fourthDieImageView
-     * @param dice - lista med tärningar/Die objekt
+     * @param dice                - lista med tärningar/Die objekt
      */
-    private static void setFourthDieImageViewColor(boolean isFourthDieSelected, ImageView fourthDieImageView, ArrayList<Die>dice) {
+    private void setFourthDieImageViewColor(boolean isFourthDieSelected, ImageView fourthDieImageView, ArrayList<Die> dice) {
         if (isFourthDieSelected && inChoosingPointProgress) {
             fourthDieImageView.setBackgroundColor(Color.BLUE);
             dice.get(3).selected = true;
         } else if (!isFourthDieSelected && inChoosingPointProgress) {
             fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isFourthDieSelected) {
-            if(isPointTypeChosenOnRestore){
+            if (roundsLogic.pointTypeChosen) {
                 fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
-            }
-            else {
+            } else {
                 fourthDieImageView.setBackgroundColor(Color.BLUE);
             }
         } else {
             fourthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
+
     /**
      * metod som beroende på femte tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
      * en ArrayList anses vara vald eller inte
+     *
      * @param isFifthDieSelected
      * @param fifthDieImageView
-     * @param dice - lista med tärningar/Die objekt
+     * @param dice               - lista med tärningar/Die objekt
      */
-    private static void setFifthDieImageViewColor(boolean isFifthDieSelected, ImageView fifthDieImageView, ArrayList<Die>dice) {
+    private void setFifthDieImageViewColor(boolean isFifthDieSelected, ImageView fifthDieImageView, ArrayList<Die> dice) {
         if (isFifthDieSelected && inChoosingPointProgress) {
             fifthDieImageView.setBackgroundColor(Color.BLUE);
             dice.get(4).selected = true;
         } else if (!isFifthDieSelected && inChoosingPointProgress) {
             fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isFifthDieSelected) {
-            if(isPointTypeChosenOnRestore){
+            if (roundsLogic.pointTypeChosen) {
                 fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
-            }
-            else {
+            } else {
                 fifthDieImageView.setBackgroundColor(Color.BLUE);
             }
         } else {
             fifthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
+
     /**
      * metod som beroende på sjätte tärningens tillstånd sätter en blåmarkerad färg runt bilderna och bestämmer om tärningen utifrån
      * en ArrayList anses vara vald eller inte
+     *
      * @param isSixthDieSelected
      * @param sixthDieImageView
-     * @param dice - lista med tärningar/Die objekt
+     * @param dice               - lista med tärningar/Die objekt
      */
-    private static void setSixthDieImageViewColor(boolean isSixthDieSelected, ImageView sixthDieImageView, ArrayList<Die>dice) {
+    private void setSixthDieImageViewColor(boolean isSixthDieSelected, ImageView sixthDieImageView, ArrayList<Die> dice) {
         if (isSixthDieSelected && inChoosingPointProgress) {
             sixthDieImageView.setBackgroundColor(Color.BLUE);
             dice.get(5).selected = true;
         } else if (!isSixthDieSelected && inChoosingPointProgress) {
             sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
         } else if (!isSixthDieSelected) {
-            if(isPointTypeChosenOnRestore){
+            if (roundsLogic.pointTypeChosen) {
                 sixthDieImageView.setBackgroundColor(Color.TRANSPARENT);
-            }
-            else {
+            } else {
                 sixthDieImageView.setBackgroundColor(Color.BLUE);
             }
         } else {
@@ -276,7 +281,7 @@ public class RestoreGUIManager {
     /**
      * Sätter tillbaka vilka tärnings bilder/bild resurs som ska visa för respektive ImageView
      *
-     * @param globalDice - lista med tärningar/Die objekt
+     * @param globalDice         - lista med tärningar/Die objekt
      * @param firstDieImageView
      * @param secondDieImageView
      * @param thirdDieImageView
@@ -284,7 +289,7 @@ public class RestoreGUIManager {
      * @param fifthDieImageView
      * @param sixthDieImageView
      */
-    public static void restoreDiceImageResource(ArrayList<Die> globalDice, ImageView firstDieImageView,
+    public void restoreDiceImageResource(ArrayList<Die> globalDice, ImageView firstDieImageView,
                                                 ImageView secondDieImageView,
                                                 ImageView thirdDieImageView,
                                                 ImageView fourthDieImageView,
@@ -303,7 +308,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den första tärningen
      *
-     * @param globalDice - lista med tärningar/Die objekt
+     * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreFirstDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
@@ -325,7 +330,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den andra tärningen
      *
-     * @param globalDice - lista med tärningar/Die objekt
+     * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreSecondDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
@@ -347,7 +352,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den tredje tärningen
      *
-     * @param globalDice - lista med tärningar/Die objekt
+     * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreThirdDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
@@ -369,7 +374,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den fjärde tärningen
      *
-     * @param globalDice - lista med tärningar/Die objekt
+     * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreFourthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
@@ -391,7 +396,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den femte tärningen
      *
-     * @param globalDice - lista med tärningar/Die objekt
+     * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreFifthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
@@ -413,7 +418,7 @@ public class RestoreGUIManager {
     /**
      * Bestämer vilken bild som ska visas för den sjätte tärningen
      *
-     * @param globalDice - lista med tärningar/Die objekt
+     * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
     private static void restoreSixthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {

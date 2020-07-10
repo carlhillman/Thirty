@@ -18,19 +18,18 @@ import se.umu.carl.thirty.Views.FeedBackDialogMessageBox;
 // Logik som håller koll på nuvarande poäng, vilket val som ska räknas och validerar poängsättningen
 public class ScoreLogic {
     public int currentScore;
-    //måste vara static eftersom den används i DiceLogic
-    // public  boolean pointTypeChosen = false;
     private Context context;
-
     public Dice diceClass;
     ResultStorage resultStorage;
     RoundsLogic roundsLogic;
+    RestoreGUIManager restoreGUIManager;
 
-    public ScoreLogic(Context context, Dice diceClass, ResultStorage resultStorage, RoundsLogic roundsLogic) {
+    public ScoreLogic(Context context, Dice diceClass, ResultStorage resultStorage, RoundsLogic roundsLogic, RestoreGUIManager restoreGUIManager) {
         this.context = context;
         this.diceClass = diceClass;
         this.resultStorage = resultStorage;
         this.roundsLogic = roundsLogic;
+        this.restoreGUIManager = restoreGUIManager;
     }
 
     /**
@@ -212,9 +211,9 @@ public class ScoreLogic {
             setChoicePoint(spinner, adapter);
             messageBox.showRoundSucceededDialog(currentScore);
             currentScore = 0;
-            RestoreGUIManager.inChoosingPointProgress = false;
+            restoreGUIManager.inChoosingPointProgress = false;
             btnThrow.setVisibility(View.VISIBLE);
-            RestoreGUIManager.isBtnThrowDisplayed = true;
+            restoreGUIManager.isBtnThrowDisplayed = true;
             btnTakePoints.setVisibility(View.GONE);
             spinner.setVisibility(View.GONE);
             spinner.setSelection(adapter.getPosition(context.getResources().getStringArray(R.array.choices)[0]));

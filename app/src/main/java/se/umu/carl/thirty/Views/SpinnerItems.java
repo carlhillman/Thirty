@@ -12,7 +12,7 @@ public class SpinnerItems {
      * @param theSpinner - spinnern
      * @return items
      */
-    public static ArrayList<String> retrieveAllItems(Spinner theSpinner) {
+    public ArrayList<String> retrieveAllItems(Spinner theSpinner) {
         ArrayAdapter<String> adapter = (ArrayAdapter<String>) theSpinner.getAdapter();
         int count = adapter.getCount();
         ArrayList<String> items = new ArrayList<String>(count);

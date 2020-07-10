@@ -10,7 +10,8 @@ import se.umu.carl.thirty.R;
 
 public class FeedBackDialogMessageBox {
     Activity activity;
-RoundsLogic roundsLogic;
+    RoundsLogic roundsLogic;
+
     public FeedBackDialogMessageBox(Activity activity, RoundsLogic roundsLogic) {
         this.activity = activity;
         this.roundsLogic = roundsLogic;
@@ -22,6 +23,7 @@ RoundsLogic roundsLogic;
 
     /**
      * Sätter titel, meddelande och poäng för FeedBackDialog när användaren tagit poäng
+     *
      * @param score - poäng tagna
      */
     public void showRoundSucceededDialog(int score) {
@@ -40,6 +42,7 @@ RoundsLogic roundsLogic;
             System.out.println(ex.getMessage());
         }
     }
+
     /**
      * Varnar ifall ingen tärning är vald för användaren när denne ska ta sina poäng
      */

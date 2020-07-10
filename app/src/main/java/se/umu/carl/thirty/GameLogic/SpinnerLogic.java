@@ -9,8 +9,10 @@ import android.widget.Spinner;
 // Hjälp logik när man klickar på ett spinner val
 public class SpinnerLogic {
     private Context context;
-    public SpinnerLogic(Context context){
+    RestoreGUIManager restoreGUIManager;
+    public SpinnerLogic(Context context, RestoreGUIManager restoreGUIManager){
         this.context = context;
+        this.restoreGUIManager = restoreGUIManager;
     }
 
     /**
@@ -26,8 +28,8 @@ public class SpinnerLogic {
         diceLogic.deselectAllDice();
         spinner.setEnabled(false);
         btnTakePoints.setVisibility(View.VISIBLE);
-        RestoreGUIManager.isBtnTakePointsDisplayed = true;
+        restoreGUIManager.isBtnTakePointsDisplayed = true;
         btnThrow.setVisibility(View.GONE);
-        RestoreGUIManager.inChoosingPointProgress = true;
+        restoreGUIManager.inChoosingPointProgress = true;
     }
 }
