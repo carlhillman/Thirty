@@ -37,7 +37,7 @@ public class FeedBackDialogMessageBox {
             } else {
                 feedBackDialog.message = activity.getResources().getString(R.string.succeededMessage);
             }
-            feedBackDialog.show(getSupportFragmentManager(), FeedBackDialog.TAG);
+            feedBackDialog.show(getSupportFragmentManager(), feedBackDialog.TAG);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -53,7 +53,7 @@ public class FeedBackDialogMessageBox {
             feedBackDialog.message = activity.getResources().getString(R.string.failedMessage);
             //sätter till en otillåten poäng
             feedBackDialog.score = -1;
-            feedBackDialog.show(getSupportFragmentManager(), FeedBackDialog.TAG);
+            feedBackDialog.show(getSupportFragmentManager(), feedBackDialog.TAG);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

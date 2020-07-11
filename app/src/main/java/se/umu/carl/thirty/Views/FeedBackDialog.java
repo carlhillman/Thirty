@@ -12,7 +12,7 @@ import se.umu.carl.thirty.R;
 
 //Dialog fragment som skapas.
 public class FeedBackDialog extends AppCompatDialogFragment {
-    protected static final String TAG = "FeedBackDialog";
+    protected final String TAG = "FeedBackDialog";
     protected String title;
     protected String message;
     protected Integer score;
@@ -22,7 +22,7 @@ public class FeedBackDialog extends AppCompatDialogFragment {
      * Återställer titel, meddelande när användaren tagit poäng
      * @param score - poäng tagna
      */
-    public void restoreSucceededMessage(int score) {
+    private void restoreSucceededMessage(int score) {
         title = getResources().getString(R.string.succeededTitle) + score;
         message = getResources().getString(R.string.succeededMessage);
 
@@ -31,14 +31,14 @@ public class FeedBackDialog extends AppCompatDialogFragment {
      * Återställer meddelande för användaren att spelet är slut
      * @param score - poäng tagna
      */
-    public void restoreGameOverMessage(int score){
+    private void restoreGameOverMessage(int score){
         title = getResources().getString(R.string.succeededTitle) + score;
         message = getResources().getString(R.string.gameOverMessage);
     }
     /**
      * Återställer meddelande för användaren att ingen tärning har valts
      */
-    public void restoreNoDieChosenMessage() {
+    private void restoreNoDieChosenMessage() {
         title = getResources().getString(R.string.failedTitle);
         message = getResources().getString(R.string.failedMessage);
     }

@@ -89,7 +89,7 @@ public class ScoreLogic {
      * @param adapter      - adaptern används för att kunna ta bort valet från spinnern när poängen har gått igenom
      * @param choicePoint  - används för att veta vilket värde/heltal poängvalet har
      */
-    protected void calculateCurrentScore(String selectedItem, int choicePoint, ArrayAdapter<String> adapter) {
+    private void calculateCurrentScore(String selectedItem, int choicePoint, ArrayAdapter<String> adapter) {
         ArrayList<Die> dice = new ArrayList<>();
         ArrayList<Die> selectedDice = new ArrayList<>();
         try {

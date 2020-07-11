@@ -12,7 +12,7 @@ public class RoundsLogic {
      * @return isGameOver
      */
     public boolean getAndSetGameOver() {
-        if (pointTypeChosen && totalNumberOfRounds == 1) {
+        if (pointTypeChosen && totalNumberOfRounds == 10) {
             isGameOver = true;
         }
         return isGameOver;

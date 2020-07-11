@@ -1,9 +1,7 @@
 package se.umu.carl.thirty.GameLogic;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -313,7 +311,7 @@ public class RestoreGUIManager {
      * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
-    private static void restoreFirstDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
+    private void restoreFirstDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(0).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
         } else if (globalDice.get(0).value == 2) {
@@ -335,7 +333,7 @@ public class RestoreGUIManager {
      * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
-    private static void restoreSecondDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
+    private void restoreSecondDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(1).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
         } else if (globalDice.get(1).value == 2) {
@@ -357,7 +355,7 @@ public class RestoreGUIManager {
      * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
-    private static void restoreThirdDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
+    private void restoreThirdDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(2).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
         } else if (globalDice.get(2).value == 2) {
@@ -379,7 +377,7 @@ public class RestoreGUIManager {
      * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
-    private static void restoreFourthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
+    private void restoreFourthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(3).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
         } else if (globalDice.get(3).value == 2) {
@@ -401,7 +399,7 @@ public class RestoreGUIManager {
      * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
-    private static void restoreFifthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
+    private void restoreFifthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(4).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
         } else if (globalDice.get(4).value == 2) {
@@ -423,7 +421,7 @@ public class RestoreGUIManager {
      * @param globalDice   - lista med tärningar/Die objekt
      * @param dieImageView
      */
-    private static void restoreSixthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
+    private void restoreSixthDieImage(ArrayList<Die> globalDice, ImageView dieImageView) {
         if (globalDice.get(5).value == 1) {
             dieImageView.setImageResource(R.drawable.white1);
         } else if (globalDice.get(5).value == 2) {

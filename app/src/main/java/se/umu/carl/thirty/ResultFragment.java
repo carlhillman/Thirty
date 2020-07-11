@@ -2,7 +2,6 @@ package se.umu.carl.thirty;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,11 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
-import se.umu.carl.thirty.GameLogic.RestoreGUIManager;
-import se.umu.carl.thirty.GameLogic.RoundsLogic;
-import se.umu.carl.thirty.GameLogic.ScoreLogic;
 import se.umu.carl.thirty.Models.ResultStorage;
 
 public class ResultFragment extends Fragment {
@@ -238,7 +233,7 @@ public class ResultFragment extends Fragment {
      * @param list - används för att summera den totala poängen
      * @return sum
      */
-    private static int sumList(List<Integer> list) {
+    private int sumList(List<Integer> list) {
         int sum = 0;
         for (int integer : list) {
             if (integer > 0) {

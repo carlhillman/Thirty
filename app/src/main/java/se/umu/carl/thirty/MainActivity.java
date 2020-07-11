@@ -7,10 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -77,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * initierar UI elementen som knappar, bilder och spinnerns klick lyssnare
+     * Initierar UI elementen som knappar, bilder och spinnerns klick lyssnare
      */
     private void initClickListeners() {
         diceLogic.firstDieImageView.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * initierar UI element som knappar, texter, spinner osv
+     * Initierar UI element som knappar, texter, spinner osv
      */
     private void initUIElements(Activity activity) {
         diceLogic.firstDieImageView = activity.findViewById(R.id.image_view_dice1);
@@ -182,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * öppnar resultatvyn
+     * Öppnar resultatvyn
      */
     private void openResultFragment() {
         try {
